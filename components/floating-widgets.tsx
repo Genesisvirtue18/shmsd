@@ -1,0 +1,113 @@
+'use client'
+
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { MessageCircle, Phone, ArrowUp, CalendarCheck, Plus, X } from 'lucide-react'
+import { HOSPITAL } from '@/lib/data'
+import { cn } from '@/lib/utils'
+
+export function FloatingWidgets() {
+  const [showTop, setShowTop] = useState(false)
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 500)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const actions = [
+    {
+      label: 'WhatsApp',
+      href: `https://wa.me/${HOSPITAL.whatsapp}`,
+      icon: MessageCircle,
+      className: 'bg-success text-success-foreground',
+      external: true,
+    },
+    {
+      label: 'Call now',
+      href: HOSPITAL.phoneHref,
+      icon: Phone,
+      className: 'bg-primary text-primary-foreground',
+      external: false,
+    },
+    {
+      label: 'Book appointment',
+      href: '/appointment',
+      icon: CalendarCheck,
+      className: 'bg-accent text-accent-foreground',
+      external: false,
+    },
+  ]
+
+  return (
+    <>
+      {/* Emergency banner button (left) */}
+      <a
+        href={HOSPITAL.phoneHref}
+        className="fixed bottom-5 left-5 z-40 flex items-center gap-2 rounded-full bg-emergency px-4 py-3 text-sm font-semibold text-emergency-foreground shadow-xl shadow-emergency/30 transition-transform hover:-translate-y-0.5"
+      >
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emergency-foreground/70" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emergency-foreground" />
+        </span>
+        Emergency 24x7
+      </a>
+
+      {/* Speed-dial (right) */}
+      <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">
+        {showTop ? (
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-foreground shadow-lg transition-transform hover:-translate-y-0.5"
+            aria-label="Back to top"
+          >
+            <ArrowUp className="h-5 w-5" aria-hidden />
+          </button>
+        ) : null}
+
+        <div className={cn('flex flex-col items-end gap-3 transition-all', open ? 'opacity-100' : 'pointer-events-none translate-y-2 opacity-0')}>
+          {actions.map((a) => {
+            const Ico = a.icon
+            const content = (
+              <>
+                <span className="rounded-full bg-foreground px-3 py-1 text-xs font-medium text-background shadow">
+                  {a.label}
+                </span>
+                <span className={cn('flex h-12 w-12 items-center justify-center rounded-full shadow-lg', a.className)}>
+                  <Ico className="h-5 w-5" aria-hidden />
+                </span>
+              </>
+            )
+            return a.external ? (
+              <a
+                key={a.label}
+                href={a.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2"
+              >
+                {content}
+              </a>
+            ) : (
+              <Link key={a.label} href={a.href} className="flex items-center gap-2">
+                {content}
+              </Link>
+            )
+          })}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl shadow-primary/30 transition-transform hover:-translate-y-0.5"
+          aria-label={open ? 'Close quick actions' : 'Open quick actions'}
+          aria-expanded={open}
+        >
+          {open ? <X className="h-6 w-6" aria-hidden /> : <Plus className="h-6 w-6" aria-hidden />}
+        </button>
+      </div>
+    </>
+  )
+}
