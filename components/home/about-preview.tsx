@@ -45,12 +45,12 @@ export function AboutPreview() {
             </span>
           </Reveal>
           <Reveal delay={0.05}>
-            <h2 className="mt-4 text-balance font-serif text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
+            <h2 className="mt-4 text-balance font-serif sm:text-xl md:text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
               Compassionate care, organized like a premier hospital brand
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
+            <p className="mt-4 text-pretty text-sm leading-relaxed text-muted-foreground">
               Our doctors, nurses and support teams work together to make every visit smoother, clearer and more
               reassuring. We focus on diagnosis, treatment and recovery as one connected experience, so patients feel
               guided at every step.
