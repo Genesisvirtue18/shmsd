@@ -15,11 +15,11 @@ export const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Specialities', href: '/services' },
   { label: 'Facilities', href: '/facilities' },
-  { label: 'Our Doctor', href: '/doctors' },
-  { label: 'About Us', href: '/about' },
-  { label: 'Contact Us', href: '/contact' },
+  { label: 'Doctors', href: '/doctors' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
   { label: 'Gallery', href: '/gallery' },
-  { label: 'Empanelled TPA', href: '/empanelled-tpa' },
+  { label: 'TPA', href: '/empanelled-tpa' },
   { label: 'Blog', href: '/blog' },
 ]
 
@@ -132,108 +132,553 @@ export const DOCTORS: Doctor[] = [
 ]
 
 export type Service = {
+  slug: string
+  icon: string
   title: string
   description: string
   image: string
+  overview: string
+  highlights: string[]
+  steps: { title: string; description: string }[]
+  benefits: string[]
+  faqs: { question: string; answer: string }[]
 }
 
 export const SERVICES: Service[] = [
   {
+    slug: 'general-medicine',
+    icon: 'Stethoscope',
     title: 'General Medicine',
     description: 'Primary healthcare services and first-line medical evaluation for everyday health concerns.',
-    image: '/images/hero-doctor.png',
+    image: 'https://static.vecteezy.com/system/resources/thumbnails/069/871/287/small_2x/bright-red-capsules-scattered-on-reflective-surface-in-a-close-up-composition-showcasing-texture-and-details-photo.jpeg',
+    overview:
+      'Our general medicine team offers first-contact medical care, careful diagnosis and treatment planning for common illnesses, recurring symptoms and preventive health concerns.',
+    highlights: ['Initial consultation', 'Preventive care', 'Medication guidance', 'Follow-up support'],
+    steps: [
+      { title: 'Consultation', description: 'A doctor reviews your symptoms, medical history and current concerns.' },
+      { title: 'Assessment', description: 'Basic tests or referrals may be recommended for clearer diagnosis.' },
+      { title: 'Treatment', description: 'Medication, lifestyle advice and next-step care are planned together.' },
+      { title: 'Follow-up', description: 'We track progress and adjust treatment as needed.' },
+    ],
+    benefits: [
+      'Early evaluation for everyday health issues',
+      'Careful guidance for lifestyle and medication',
+      'Seamless referrals to the right specialist',
+      'Patient-first follow-up support',
+    ],
+    faqs: [
+      {
+        question: 'When should I visit general medicine?',
+        answer: 'When you need an initial assessment for fever, infection, weakness, pain or unexplained symptoms.',
+      },
+      {
+        question: 'Do I need a referral?',
+        answer: 'No referral is usually needed. You can book directly for a general medicine consultation.',
+      },
+    ],
   },
   {
+    slug: 'general-surgery',
+    icon: 'Scissors',
     title: 'General Surgery',
     description: 'Safe, modern surgical care for a wide range of general procedures.',
     image: '/images/facility-ot.png',
+    overview:
+      'Our surgical team provides planned and emergency procedures with a focus on safety, precision and smooth recovery.',
+    highlights: ['Pre-op assessment', 'Procedure planning', 'Sterile OT', 'Recovery monitoring'],
+    steps: [
+      { title: 'Pre-operative review', description: 'We assess fitness, risks and treatment goals before surgery.' },
+      { title: 'Procedure planning', description: 'The surgical approach and admission plan are finalized.' },
+      { title: 'Operation', description: 'Modern operation theatres and expert staff support the procedure.' },
+      { title: 'Recovery', description: 'Post-op monitoring and follow-up care help you heal safely.' },
+    ],
+    benefits: [
+      'Modern sterile operation theatres',
+      'Experienced surgical staff',
+      'Personalized pre- and post-operative care',
+      'Safe recovery-focused treatment',
+    ],
+    faqs: [
+      {
+        question: 'How do I prepare for surgery?',
+        answer: 'Your doctor will guide you on fasting, medicines, tests and admission timing before the procedure.',
+      },
+      {
+        question: 'Will I need to stay overnight?',
+        answer: 'It depends on the surgery and your recovery progress. Some procedures may need observation or admission.',
+      },
+    ],
   },
   {
+    slug: 'cardiology',
+    icon: 'HeartPulse',
     title: 'Cardiology',
     description: 'Comprehensive care for patients with heart-related problems.',
-    image: '/images/cardiology.png',
+    image: 'https://media.istockphoto.com/id/2142793215/photo/cardiovascular-disease-cvd-doctor-with-heart-human-model-anatomy-for-treatment-patient-in.jpg?s=612x612&w=0&k=20&c=Ne1jDPdIO3IDuJOZDECEL7Tn-JzcSYV6O7QNdqUefpo=',
+    overview:
+      'Cardiology care covers prevention, diagnosis and treatment for chest pain, heart rhythm concerns, blood pressure issues and long-term cardiac health.',
+    highlights: ['ECG support', 'Angiography guidance', 'BP management', 'Cardiac follow-up'],
+    steps: [
+      { title: 'Cardiac consultation', description: 'We begin with a detailed review of symptoms and risk factors.' },
+      { title: 'Diagnostic testing', description: 'ECG, imaging or lab work may be used to confirm the condition.' },
+      { title: 'Treatment plan', description: 'Medication or intervention options are explained clearly.' },
+      { title: 'Heart health follow-up', description: 'We support ongoing monitoring and prevention.' },
+    ],
+    benefits: [
+      'Specialist-led heart care',
+      'Preventive and intervention support',
+      'Careful monitoring and follow-up',
+      'Clear guidance for patients and families',
+    ],
+    faqs: [
+      {
+        question: 'Should I consult cardiology for chest discomfort?',
+        answer: 'Yes, chest discomfort, breathlessness or palpitations should be evaluated promptly by a cardiologist.',
+      },
+      {
+        question: 'Can cardiology help with high blood pressure?',
+        answer: 'Yes, cardiology can help assess, manage and monitor blood pressure and its effects on the heart.',
+      },
+    ],
   },
   {
+    slug: 'gynecology-obstetrics',
+    icon: 'Baby',
     title: 'Gynecology & Obstetrics',
     description: "Complete care for women's health, maternity and newborn support.",
-    image: '/images/gynecology.png',
+    image: 'https://media.istockphoto.com/id/1169198910/photo/womans-palms-pressed-together-and-keep-embryo-from-paper-red-lood-comes-from-the-baby-and.jpg?s=612x612&w=0&k=20&c=VfotXiqQQFkmyBrN2f7zZ3nmkgsvlNDl6868Z_lrkA8=',
+    overview:
+      'Women’s health care includes preventive check-ups, pregnancy care, delivery support and treatment for common gynecological concerns.',
+    highlights: ['Prenatal care', 'Delivery support', 'Women’s health', 'Newborn guidance'],
+    steps: [
+      { title: 'Initial review', description: 'We discuss symptoms, goals and any pregnancy-related concerns.' },
+      { title: 'Care planning', description: 'A personalized plan is created for health, pregnancy or delivery.' },
+      { title: 'Monitoring', description: 'Regular check-ups and tests support safe ongoing care.' },
+      { title: 'Post-care support', description: 'We continue guidance through recovery and follow-up.' },
+    ],
+    benefits: [
+      'Compassionate women’s health support',
+      'Pregnancy and maternity care',
+      'Family-centered counselling',
+      'Private and respectful consultations',
+    ],
+    faqs: [
+      {
+        question: 'Can I book maternity care directly?',
+        answer: 'Yes, you can book a consultation directly for pregnancy and maternity support.',
+      },
+      {
+        question: 'Do you provide follow-up after delivery?',
+        answer: 'Yes, follow-up care is available for recovery, newborn support and ongoing women’s health needs.',
+      },
+    ],
   },
   {
+    slug: 'pulmonology',
+    icon: 'Wind',
     title: 'Pulmonology',
     description: 'Evaluation, diagnosis and treatment of respiratory diseases.',
     image: '/images/pulmonology.png',
+    overview:
+      'Pulmonology services focus on respiratory health, including cough, asthma, breathlessness, chronic lung conditions and recovery support.',
+    highlights: ['Asthma care', 'Breathing tests', 'Lung evaluation', 'Follow-up treatment'],
+    steps: [
+      { title: 'Respiratory review', description: 'We review symptoms such as cough, wheezing and shortness of breath.' },
+      { title: 'Testing', description: 'Lung function tests or imaging may be recommended.' },
+      { title: 'Treatment', description: 'Medication and breathing support plans are tailored to your condition.' },
+      { title: 'Monitoring', description: 'We monitor progress and adjust care where needed.' },
+    ],
+    benefits: ['Focused respiratory diagnosis', 'Ongoing breathing support', 'Experienced specialist care', 'Preventive guidance'],
+    faqs: [
+      {
+        question: 'When should I see a pulmonologist?',
+        answer: 'If you have ongoing cough, wheezing, shortness of breath or recurring chest congestion.',
+      },
+      {
+        question: 'Can pulmonology help with asthma?',
+        answer: 'Yes, pulmonology provides diagnosis, control strategies and follow-up for asthma and related conditions.',
+      },
+    ],
   },
   {
+    slug: 'orthopedics',
+    icon: 'Bone',
     title: 'Orthopedics',
     description: 'Treatment for fractures, deformities, sports injuries and joint pain.',
-    image: '/images/orthopedics.png',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2ZzKurmAQShwiXUtK-ZG-D3k5eSmUzMUERFqyNwkjygHg0azMx9DeIHY&s=10',
+    overview:
+      'Orthopedic care covers bones, joints, ligaments, sports injuries and mobility-related pain with a recovery-first approach.',
+    highlights: ['Fracture care', 'Joint pain', 'Sports injury', 'Mobility support'],
+    steps: [
+      { title: 'Orthopedic exam', description: 'We assess pain, movement, swelling and injury history.' },
+      { title: 'Imaging review', description: 'X-rays or other scans help confirm the diagnosis.' },
+      { title: 'Treatment plan', description: 'From medicine to surgery, we choose the right path together.' },
+      { title: 'Rehabilitation', description: 'Recovery and mobility support continue after treatment.' },
+    ],
+    benefits: ['Bone and joint expertise', 'Sports injury care', 'Rehabilitation support', 'Surgical and non-surgical options'],
+    faqs: [
+      {
+        question: 'Can you treat fractures and sprains?',
+        answer: 'Yes, we manage fractures, sprains and joint injuries with the right clinical and imaging support.',
+      },
+      {
+        question: 'Do you help with chronic joint pain?',
+        answer: 'Yes, chronic pain and mobility problems can be evaluated and treated by orthopedics.',
+      },
+    ],
   },
   {
+    slug: 'urology',
+    icon: 'Droplet',
     title: 'Urology',
     description: 'Comprehensive care for urinary tract and kidney-related concerns.',
     image: '/images/urology.png',
+    overview:
+      'Urology services include evaluation and treatment for urinary, kidney and male reproductive health concerns.',
+    highlights: ['Urinary symptoms', 'Kidney care', 'Stone treatment', 'Male health'],
+    steps: [
+      { title: 'Evaluation', description: 'We review symptoms and health history to identify the issue.' },
+      { title: 'Diagnostics', description: 'Tests and imaging help determine the cause and severity.' },
+      { title: 'Treatment', description: 'Medication or procedures are chosen based on your condition.' },
+      { title: 'Follow-up', description: 'Ongoing checks ensure recovery and symptom control.' },
+    ],
+    benefits: ['Specialist urinary care', 'Kidney and stone support', 'Clear testing pathways', 'Confidential consultations'],
+    faqs: [
+      {
+        question: 'Should I visit urology for burning urination?',
+        answer: 'Yes, burning, frequency or pain while urinating should be assessed by a urologist.',
+      },
+      {
+        question: 'Do you treat kidney stones?',
+        answer: 'Yes, kidney stones and urinary tract concerns can be evaluated and managed in urology.',
+      },
+    ],
   },
   {
+    slug: 'infertility-ivf',
+    icon: 'Users',
     title: 'Infertility & IVF',
     description: 'Advanced fertility care and reproductive treatment support.',
-    image: '/images/infertility-ivf.png',
+    image: 'https://www.vrikshfertility.com/assets/blog/3d-rendering-ovum-with-needle-artificial-insemination-vitro-fertilization.jpg',
+    overview:
+      'Fertility care supports couples with evaluation, counselling and treatment options tailored to their goals and medical history.',
+    highlights: ['Fertility assessment', 'Treatment planning', 'Couples counselling', 'Follow-up support'],
+    steps: [
+      { title: 'Initial evaluation', description: 'We review medical history, tests and fertility concerns.' },
+      { title: 'Treatment planning', description: 'Options are explained clearly and respectfully.' },
+      { title: 'Procedure support', description: 'Selected treatments are carried out with careful monitoring.' },
+      { title: 'Continued care', description: 'We provide follow-up and emotional support through the journey.' },
+    ],
+    benefits: ['Comprehensive fertility work-up', 'Personalized treatment options', 'Supportive counselling', 'Respectful care'],
+    faqs: [
+      {
+        question: 'When should we consult fertility care?',
+        answer: 'If pregnancy has not occurred after a period of trying, a fertility consultation can help.',
+      },
+      {
+        question: 'Is counselling part of the process?',
+        answer: 'Yes, counseling and clear guidance are part of our fertility support approach.',
+      },
+    ],
   },
   {
+    slug: 'ent',
+    icon: 'Ear',
     title: 'ENT',
     description: 'Care for ear, nose, sinus, head and neck conditions.',
-    image: '/images/ent.png',
+    image: 'https://media.istockphoto.com/id/1325611798/photo/hearing-exam-for-elderly-citizen-people-otolaryngologist-doctor-checking-mature-womans-ear.jpg?s=612x612&w=0&k=20&c=pQ5IyYl64kwTCnsBp55cpPAe4fNXPve7avagagTs73A=',
+    overview:
+      'ENT care supports ear, nose and throat concerns such as sinus problems, hearing issues, infections and voice or swallowing symptoms.',
+    highlights: ['Sinus care', 'Ear infections', 'Hearing checks', 'Throat evaluation'],
+    steps: [
+      { title: 'ENT consultation', description: 'We review your symptoms and any recurring infections or pain.' },
+      { title: 'Examination', description: 'Ear, nose and throat assessment helps locate the issue.' },
+      { title: 'Treatment', description: 'Medication or procedures are recommended where needed.' },
+      { title: 'Recovery', description: 'We monitor improvement and plan follow-up care.' },
+    ],
+    benefits: ['Expert ENT evaluation', 'Fast diagnosis', 'Treatment for common and complex issues', 'Follow-up guidance'],
+    faqs: [
+      {
+        question: 'Should I visit ENT for recurring sinus issues?',
+        answer: 'Yes, recurring sinus symptoms and headaches should be evaluated by an ENT specialist.',
+      },
+      {
+        question: 'Can ENT help with ear pain or hearing issues?',
+        answer: 'Yes, ENT can assess ear pain, hearing issues and related concerns.',
+      },
+    ],
   },
   {
+    slug: 'gastroenterology',
+    icon: 'Microscope',
     title: 'Gastroenterology',
     description: 'Diagnosis and treatment for stomach, liver and digestive disorders.',
-    image: '/images/gastroenterology.png',
+    image: 'https://www.peerlesshospital.com/barasat/images/blog_image/why_you_might_need_gastro.webp',
+    overview:
+      'Gastroenterology services focus on digestive health including stomach pain, acidity, liver issues and long-term gut concerns.',
+    highlights: ['Digestive evaluation', 'Liver care', 'Acidity treatment', 'Follow-up support'],
+    steps: [
+      { title: 'Consultation', description: 'We review digestive symptoms, triggers and medical history.' },
+      { title: 'Testing', description: 'When needed, tests help identify stomach or liver issues.' },
+      { title: 'Treatment', description: 'Medication and lifestyle guidance are aligned to your diagnosis.' },
+      { title: 'Monitoring', description: 'We check response and adjust care as needed.' },
+    ],
+    benefits: ['Care for digestive problems', 'Clear test-based diagnosis', 'Diet and lifestyle guidance', 'Long-term management support'],
+    faqs: [
+      {
+        question: 'Can I visit for acidity and stomach pain?',
+        answer: 'Yes, ongoing acidity, bloating or stomach pain should be evaluated by gastroenterology.',
+      },
+      {
+        question: 'Do you manage liver-related concerns?',
+        answer: 'Yes, liver and digestive health concerns can be assessed and managed here.',
+      },
+    ],
   },
   {
+    slug: 'psychiatry',
+    icon: 'Brain',
     title: 'Psychiatry',
     description: 'Compassionate mental health care for emotional and behavioural wellbeing.',
     image: '/images/about-team.png',
+    overview:
+      'Psychiatry care offers respectful support for emotional wellbeing, anxiety, mood concerns, sleep problems and behavioural health.',
+    highlights: ['Mental health support', 'Counselling', 'Medication review', 'Ongoing care'],
+    steps: [
+      { title: 'Confidential consultation', description: 'We listen carefully to your concerns in a private setting.' },
+      { title: 'Assessment', description: 'Your symptoms and wellbeing are reviewed in detail.' },
+      { title: 'Treatment plan', description: 'Therapy, medicine or both may be recommended.' },
+      { title: 'Follow-up', description: 'We monitor progress and adjust support over time.' },
+    ],
+    benefits: ['Private and confidential care', 'Compassionate specialist support', 'Ongoing monitoring', 'Respectful conversations'],
+    faqs: [
+      {
+        question: 'Is psychiatric consultation confidential?',
+        answer: 'Yes, consultations are handled privately and with care.',
+      },
+      {
+        question: 'Can psychiatry help with sleep issues?',
+        answer: 'Yes, sleep concerns and related emotional issues can be assessed and treated.',
+      },
+    ],
   },
   {
+    slug: 'neurosurgery',
+    icon: 'Brain',
     title: 'Neurosurgery',
     description: 'Personalized surgical care for brain and nervous system conditions.',
     image: '/images/doctor-neuro.png',
+    overview:
+      'Neurosurgery covers the brain, spine and nerves, with a focus on accurate diagnosis, advanced planning and safe surgical care.',
+    highlights: ['Brain and spine care', 'Surgical planning', 'Nerve evaluation', 'Recovery support'],
+    steps: [
+      { title: 'Neurosurgical review', description: 'Symptoms and scan results are reviewed carefully.' },
+      { title: 'Planning', description: 'We explain options and choose the safest approach.' },
+      { title: 'Surgery', description: 'Advanced operating support is provided by the clinical team.' },
+      { title: 'Rehabilitation', description: 'Recovery follow-up and support continue after surgery.' },
+    ],
+    benefits: ['Expert neurological surgery', 'Careful pre-op planning', 'Advanced procedure support', 'Rehabilitation guidance'],
+    faqs: [
+      {
+        question: 'When should I see neurosurgery?',
+        answer: 'For persistent nerve, spine or brain-related concerns that may need surgical evaluation.',
+      },
+      {
+        question: 'Do you coordinate with neurology?',
+        answer: 'Yes, neurology and neurosurgery can work together depending on the case.',
+      },
+    ],
   },
   {
+    slug: 'pediatrics',
+    icon: 'Baby',
     title: 'Pediatrics',
     description: 'Dedicated healthcare for infants, children and adolescents.',
     image: '/images/gallery-room.png',
+    overview:
+      'Pediatric care focuses on child health, growth, vaccination and treatment for everyday childhood illnesses.',
+    highlights: ['Child health', 'Vaccination', 'Growth checks', 'Illness treatment'],
+    steps: [
+      { title: 'Child consultation', description: 'We review symptoms, growth and wellness concerns.' },
+      { title: 'Examination', description: 'A child-friendly assessment helps identify the issue.' },
+      { title: 'Treatment', description: 'Appropriate treatment and advice are given to families.' },
+      { title: 'Follow-up', description: 'We monitor growth, recovery and vaccination schedules.' },
+    ],
+    benefits: ['Friendly child-focused care', 'Growth and development checks', 'Vaccination support', 'Family guidance'],
+    faqs: [
+      {
+        question: 'Can I bring my child for fever or cough?',
+        answer: 'Yes, pediatric consultation is appropriate for common childhood illnesses and symptoms.',
+      },
+      {
+        question: 'Do you provide vaccination guidance?',
+        answer: 'Yes, vaccination and routine child health support are part of pediatrics.',
+      },
+    ],
   },
   {
+    slug: 'plastic-surgery',
+    icon: 'Sparkles',
     title: 'Plastic Surgery',
     description: 'Reconstructive and aesthetic procedures delivered with care and precision.',
-    image: '/images/hero-doctor.png',
+    image: 'https://static.vecteezy.com/system/resources/thumbnails/034/875/777/small/the-cosmetologist-makes-markings-on-the-patient-s-face-drawing-correction-lines-before-the-facial-contouring-procedure-or-plastic-surgery-preparation-time-for-cosmetic-treatment-video.jpg',
+    overview:
+      'Plastic surgery combines reconstructive and aesthetic procedures with a focus on safety, planning and natural-looking outcomes.',
+    highlights: ['Reconstruction', 'Aesthetic procedures', 'Consultation', 'Recovery care'],
+    steps: [
+      { title: 'Consultation', description: 'We discuss goals, concerns and safe treatment options.' },
+      { title: 'Planning', description: 'Procedure details and expected recovery are reviewed.' },
+      { title: 'Procedure', description: 'The selected treatment is performed with precision and care.' },
+      { title: 'Follow-up', description: 'We monitor healing and support the recovery process.' },
+    ],
+    benefits: ['Detailed consultation', 'Natural-looking planning', 'Safe procedure support', 'Recovery monitoring'],
+    faqs: [
+      {
+        question: 'Is plastic surgery only cosmetic?',
+        answer: 'No, it also includes reconstructive procedures and medical corrections.',
+      },
+      {
+        question: 'Can I discuss non-surgical options first?',
+        answer: 'Yes, your consultation can cover all suitable treatment options.',
+      },
+    ],
   },
   {
+    slug: 'radiology',
+    icon: 'ScanSearch',
     title: 'Radiology',
     description: 'Accurate and timely imaging for confident diagnosis and treatment planning.',
     image: '/images/gallery-xray.png',
+    overview:
+      'Radiology provides imaging support for diagnosis, treatment planning and follow-up across many specialties.',
+    highlights: ['X-ray imaging', 'Diagnostic support', 'Treatment planning', 'Report review'],
+    steps: [
+      { title: 'Request', description: 'Your doctor recommends the right imaging test for the concern.' },
+      { title: 'Imaging', description: 'The scan is completed with care and clear instructions.' },
+      { title: 'Report', description: 'Findings are reviewed to support diagnosis and treatment.' },
+      { title: 'Next steps', description: 'Results are shared with your doctor for follow-up care.' },
+    ],
+    benefits: ['Timely imaging support', 'Clear diagnostic guidance', 'Multispeciality collaboration', 'Reliable reports'],
+    faqs: [
+      {
+        question: 'Do I need a referral for imaging?',
+        answer: 'Usually your treating doctor will recommend the most appropriate imaging test.',
+      },
+      {
+        question: 'Can radiology help with treatment planning?',
+        answer: 'Yes, imaging plays an important role in diagnosis and planning care.',
+      },
+    ],
   },
   {
+    slug: 'neurology',
+    icon: 'Brain',
     title: 'Neurology',
     description: 'Expert diagnosis and management of brain, spine and nerve conditions.',
     image: '/images/doctor-neuro.png',
+    overview:
+      'Neurology care focuses on disorders of the brain, spine and nerves, including headaches, stroke, numbness and movement issues.',
+    highlights: ['Brain health', 'Stroke care', 'Nerve evaluation', 'Ongoing monitoring'],
+    steps: [
+      { title: 'Neurology consult', description: 'We review your symptoms and neurological history.' },
+      { title: 'Assessment', description: 'Testing and examination help locate the cause of symptoms.' },
+      { title: 'Treatment plan', description: 'Medication and follow-up care are tailored to your condition.' },
+      { title: 'Monitoring', description: 'We follow progress and update care as needed.' },
+    ],
+    benefits: ['Specialist-led nerve and brain care', 'Stroke and headache evaluation', 'Treatment planning', 'Long-term follow-up'],
+    faqs: [
+      {
+        question: 'Should I see neurology for frequent headaches?',
+        answer: 'Yes, recurring headaches or neurological symptoms should be evaluated.',
+      },
+      {
+        question: 'Can neurology help after stroke?',
+        answer: 'Yes, neurology supports stroke evaluation, management and follow-up.',
+      },
+    ],
   },
   {
+    slug: 'dermatology',
+    icon: 'Sparkles',
     title: 'Dermatology',
     description: 'Comprehensive skin care and treatment for common and complex conditions.',
     image: '/images/hero-doctor.png',
+    overview:
+      'Dermatology covers skin, hair and nail concerns with diagnosis and treatment for common and complex conditions.',
+    highlights: ['Skin care', 'Hair concerns', 'Allergy support', 'Procedure guidance'],
+    steps: [
+      { title: 'Skin review', description: 'We examine the concern and review any triggers or history.' },
+      { title: 'Diagnosis', description: 'Testing may be used to confirm the skin condition.' },
+      { title: 'Treatment', description: 'Medical or procedural options are chosen based on need.' },
+      { title: 'Follow-up', description: 'We review results and adjust care if needed.' },
+    ],
+    benefits: ['Skin, hair and nail care', 'Treatment for simple and complex cases', 'Patient education', 'Follow-up support'],
+    faqs: [
+      {
+        question: 'Can dermatology help with acne or rashes?',
+        answer: 'Yes, acne, rashes and many other skin concerns can be evaluated and treated.',
+      },
+      {
+        question: 'Do you treat hair fall concerns?',
+        answer: 'Yes, hair and scalp concerns are part of dermatology care.',
+      },
+    ],
   },
   {
+    slug: 'nephrology',
+    icon: 'Droplet',
     title: 'Nephrology',
     description: 'Comprehensive kidney care and treatment planning for renal conditions.',
     image: '/images/facility-lab.png',
+    overview:
+      'Nephrology focuses on kidney health, renal function, blood pressure and chronic kidney disease management.',
+    highlights: ['Kidney health', 'Renal monitoring', 'BP support', 'Long-term care'],
+    steps: [
+      { title: 'Evaluation', description: 'Kidney symptoms and lab results are reviewed carefully.' },
+      { title: 'Diagnosis', description: 'Testing helps determine kidney function and the cause of symptoms.' },
+      { title: 'Treatment', description: 'Care plans are customized for the kidney condition.' },
+      { title: 'Follow-up', description: 'We monitor kidney health over time and update the plan.' },
+    ],
+    benefits: ['Kidney-focused diagnosis', 'Chronic disease management', 'Blood pressure support', 'Long-term follow-up'],
+    faqs: [
+      {
+        question: 'When should I see nephrology?',
+        answer: 'If you have kidney concerns, abnormal reports or long-term blood pressure issues.',
+      },
+      {
+        question: 'Can nephrology manage chronic kidney disease?',
+        answer: 'Yes, chronic kidney disease and related concerns are part of nephrology care.',
+      },
+    ],
   },
   {
+    slug: 'physiotherapy',
+    icon: 'HandHeart',
     title: 'Physiotherapy',
     description: 'Personalized rehabilitation care to improve movement and recovery.',
     image: '/images/doctor-ortho.png',
+    overview:
+      'Physiotherapy helps improve movement, strength and recovery after injury, surgery or long-term pain.',
+    highlights: ['Recovery support', 'Movement therapy', 'Pain management', 'Exercise plans'],
+    steps: [
+      { title: 'Assessment', description: 'We evaluate movement, pain and daily activity limitations.' },
+      { title: 'Plan creation', description: 'A therapy plan is tailored to your recovery goals.' },
+      { title: 'Therapy sessions', description: 'Exercises and manual support are used to improve function.' },
+      { title: 'Progress review', description: 'We track improvements and adjust the plan.' },
+    ],
+    benefits: ['Recovery and mobility support', 'Personalized exercise plans', 'Pain reduction strategies', 'Ongoing progress monitoring'],
+    faqs: [
+      {
+        question: 'Can physiotherapy help after surgery?',
+        answer: 'Yes, physiotherapy is often used to support safe recovery after surgery.',
+      },
+      {
+        question: 'Is physiotherapy useful for back pain?',
+        answer: 'Yes, physiotherapy can help with pain relief, strengthening and movement improvement.',
+      },
+    ],
   },
-]
+] 
 
 export type Facility = {
   title: string

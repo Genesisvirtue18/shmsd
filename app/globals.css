@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-plus-jakarta), 'Plus Jakarta Sans Fallback', ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), 'Fraunces Fallback', ui-serif, Georgia, serif;
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, serif;
   --font-mono: ui-monospace, SFMono-Regular, monospace;
 
   --color-background: var(--background);
@@ -44,25 +44,25 @@
   color-scheme: light;
   --radius: 0.9rem;
 
-  --background: #f8fafc;
-  --foreground: #1e293b;
+  --background: #f7fafc;
+  --foreground: #102033;
 
   --card: #ffffff;
-  --card-foreground: #1e293b;
+  --card-foreground: #102033;
 
   --popover: #ffffff;
-  --popover-foreground: #1e293b;
+  --popover-foreground: #102033;
 
-  --primary: #bd0f1d;
+  --primary: #c81e2f;
   --primary-foreground: #ffffff;
 
-  --secondary: #1e88e5;
+  --secondary: #0f6cbd;
   --secondary-foreground: #ffffff;
 
-  --muted: #eef4fb;
+  --muted: #eaf2f8;
   --muted-foreground: #64748b;
 
-  --accent: #dc2626;
+  --accent: #ef4444;
   --accent-foreground: #ffffff;
 
   --destructive: #dc2626;
@@ -72,8 +72,8 @@
   --success: #22c55e;
   --success-foreground: #ffffff;
 
-  --border: #e2e8f0;
-  --input: #e2e8f0;
+  --border: #dbe5ef;
+  --input: #dbe5ef;
   --ring: #0f6cbd;
 }
 
@@ -87,9 +87,27 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: 'liga' 1, 'calt' 1;
+    background-image:
+      radial-gradient(circle at top left, rgb(200 30 47 / 0.08), transparent 22%),
+      radial-gradient(circle at top right, rgb(15 108 189 / 0.06), transparent 18%);
+    background-attachment: fixed;
   }
 }
+.swiper-button-next,
+.swiper-button-prev {
+  color: white !important;
+}
 
+.swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  width: 24px;
+  border-radius: 999px;
+}
 @layer utilities {
   .glass {
     background: color-mix(in oklab, white 70%, transparent);

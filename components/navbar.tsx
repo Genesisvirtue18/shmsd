@@ -35,15 +35,33 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50">
+      <div className="hidden border-b border-primary/10 bg-primary text-primary-foreground lg:block">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-2 text-xs font-medium">
+          <div className="flex items-center gap-4">
+            <span className="rounded-full bg-primary-foreground/12 px-3 py-1">24x7 Emergency Care</span>
+            <span>{HOSPITAL.address}</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <a href={HOSPITAL.phoneHref} className="hover:underline">
+              {HOSPITAL.phone}
+            </a>
+            <span className="text-primary-foreground/60">|</span>
+            <Link href="/appointment" className="hover:underline">
+              Book Appointment
+            </Link>
+          </div>
+        </div>
+      </div>
+
       {/* Main nav */}
       <nav
         className={cn(
-          'border-b bg-background/95 transition-all duration-300',
-          scrolled ? 'glass border-border shadow-sm' : 'border-transparent bg-background',
+          'border-b bg-white transition-all duration-300',
+          scrolled ? ' border-border shadow-sm' : 'border-transparent bg-background',
         )}
         aria-label="Primary"
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3.5">
           <Link href="/" className="flex items-center gap-3" aria-label={`${HOSPITAL.shortName} home`}>
             <Image
               src="/images/logo.webp"
@@ -83,6 +101,18 @@ export function Navbar() {
           </ul>
 
           <div className="flex items-center gap-2">
+            <a
+              href={HOSPITAL.phoneHref}
+              className="hidden items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-primary/30 hover:text-primary lg:inline-flex"
+            >
+              Call Now
+            </a>
+            <Link
+              href="/appointment"
+              className="hidden items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-transform hover:-translate-y-0.5 lg:inline-flex"
+            >
+              Book Appointment
+            </Link>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
@@ -118,7 +148,7 @@ export function Navbar() {
           )}
         >
           <div className="flex items-center justify-between border-b border-border px-6 py-4">
-            <span className="font-serif text-lg font-semibold">Menu</span>
+            <span className="text-lg font-semibold">Menu</span>
             <button
               type="button"
               onClick={() => setOpen(false)}

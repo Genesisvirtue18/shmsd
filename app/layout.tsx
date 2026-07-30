@@ -1,23 +1,10 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Plus_Jakarta_Sans, Fraunces } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 import { FloatingWidgets } from '@/components/floating-widgets'
 import { SiteSchema } from '@/components/site-schema'
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  variable: '--font-plus-jakarta',
-  display: 'swap',
-})
-
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  variable: '--font-fraunces',
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://shmsd.in'),
@@ -70,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${plusJakarta.variable} ${fraunces.variable} bg-background`}>
+    <html lang="en" className="bg-background">
       <body className="antialiased font-sans">
         <SiteSchema />
         <Navbar />

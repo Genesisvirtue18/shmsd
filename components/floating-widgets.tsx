@@ -42,17 +42,7 @@ export function FloatingWidgets() {
 
   return (
     <>
-      {/* Emergency banner button (left) */}
-      <a
-        href={HOSPITAL.phoneHref}
-        className="fixed bottom-5 left-5 z-40 flex items-center gap-2 rounded-full bg-emergency px-4 py-3 text-sm font-semibold text-emergency-foreground shadow-xl shadow-emergency/30 transition-transform hover:-translate-y-0.5"
-      >
-        <span className="relative flex h-2.5 w-2.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emergency-foreground/70" />
-          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emergency-foreground" />
-        </span>
-        Emergency 24x7
-      </a>
+     
 
       {/* Speed-dial (right) */}
       <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">

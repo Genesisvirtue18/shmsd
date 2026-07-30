@@ -20,7 +20,7 @@ export default function HomePage() {
       <Hero />
       <StatsBar />
 
-      {/* Quick services */}
+      {/* Quick services
       <section className="px-6 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
@@ -40,15 +40,9 @@ export default function HomePage() {
               </Link>
             </Reveal>
           </div>
-          <StaggerGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {SERVICES.slice(0, 4).map((service) => (
-              <StaggerItem key={service.title} className="h-full">
-                <ServiceCard service={service} />
-              </StaggerItem>
-            ))}
-          </StaggerGroup>
+         
         </div>
-      </section>
+      </section> */}
 
       <AboutPreview />
 
@@ -99,7 +93,7 @@ export default function HomePage() {
             </Reveal>
           </div>
           <StaggerGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {DEPARTMENTS.slice(0, 8).map((dept) => (
+            {DEPARTMENTS.slice(0, 4).map((dept) => (
               <StaggerItem key={dept.slug} className="h-full">
                 <DepartmentCard department={dept} />
               </StaggerItem>
@@ -126,7 +120,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Facilities alternating */}
+      {/* Facilities alternating
       <section className="px-6 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
@@ -173,7 +167,7 @@ export default function HomePage() {
             })}
           </div>
         </div>
-      </section>
+      </section> */}
 
       <PatientJourney />
 

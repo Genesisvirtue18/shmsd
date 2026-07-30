@@ -14,9 +14,9 @@ export function Footer() {
 
   return (
     <footer className="bg-foreground text-background">
+      <div className="h-1 bg-gradient-to-r from-primary via-accent to-secondary" aria-hidden />
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 lg:grid-cols-12">
-          {/* Brand + contact */}
           <div className="lg:col-span-4">
             <Link href="/" className="flex items-center gap-3">
               <span className="inline-flex rounded-2xl bg-background/95 px-3 py-2">
@@ -30,8 +30,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-background/70">
-              Health equality, always. Committed to personalized, affordable and world-class multispeciality care in
-              Delhi.
+              Specialist-led care, modern diagnostics and compassionate treatment for families across Delhi.
             </p>
             <ul className="mt-6 space-y-3 text-sm text-background/80">
               <li>
@@ -65,7 +64,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick links */}
           <div className="lg:col-span-2">
             <h3 className="text-sm font-semibold uppercase tracking-widest text-background">Quick Links</h3>
             <ul className="mt-5 space-y-3 text-sm text-background/70">
@@ -79,7 +77,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Departments */}
           <div className="lg:col-span-3">
             <h3 className="text-sm font-semibold uppercase tracking-widest text-background">Departments</h3>
             <ul className="mt-5 grid grid-cols-1 gap-3 text-sm text-background/70 sm:grid-cols-2">
@@ -93,10 +90,9 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Newsletter + map */}
           <div className="lg:col-span-3">
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-background">Newsletter</h3>
-            <p className="mt-5 text-sm text-background/70">Get health tips and hospital updates.</p>
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-background">Find Us</h3>
+            <p className="mt-5 text-sm text-background/70">Get in touch, book an appointment or locate the hospital.</p>
             <form className="mt-4 flex overflow-hidden rounded-full bg-background/10 p-1" action="#">
               <label htmlFor="newsletter-email" className="sr-only">
                 Email address
