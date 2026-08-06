@@ -1,5 +1,6 @@
 'use client'
 
+// @ts-ignore - fix: suppress missing type declarations for 'swiper/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
 import { DoctorCard } from '@/components/cards'
