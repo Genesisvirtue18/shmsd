@@ -50,29 +50,17 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
             <div className="rounded-[1.9rem] border border-border bg-background/90 p-5 sm:p-7">
               <div className="flex flex-col gap-5 border-b border-border pb-5 lg:flex-row lg:items-start lg:justify-between">
                 <div className="max-w-3xl">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
-                    <Icon name={service.icon} className="h-4 w-4" />
+                  <div className="inline-flex items-center gap-2 rounded-full border border-primary/15  px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+                      <img src={service.icon} alt={service.title} className="w-12 h-12" />
                     {service.title}
                   </div>
-                  <h1 className="mt-4 text-balance font-serif text-3xl font-semibold leading-tight text-foreground sm:text-4xl lg:text-[2.7rem]">
-                    {service.title}
-                  </h1>
+                 
                   <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
                     {service.overview}
                   </p>
                 </div>
 
-                <div className="flex shrink-0 items-center gap-3 rounded-[1.6rem] border border-border bg-card px-4 py-3 shadow-sm">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                    <ShieldCheck className="h-5 w-5" aria-hidden />
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                      Specialist care
-                    </p>
-                    <p className="text-sm font-semibold text-foreground">Treatment focused</p>
-                  </div>
-                </div>
+            
               </div>
 
               <div className="mt-5 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
@@ -89,15 +77,15 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                   </div>
 
                   <div className="mt-5">
-                    <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Clinical Overview</h2>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-[0.95rem]">
-                      {service.description} We keep the process calm, clear and coordinated so patients can move from
-                      consultation to treatment without confusion.
-                    </p>
+                   <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Quick Summary</h3>
+                      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                        {service.title} care is delivered by specialists with a focus on safe planning, clear
+                        communication and follow-up support throughout the treatment journey.
+                      </p>
                   </div>
 
                   <div className="mt-6">
-                    <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+                    <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
                       Treatment Journey & Milestones
                     </h3>
                     <div className="mt-4 space-y-4">
@@ -122,7 +110,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
 
                   <div className="mt-6 grid gap-4 md:grid-cols-2">
                     <div className="rounded-[1.4rem] border border-border bg-card p-4">
-                      <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Benefits</h3>
+                      <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Benefits</h3>
                       <ul className="mt-4 space-y-2">
                         {service.benefits.map((benefit) => (
                           <li key={benefit} className="flex items-start gap-2 text-sm text-foreground">
@@ -135,11 +123,11 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                       </ul>
                     </div>
                     <div className="rounded-[1.4rem] border border-border bg-card p-4">
-                      <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Quick Summary</h3>
-                      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                        {service.title} care is delivered by specialists with a focus on safe planning, clear
-                        communication and follow-up support throughout the treatment journey.
-                      </p>
+                       <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Clinical Overview</h2>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-sm">
+                      {service.description} We keep the process calm, clear and coordinated so patients can move from
+                      consultation to treatment without confusion.
+                    </p>
                     </div>
                   </div>
 
@@ -149,9 +137,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                         <p className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-background/60">
                           Ready to take the next step?
                         </p>
-                        <p className="mt-1 text-[0.6rem] text-background/80">
-                          Request a consultation with our specialist team.
-                        </p>
+                       
                       </div>
                       <div className="flex gap-3">
                         <Link
@@ -173,7 +159,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                     </div>
                   </div>
                     <div className="mt-5 rounded-[1.9rem] border border-border bg-card p-4 sm:p-5">
-                    <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+                    <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
                       Treatment Specific FAQs
                     </h2>
                     <div className="mt-4 space-y-3">
@@ -194,7 +180,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
 
                 <aside className="grid gap-5">
                   <div className="rounded-[1.9rem] border border-border bg-card p-4 sm:p-5">
-                    <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Treatment Catalog</h2>
+                    <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Treatment Catalog</h2>
                     <div className="mt-4 space-y-2">
                       {SERVICES.map((item) => {
                         const active = item.slug === service.slug
@@ -213,7 +199,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                                 active ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'
                               }`}
                             >
-                              <Icon name={item.icon} className="h-4 w-4" />
+                                <img src={item.icon} alt={item.title} className="w-12 h-12" />
                             </span>
                             <span className="flex-1 text-sm font-medium text-foreground">{item.title}</span>
                             <ChevronRight className="h-4 w-4 text-muted-foreground" aria-hidden />

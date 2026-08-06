@@ -1,0 +1,136 @@
+import { HeartPulse, ShieldCheck, Stethoscope, TimerReset } from 'lucide-react'
+import {Hero} from '@/components/home/hero'
+import { AppointmentPopup } from '@/components/home/AppointmentPopup'
+import { GoogleReviews } from '@/components/home/GoogleReviews'
+import { LatestBlogs } from '@/components/home/LatestBlogs'
+import { InstagramFeed } from '@/components/home/InstagramFeed'
+import { StatsBar } from '@/components/home/stats'
+import { ServiceCarousel } from '@/components/home/Service-carousel'
+import { DoctorsCarousel } from '@/components/home/doctors-carousel'
+import { PatientJourney } from '@/components/home/patient-journey'
+import { FaqAccordion } from '@/components/faq'
+import { SectionHeading } from '@/components/section-heading'
+import { StaggerGroup, StaggerItem } from '@/components/reveal'
+import {  DoctorCard,ServiceCard } from '@/components/cards'
+import { SERVICES, DOCTORS } from '@/lib/data'
+
+const pillars = [
+  {
+    icon: ShieldCheck,
+    title: 'Guided admissions',
+    text: 'Smooth check-in, insurance support and clear hand-holding from the first call onward.',
+  },
+  {
+    icon: Stethoscope,
+    title: 'Specialist consultations',
+    text: 'Consultant-led care across cardiology, orthopaedics, neurology and more.',
+  },
+  {
+    icon: HeartPulse,
+    title: 'Emergency ready',
+    text: 'Fast escalation pathways and round-the-clock support when every minute matters.',
+  },
+  {
+    icon: TimerReset,
+    title: 'Focused follow-up',
+    text: 'We make discharge, reports and review visits easier to understand and complete.',
+  },
+]
+
+export default function Home() {
+  return (
+    <main className="overflow-hidden bg-background">
+      <Hero />
+      <AppointmentPopup />
+      <StatsBar />
+
+      <section className="px-6 py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            align="left"
+            eyebrow="Why patients trust us"
+            title="A hospital experience that feels calm, coordinated and caring"
+            description="We focus on the details that reduce stress for patients and families: simple communication, quick response and a cleaner care journey."
+          />
+          <StaggerGroup className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {pillars.map((pillar) => {
+              const Icon = pillar.icon
+              return (
+                <StaggerItem key={pillar.title} className="h-full">
+                  <div className="h-full rounded-[1.5rem] border border-border bg-card p-5 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#B71C1C]/10 text-[#B71C1C]">
+                      <Icon className="h-6 w-6" aria-hidden />
+                    </span>
+                    <h3 className="mt-4 text-lg font-semibold text-foreground">{pillar.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{pillar.text}</p>
+                  </div>
+                </StaggerItem>
+              )
+            })}
+          </StaggerGroup>
+        </div>
+      </section>
+
+      <section className="bg-[#fff7f7] px-6 py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            align="left"
+            eyebrow="Specialities"
+            title="Core Service built around patient needs"
+            description="Find the right care quickly through a multispeciality setup that keeps consultation, diagnostics and treatment connected."
+          />
+          <div className="mt-10 lg:hidden">
+            <ServiceCarousel Service={SERVICES.slice(0, 12)} />
+          </div>
+          <StaggerGroup className="mt-10 hidden gap-6 lg:grid lg:grid-cols-6">
+            {SERVICES.slice(0, 12).map((service) => (
+              <StaggerItem key={service.slug} className="h-full">
+                <ServiceCard service={service} />
+              </StaggerItem>
+            ))}
+          </StaggerGroup>
+        </div>
+      </section>
+
+      <section className="px-6 py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            align="left"
+            eyebrow="Doctors"
+            title="Meet the specialists behind your care"
+            description="A focused team of doctors and surgeons work together to provide practical treatment plans and supportive follow-up."
+          />
+          <div className="mt-10 lg:hidden">
+            <DoctorsCarousel doctors={DOCTORS} />
+          </div>
+          <StaggerGroup className="mt-10 hidden gap-6 lg:grid lg:grid-cols-2 xl:grid-cols-4">
+            {DOCTORS.map((doctor) => (
+              <StaggerItem key={doctor.name} className="h-full">
+                <DoctorCard doctor={doctor} />
+              </StaggerItem>
+            ))}
+          </StaggerGroup>
+        </div>
+      </section>
+
+      <PatientJourney />
+      <GoogleReviews />
+      <LatestBlogs />
+      <InstagramFeed />
+      
+
+      <section className="bg-muted px-6 py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="General Questions"
+            title="Helpful answers before you visit"
+            description="If you need more guidance, our front desk can help with appointment timing, Service and the right next step."
+          />
+          <div className="mt-10">
+            <FaqAccordion />
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}

@@ -12,21 +12,20 @@ export function ServiceCard({ service }: { service: Service }) {
   return (
     <Link
       href={`/services/${service.slug}`}
-      className="group block h-full rounded-[1.75rem] border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-xl hover:shadow-primary/10"
+      className="group relative block h-full rounded-[1.75rem] border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 sm:p-6"
       aria-label={`View details for ${service.title}`}
     >
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-        <Icon name={service.icon} className="h-7 w-7" strokeWidth={1.8} />
+      {/* The Red Glowing Border Effect */}
+      <div className="absolute inset-0 rounded-[1.75rem] border-r-[3px] border-b-[4px] border-[#B71C1C] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:shadow-[0_0_10px_#e1a2a2] pointer-events-none" />
+
+      <div className="flex flex-col items-center text-center">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#B71C1C]/10 text-[#B71C1C] transition-colors duration-300 group-hover:bg-[#B71C1C]/20">
+          <img src={service.icon} alt={service.title} className="h-10 w-10 object-contain" />
+        </div>
+        <h3 className="mt-4 text-xs font-semibold  text-foreground sm:text-xs">
+          {service.title}
+        </h3>
       </div>
-
-      <h3 className="mt-5 text-2xl font-semibold leading-tight text-foreground">{service.title}</h3>
-
-      <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">{service.description}</p>
-
-      <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-transform group-hover:translate-x-1">
-        View service details
-        <ArrowRight className="h-4 w-4" aria-hidden />
-      </span>
     </Link>
   )
 }
@@ -40,16 +39,16 @@ export function DepartmentCard({
   department: Department;
 }) {
   return (
-    <article className="group h-full rounded-lg bg-white border border-slate-200 p-10 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-xl">
-      <div className="flex h-8 w-8 items-center justify-center">
-        <Icon name={department.icon} className="h-8 w-8 text-primary" strokeWidth={1.8} />
+    <article className="group h-full rounded-[1.5rem] border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-xl hover:shadow-primary/10 sm:p-6">
+      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+        <Icon name={department.icon} className="h-6 w-6" strokeWidth={1.8} />
       </div>
 
-      <h3 className="mt-2 text-xl font-semibold leading-tight text-[#00000]">
+      <h3 className="mt-4 text-lg font-semibold leading-tight text-foreground sm:text-xl">
         {department.title}
       </h3>
 
-      <p className="mt-2 line-clamp-3 text-sm leading-4 text-slate-600">
+      <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted-foreground">
         {department.description}
       </p>
     </article>
@@ -61,32 +60,19 @@ export function DepartmentCard({
 //
 export function DoctorCard({ doctor }: { doctor: Doctor }) {
   return (
-    <article className="group h-full overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-primary/10">
-      <div className="relative aspect-square overflow-hidden bg-muted">
-        <Image
-          src={doctor.image}
-          alt={`${doctor.name}, ${doctor.specialty}`}
-          fill
-          sizes="(max-width: 768px) 50vw, 25vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-
-        <span className="absolute right-3 top-3 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
-          {doctor.experience}
-        </span>
-      </div>
-
+    <article className="group h-full overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-primary/10">
+      
       <div className="p-5">
         <h3 className="text-lg font-semibold text-foreground">
           {doctor.name}
         </h3>
 
         <p className="text-sm font-medium text-primary">
-          {doctor.specialty}
+          {doctor.department}
         </p>
 
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          {doctor.bio}
+          {doctor.description}
         </p>
 
         <Link

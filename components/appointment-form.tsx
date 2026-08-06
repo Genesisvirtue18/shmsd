@@ -1,120 +1,246 @@
 'use client'
 
 import { useState } from 'react'
-import { CalendarCheck, CheckCircle2, Loader2 } from 'lucide-react'
+import {
+  CalendarCheck,
+  Loader2,
+  MessageCircle,
+} from 'lucide-react'
 import { DEPARTMENTS } from '@/lib/data'
 
 const inputClass =
   'w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20'
 
 export function AppointmentForm() {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'done'>('idle')
+  const [status, setStatus] = useState<'idle' | 'loading'>('idle')
+
+  const [form, setForm] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    department: '',
+    date: '',
+    time: '',
+    message: '',
+  })
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }))
+  }
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setStatus('loading')
-    setTimeout(() => setStatus('done'), 1200)
-  }
 
-  if (status === 'done') {
-    return (
-      <div className="flex flex-col items-center rounded-3xl border border-success/30 bg-success/5 p-10 text-center">
-        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-success text-success-foreground">
-          <CheckCircle2 className="h-8 w-8" aria-hidden />
-        </span>
-        <h3 className="mt-5 font-serif text-2xl font-semibold text-foreground">Request received</h3>
-        <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-          Thank you. Our team will call you shortly to confirm your appointment slot.
-        </p>
-        <button
-          type="button"
-          onClick={() => setStatus('idle')}
-          className="mt-6 rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-foreground hover:bg-muted"
-        >
-          Book another
-        </button>
-      </div>
-    )
+    setStatus('loading')
+
+    const whatsappMessage = `Hello Signature Hospital,
+
+I would like to book an appointment.
+
+👤 Name: ${form.name}
+📞 Phone: ${form.phone}
+📧 Email: ${form.email || 'Not Provided'}
+🏥 Department: ${form.department}
+📅 Preferred Date: ${form.date}
+🕒 Preferred Time: ${form.time}
+
+📝 Message:
+${form.message || 'No additional message.'}
+
+Please contact me to confirm my appointment.
+
+Thank you.`
+
+    const whatsappURL = `https://wa.me/917012109635?text=${encodeURIComponent(
+      whatsappMessage,
+    )}`
+
+    setTimeout(() => {
+      setStatus('idle')
+      window.open(whatsappURL, '_blank')
+    }, 600)
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-3xl border border-border bg-card p-6 shadow-lg sm:p-8">
+    <form
+      onSubmit={onSubmit}
+      className="rounded-3xl border border-border bg-card p-6 shadow-lg sm:p-8"
+    >
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-foreground">
-            Full name
+          <label
+            htmlFor="name"
+            className="mb-1.5 block text-sm font-medium text-foreground"
+          >
+            Full Name
           </label>
-          <input id="name" name="name" required placeholder="John Doe" className={inputClass} />
+
+          <input
+            id="name"
+            name="name"
+            required
+            value={form.name}
+            onChange={handleChange}
+            placeholder="John Doe"
+            className={inputClass}
+          />
         </div>
+
         <div>
-          <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-foreground">
-            Phone number
+          <label
+            htmlFor="phone"
+            className="mb-1.5 block text-sm font-medium text-foreground"
+          >
+            Phone Number
           </label>
-          <input id="phone" name="phone" type="tel" required placeholder="+91 90000 00000" className={inputClass} />
+
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            required
+            value={form.phone}
+            onChange={handleChange}
+            placeholder="+91 9876543210"
+            className={inputClass}
+          />
         </div>
+
         <div>
-          <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-foreground">
+          <label
+            htmlFor="email"
+            className="mb-1.5 block text-sm font-medium text-foreground"
+          >
             Email
           </label>
-          <input id="email" name="email" type="email" placeholder="you@email.com" className={inputClass} />
+
+          <input
+            id="email"
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="you@example.com"
+            className={inputClass}
+          />
         </div>
+
         <div>
-          <label htmlFor="department" className="mb-1.5 block text-sm font-medium text-foreground">
+          <label
+            htmlFor="department"
+            className="mb-1.5 block text-sm font-medium text-foreground"
+          >
             Department
           </label>
-          <select id="department" name="department" required className={inputClass} defaultValue="">
+
+          <select
+            id="department"
+            name="department"
+            required
+            value={form.department}
+            onChange={handleChange}
+            className={inputClass}
+          >
             <option value="" disabled>
               Select a department
             </option>
-            {DEPARTMENTS.map((d) => (
-              <option key={d.slug} value={d.title}>
-                {d.title}
+
+            {DEPARTMENTS.map((department) => (
+              <option
+                key={department.slug}
+                value={department.title}
+              >
+                {department.title}
               </option>
             ))}
           </select>
         </div>
+
         <div>
-          <label htmlFor="date" className="mb-1.5 block text-sm font-medium text-foreground">
-            Preferred date
+          <label
+            htmlFor="date"
+            className="mb-1.5 block text-sm font-medium text-foreground"
+          >
+            Preferred Date
           </label>
-          <input id="date" name="date" type="date" required className={inputClass} />
+
+          <input
+            id="date"
+            name="date"
+            type="date"
+            required
+            value={form.date}
+            onChange={handleChange}
+            className={inputClass}
+          />
         </div>
+
         <div>
-          <label htmlFor="time" className="mb-1.5 block text-sm font-medium text-foreground">
-            Preferred time
+          <label
+            htmlFor="time"
+            className="mb-1.5 block text-sm font-medium text-foreground"
+          >
+            Preferred Time
           </label>
-          <input id="time" name="time" type="time" required className={inputClass} />
+
+          <input
+            id="time"
+            name="time"
+            type="time"
+            required
+            value={form.time}
+            onChange={handleChange}
+            className={inputClass}
+          />
         </div>
       </div>
+
       <div className="mt-4">
-        <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-foreground">
-          Message (optional)
+        <label
+          htmlFor="message"
+          className="mb-1.5 block text-sm font-medium text-foreground"
+        >
+          Message (Optional)
         </label>
+
         <textarea
           id="message"
           name="message"
           rows={4}
+          value={form.message}
+          onChange={handleChange}
           placeholder="Describe your symptoms or reason for visit"
           className={inputClass}
         />
       </div>
+
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-transform hover:-translate-y-0.5 disabled:opacity-70"
+        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition hover:opacity-90 disabled:opacity-70"
       >
         {status === 'loading' ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
-            Submitting...
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Opening WhatsApp...
           </>
         ) : (
           <>
-            <CalendarCheck className="h-4 w-4" aria-hidden />
-            Confirm Appointment
+            <MessageCircle className="h-4 w-4" />
+            Book via WhatsApp
           </>
         )}
       </button>
+
+      <p className="mt-3 text-center text-xs text-muted-foreground">
+        Clicking the button will open WhatsApp with your appointment details
+        pre-filled.
+      </p>
     </form>
   )
 }

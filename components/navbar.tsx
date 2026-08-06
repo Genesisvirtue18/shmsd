@@ -12,8 +12,8 @@ export function Navbar() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const brand = '#c62828'
-  const brandSoft = 'rgba(198, 40, 40, 0.1)'
+  const brand = '#B71C1C'
+  const brandSoft = 'rgba(183, 28, 28, 0.1)'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)

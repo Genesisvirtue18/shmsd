@@ -45,7 +45,7 @@ export function AboutPreview() {
             </span>
           </Reveal>
           <Reveal delay={0.05}>
-            <h2 className="mt-4 text-balance font-serif sm:text-xl md:text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
+            <h2 className="mt-4 text-balance font-serif text-xl font-semibold leading-tight text-foreground sm:text-2xl md:text-4xl">
               Compassionate care, organized like a premier hospital brand
             </h2>
           </Reveal>
@@ -64,7 +64,7 @@ export function AboutPreview() {
                   <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
                     <m.icon className="h-5 w-5" aria-hidden />
                   </span>
-                  <h3 className="mt-3 font-semibold text-foreground">{m.title}</h3>
+                  <h3 className="mt-3 text-base font-semibold text-foreground">{m.title}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{m.text}</p>
                 </div>
               </Reveal>

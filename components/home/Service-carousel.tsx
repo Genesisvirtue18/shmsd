@@ -2,13 +2,13 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
-import { DepartmentCard } from '@/components/cards'
-import type { Department } from '@/lib/data'
+import { ServiceCard } from '@/components/cards'
+import type { SERVICES } from '@/lib/data'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
 
-export function DepartmentsCarousel({ departments }: { departments: Department[] }) {
+export function ServiceCarousel({ Service }: { Service: SERVICES[] }) {
   return (
     <div className="lg:hidden">
       <Swiper
@@ -24,9 +24,9 @@ export function DepartmentsCarousel({ departments }: { departments: Department[]
         }}
         className="!pb-10"
       >
-        {departments.map((dept) => (
+        {Service.map((dept) => (
           <SwiperSlide key={dept.slug} className="h-auto">
-            <DepartmentCard department={dept} />
+            <ServiceCard service={dept} />
           </SwiperSlide>
         ))}
       </Swiper>

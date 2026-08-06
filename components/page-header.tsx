@@ -18,7 +18,7 @@ export function PageHeader({
       <div className="relative mx-auto max-w-7xl px-6 py-14 sm:py-20">
         <Reveal>
           <nav aria-label="Breadcrumb">
-            <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
+            <ol className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground sm:text-sm">
               <li>
                 <Link href="/" className="flex items-center gap-1 hover:text-primary">
                   <Home className="h-3.5 w-3.5" aria-hidden />
@@ -41,13 +41,13 @@ export function PageHeader({
           </nav>
         </Reveal>
         <Reveal delay={0.05}>
-          <h1 className="mt-4 text-balance font-serif text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
+          <h1 className="mt-4 text-balance font-sans text-xl font-semibold leading-tight tracking-tight text-foreground sm:text-3xl md:text-5xl">
             {title}
           </h1>
         </Reveal>
         {description ? (
           <Reveal delay={0.1}>
-            <p className="mt-4 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
+            <p className="mt-4 max-w-2xl text-pretty text-xs leading-relaxed text-muted-foreground sm:text-sm md:text-base">
               {description}
             </p>
           </Reveal>

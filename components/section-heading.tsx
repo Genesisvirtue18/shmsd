@@ -24,24 +24,20 @@ export function SectionHeading({
     >
       {eyebrow ? (
         <Reveal>
-          <span
-            className={cn(
-              'inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary',
-            )}
-          >
+          <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
             {eyebrow}
           </span>
         </Reveal>
       ) : null}
       <Reveal delay={0.05}>
-        <h2 className="mt-4 text-balance font-serif text-3xl font-semibold leading-tight text-foreground sm:text-4xl md:text-[2.75rem]">
+        <h2 className="mt-4 text-balance font-sans text-xl font-semibold leading-tight tracking-tight text-foreground sm:text-2xl md:text-4xl">
           {title}
         </h2>
       </Reveal>
       {description ? (
         <Reveal delay={0.1}>
-          <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="mt-4 text-pretty text-xs leading-relaxed text-muted-foreground sm:text-sm md:text-base">
             {description}
           </p>
         </Reveal>

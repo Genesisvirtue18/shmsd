@@ -19,7 +19,7 @@ export function StatsBar() {
                     <Icon className="h-4 w-4 sm:h-6 sm:w-6" aria-hidden />
                   </span>
                   <div className="min-w-0">
-                    <p className="font-serif text-xs md:text-lg font-bold leading-none text-primary sm:text-3xl sm:leading-none">
+                    <p className="font-sans text-xs font-bold leading-none text-primary sm:text-2xl md:text-3xl sm:leading-none">
                       <Counter value={s.value} suffix={s.suffix} />
                     </p>
                     <p className="mt-1 text-[8px] font-medium leading-tight text-muted-foreground sm:mt-2 sm:text-sm">

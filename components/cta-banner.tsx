@@ -6,54 +6,61 @@ import { Reveal } from '@/components/reveal'
 export function CtaBanner() {
   const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(HOSPITAL.address)}`
   return (
-    <section className="px-6 py-16 sm:py-20">
+    <section className="px-4 py-4 sm:py-10">
       <div className="mx-auto max-w-7xl">
         <Reveal direction="scale">
-          <div className="relative overflow-hidden rounded-3xl bg-primary px-6 py-12 text-primary-foreground shadow-2xl shadow-primary/30 sm:px-12 sm:py-16">
-            <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-accent/30 blur-3xl" aria-hidden />
-            <div className="absolute -bottom-20 -left-10 h-64 w-64 rounded-full bg-secondary/40 blur-3xl" aria-hidden />
-            <div className="relative flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between">
-              <div className="max-w-xl">
-                <span className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest">
-                  <Siren className="h-4 w-4" aria-hidden />
+          <div className="relative overflow-hidden rounded-2xl border border-border bg-foreground px-3 py-4 text-background shadow-lg sm:px-8 sm:py-8">
+            <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/20 blur-3xl" aria-hidden />
+            <div className="absolute -bottom-20 -left-10 h-48 w-48 rounded-full bg-secondary/20 blur-3xl" aria-hidden />
+            
+            <div className="relative flex flex-col items-start gap-3 lg:flex-row lg:items-center lg:gap-4 lg:justify-between">
+              {/* Text Block */}
+              <div className="max-w-lg">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-background/15 bg-background/10 px-2 py-0.5 text-[0.5rem] font-semibold uppercase tracking-[0.22em] text-background sm:gap-2 sm:px-3 sm:py-1 sm:text-[0.6rem]">
+                  <Siren className="h-2.5 w-2.5 sm:h-3 sm:w-3" aria-hidden />
                   Emergency & Trauma Care
                 </span>
-                <h2 className="mt-4 text-balance font-serif text-3xl font-semibold leading-tight sm:text-4xl">
+                <h2 className="mt-2 text-balance font-serif text-sm font-semibold leading-tight sm:mt-3 sm:text-xl md:text-2xl">
                   Medical emergency? We are ready 24x7.
                 </h2>
-                <p className="mt-3 text-pretty text-primary-foreground/85">
+                <p className="mt-1 text-pretty text-[0.6rem] leading-snug text-background/80 sm:mt-2 sm:text-sm sm:leading-relaxed">
                   Call our emergency line now or book an appointment. Our stand-by ambulance and expert team are always
                   prepared to help.
                 </p>
-                <a href={HOSPITAL.phoneHref} className="mt-6 inline-flex items-baseline gap-2">
-                  <span className="text-sm text-primary-foreground/80">Emergency</span>
-                  <span className="font-serif text-2xl font-bold sm:text-3xl">{HOSPITAL.emergencyNumber}</span>
+                <a href={HOSPITAL.phoneHref} className="mt-2 inline-flex items-baseline gap-1.5 sm:mt-4 sm:gap-2">
+                  <span className="text-[0.5rem] text-background/70 sm:text-[0.65rem]">Emergency</span>
+                  <span className="font-serif text-sm font-bold sm:text-base md:text-xl">{HOSPITAL.emergencyNumber}</span>
                 </a>
               </div>
-              <div className="flex w-full flex-col gap-3 sm:max-w-xs">
-                <a
-                  href={HOSPITAL.phoneHref}
-                  className="flex items-center justify-center gap-2 rounded-full bg-background px-6 py-3.5 text-sm font-semibold text-primary shadow-lg transition-transform hover:-translate-y-0.5"
-                >
-                  <Phone className="h-4 w-4" aria-hidden />
-                  Call Emergency
-                </a>
-                <Link
-                  href="/appointment"
-                  className="flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-accent-foreground shadow-lg transition-transform hover:-translate-y-0.5"
-                >
-                  <CalendarCheck className="h-4 w-4" aria-hidden />
-                  Book Appointment
-                </Link>
-                <a
-                  href={mapHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 rounded-full border border-primary-foreground/30 px-6 py-3.5 text-sm font-semibold transition-colors hover:bg-primary-foreground/10"
-                >
-                  <MapPin className="h-4 w-4" aria-hidden />
-                  Get Directions
-                </a>
+
+              {/* Compact Action Panel for Buttons */}
+              <div className="flex w-full flex-col gap-1.5 sm:max-w-[240px] sm:gap-2">
+                {/* Only add the wrapper box on desktop, keep it slim on mobile */}
+                <div className="flex flex-col gap-1.5 sm:gap-2 sm:rounded-xl sm:border sm:border-background/10 sm:bg-background/5 sm:p-2 sm:shadow-inner">
+                  <a
+                    href={HOSPITAL.phoneHref}
+                    className="group flex items-center justify-center gap-2 rounded-lg bg-primary px-3 py-1.5 text-[0.6rem] font-semibold text-primary-foreground shadow-md transition-all hover:scale-[1.02] sm:px-4 sm:py-2.5 sm:text-[0.65rem]"
+                  >
+                    <Phone className="h-2.5 w-2.5 sm:h-3 sm:w-3" aria-hidden />
+                    Call Emergency
+                  </a>
+                  <Link
+                    href="/appointment"
+                    className="group flex items-center justify-center gap-2 rounded-lg bg-card/90 px-3 py-1.5 text-[0.6rem] font-semibold text-foreground shadow-sm transition-all hover:scale-[1.02] sm:px-4 sm:py-2.5 sm:text-[0.65rem]"
+                  >
+                    <CalendarCheck className="h-2.5 w-2.5 sm:h-3 sm:w-3" aria-hidden />
+                    Book Appointment
+                  </Link>
+                  <a
+                    href={mapHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-center gap-2 rounded-lg border border-background/20 px-3 py-1.5 text-[0.6rem] font-semibold transition-all hover:bg-background/10 hover:scale-[1.02] sm:px-4 sm:py-2.5 sm:text-[0.65rem]"
+                  >
+                    <MapPin className="h-2.5 w-2.5 sm:h-3 sm:w-3" aria-hidden />
+                    Get Directions
+                  </a>
+                </div>
               </div>
             </div>
           </div>

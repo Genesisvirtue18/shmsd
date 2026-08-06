@@ -1,3 +1,4 @@
+
 export const HOSPITAL = {
   name: 'Signature Heart & Multispeciality Hospital',
   shortName: 'Signature Hospital',
@@ -94,40 +95,39 @@ export const DEPARTMENTS: Department[] = [
 
 export type Doctor = {
   name: string
-  specialty: string
-  experience: string
-  image: string
-  bio: string
+  qualification: string
+  department: string
+  description: string
 }
 
 export const DOCTORS: Doctor[] = [
   {
-    name: 'Dr. Ashish',
-    specialty: 'Interventional Cardiologist',
-    experience: '15+ years',
-    image: '/images/doctor-ashish.png',
-    bio: 'Leading heart specialist known for calm, attentive care in angiography and angioplasty.',
+    name: "Dr. Umesh Gupta",
+    qualification: "MBBS, MS (MAMC Delhi)",
+    department: "Internal Medicine",
+    description:
+      "Dr. Umesh Gupta is a highly experienced Diabetologist and Infectious Disease Specialist with over 35 years of expertise. He is committed to providing comprehensive, effective, and patient-focused medical care.",
   },
   {
-    name: 'Dr. Surbhi Gupta',
-    specialty: 'Gynaecologist & Obstetrician',
-    experience: '12+ years',
-    image: '/images/doctor-surbhi.png',
-    bio: 'Dedicated to compassionate womens health and maternity care for every patient.',
+    name: "Dr. Deepak Chauhan",
+    qualification: "MBBS, MS",
+    department: "General Surgery",
+    description:
+      "Dr. Deepak Chauhan is an experienced General Surgeon specializing in hernia, hydrocele, cholecystectomy, hemorrhoids, and a wide range of surgical procedures.",
   },
   {
-    name: 'Dr. Rohit Mehta',
-    specialty: 'Orthopaedic Surgeon',
-    experience: '14+ years',
-    image: '/images/doctor-ortho.png',
-    bio: 'Specialist in joint replacement, sports injuries and complex trauma surgery.',
+    name: "Dr. Gulvir Singh",
+    qualification: "MBBS, MD",
+    department: "Pulmonologist",
+    description:
+      "Dr. Gulvir Singh specializes in chest and respiratory diseases including tuberculosis (TB), pneumonia, bronchiectasis, and other pulmonary disorders.",
   },
   {
-    name: 'Dr. Neha Kapoor',
-    specialty: 'Neurologist',
-    experience: '10+ years',
-    image: '/images/doctor-neuro.png',
-    bio: 'Expert in stroke management and neurological disorders with a patient-first approach.',
+    name: "Dr. Surbhi Gupta",
+    qualification: "MBBS, MS",
+    department: "Obstetrics & Gynaecology",
+    description:
+      "Dr. Surbhi Gupta provides compassionate care for pregnancy and women's health, with expertise in gynecological disorders, antenatal care, infertility evaluation, and high-risk pregnancies.",
   },
 ]
 
@@ -144,10 +144,26 @@ export type Service = {
   faqs: { question: string; answer: string }[]
 }
 
+
+
+
+export interface Service {
+  slug: string;
+  icon: string; // now holds a string path like '/images/imgi_6_general_physician.png'
+  title: string;
+  description: string;
+  image: string;
+  overview: string;
+  highlights: string[];
+  steps: { title: string; description: string }[];
+  benefits: string[];
+  faqs: { question: string; answer: string }[];
+}
+
 export const SERVICES: Service[] = [
   {
     slug: 'general-medicine',
-    icon: 'Stethoscope',
+    icon: '/images/imgi_6_general_physician.png',
     title: 'General Medicine',
     description: 'Primary healthcare services and first-line medical evaluation for everyday health concerns.',
     image: 'https://static.vecteezy.com/system/resources/thumbnails/069/871/287/small_2x/bright-red-capsules-scattered-on-reflective-surface-in-a-close-up-composition-showcasing-texture-and-details-photo.jpeg',
@@ -179,10 +195,10 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'general-surgery',
-    icon: 'Scissors',
+    icon: '/images/imgi_5_general_surgery.png',
     title: 'General Surgery',
     description: 'Safe, modern surgical care for a wide range of general procedures.',
-    image: '/images/facility-ot.png',
+    image: 'https://media.post.rvohealth.io/wp-content/uploads/sites/3/2024/03/Heart-Surgery-Aortic-Valve-Replacemen-thumbnail.jpg',
     overview:
       'Our surgical team provides planned and emergency procedures with a focus on safety, precision and smooth recovery.',
     highlights: ['Pre-op assessment', 'Procedure planning', 'Sterile OT', 'Recovery monitoring'],
@@ -211,7 +227,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'cardiology',
-    icon: 'HeartPulse',
+    icon: '/images/imgi_10_cardiology.png',
     title: 'Cardiology',
     description: 'Comprehensive care for patients with heart-related problems.',
     image: 'https://media.istockphoto.com/id/2142793215/photo/cardiovascular-disease-cvd-doctor-with-heart-human-model-anatomy-for-treatment-patient-in.jpg?s=612x612&w=0&k=20&c=Ne1jDPdIO3IDuJOZDECEL7Tn-JzcSYV6O7QNdqUefpo=',
@@ -243,7 +259,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'gynecology-obstetrics',
-    icon: 'Baby',
+    icon: '/images/imgi_8_gynaecologist.png',
     title: 'Gynecology & Obstetrics',
     description: "Complete care for women's health, maternity and newborn support.",
     image: 'https://media.istockphoto.com/id/1169198910/photo/womans-palms-pressed-together-and-keep-embryo-from-paper-red-lood-comes-from-the-baby-and.jpg?s=612x612&w=0&k=20&c=VfotXiqQQFkmyBrN2f7zZ3nmkgsvlNDl6868Z_lrkA8=',
@@ -275,10 +291,10 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'pulmonology',
-    icon: 'Wind',
+    icon: '/images/imgi_15_internal_medicine.png', // fallback
     title: 'Pulmonology',
     description: 'Evaluation, diagnosis and treatment of respiratory diseases.',
-    image: '/images/pulmonology.png',
+    image: 'https://www.shutterstock.com/shutterstock/videos/4027366653/thumb/1.jpg?ip=x480',
     overview:
       'Pulmonology services focus on respiratory health, including cough, asthma, breathlessness, chronic lung conditions and recovery support.',
     highlights: ['Asthma care', 'Breathing tests', 'Lung evaluation', 'Follow-up treatment'],
@@ -302,7 +318,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'orthopedics',
-    icon: 'Bone',
+    icon: '/images/imgi_20_ortho.png',
     title: 'Orthopedics',
     description: 'Treatment for fractures, deformities, sports injuries and joint pain.',
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2ZzKurmAQShwiXUtK-ZG-D3k5eSmUzMUERFqyNwkjygHg0azMx9DeIHY&s=10',
@@ -329,10 +345,10 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'urology',
-    icon: 'Droplet',
+    icon: '/images/imgi_19_urology.png',
     title: 'Urology',
     description: 'Comprehensive care for urinary tract and kidney-related concerns.',
-    image: '/images/urology.png',
+    image: 'https://media.istockphoto.com/id/985517296/video/human-urinary-system-kidneys-with-urinary-bladder-anatomy.jpg?s=640x640&k=20&c=OrGFykSirDxZcrSZsFqByP3nymKXNABLy1yPj88gxuE=',
     overview:
       'Urology services include evaluation and treatment for urinary, kidney and male reproductive health concerns.',
     highlights: ['Urinary symptoms', 'Kidney care', 'Stone treatment', 'Male health'],
@@ -356,7 +372,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'infertility-ivf',
-    icon: 'Users',
+    icon: '/images/imgi_8_gynaecologist.png', // reused
     title: 'Infertility & IVF',
     description: 'Advanced fertility care and reproductive treatment support.',
     image: 'https://www.vrikshfertility.com/assets/blog/3d-rendering-ovum-with-needle-artificial-insemination-vitro-fertilization.jpg',
@@ -383,7 +399,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'ent',
-    icon: 'Ear',
+    icon: '/images/imgi_9_ent.png',
     title: 'ENT',
     description: 'Care for ear, nose, sinus, head and neck conditions.',
     image: 'https://media.istockphoto.com/id/1325611798/photo/hearing-exam-for-elderly-citizen-people-otolaryngologist-doctor-checking-mature-womans-ear.jpg?s=612x612&w=0&k=20&c=pQ5IyYl64kwTCnsBp55cpPAe4fNXPve7avagagTs73A=',
@@ -410,7 +426,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'gastroenterology',
-    icon: 'Microscope',
+    icon: '/images/imgi_21_gastroenterology.png',
     title: 'Gastroenterology',
     description: 'Diagnosis and treatment for stomach, liver and digestive disorders.',
     image: 'https://www.peerlesshospital.com/barasat/images/blog_image/why_you_might_need_gastro.webp',
@@ -437,10 +453,10 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'psychiatry',
-    icon: 'Brain',
+    icon: '/images/imgi_14_psychiatry.png',
     title: 'Psychiatry',
     description: 'Compassionate mental health care for emotional and behavioural wellbeing.',
-    image: '/images/about-team.png',
+    image: 'https://static.vecteezy.com/system/resources/thumbnails/074/896/285/small/a-red-paper-head-with-a-stethoscope-on-it-photo.jpg',
     overview:
       'Psychiatry care offers respectful support for emotional wellbeing, anxiety, mood concerns, sleep problems and behavioural health.',
     highlights: ['Mental health support', 'Counselling', 'Medication review', 'Ongoing care'],
@@ -464,10 +480,10 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'neurosurgery',
-    icon: 'Brain',
+    icon: '/images/imgi_7_neurosurgery.png',
     title: 'Neurosurgery',
     description: 'Personalized surgical care for brain and nervous system conditions.',
-    image: '/images/doctor-neuro.png',
+    image: 'https://media.istockphoto.com/id/1015934084/photo/surgeons-perform-brain-surgery-using-augmented-reality-animated-3d-brain-high-tech.jpg?s=612x612&w=0&k=20&c=vHy7Ry06pahQNYCXFi09jaVIAtle_gHoDPQS6A1Yajo=',
     overview:
       'Neurosurgery covers the brain, spine and nerves, with a focus on accurate diagnosis, advanced planning and safe surgical care.',
     highlights: ['Brain and spine care', 'Surgical planning', 'Nerve evaluation', 'Recovery support'],
@@ -491,10 +507,10 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'pediatrics',
-    icon: 'Baby',
+    icon: '/images/imgi_12_paediatrician_2.png',
     title: 'Pediatrics',
     description: 'Dedicated healthcare for infants, children and adolescents.',
-    image: '/images/gallery-room.png',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfDg3CSEwIqk9IOOu3-jYBFfKcjSh2pNPI9IsV6YOoVcGHv088QXYAVlQH&s=10',
     overview:
       'Pediatric care focuses on child health, growth, vaccination and treatment for everyday childhood illnesses.',
     highlights: ['Child health', 'Vaccination', 'Growth checks', 'Illness treatment'],
@@ -518,7 +534,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'plastic-surgery',
-    icon: 'Sparkles',
+    icon: '/images/imgi_4_plastic_surgery.png',
     title: 'Plastic Surgery',
     description: 'Reconstructive and aesthetic procedures delivered with care and precision.',
     image: 'https://static.vecteezy.com/system/resources/thumbnails/034/875/777/small/the-cosmetologist-makes-markings-on-the-patient-s-face-drawing-correction-lines-before-the-facial-contouring-procedure-or-plastic-surgery-preparation-time-for-cosmetic-treatment-video.jpg',
@@ -545,10 +561,10 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'radiology',
-    icon: 'ScanSearch',
+    icon: '/images/imgi_3_generic_speciality.png', // fallback
     title: 'Radiology',
     description: 'Accurate and timely imaging for confident diagnosis and treatment planning.',
-    image: '/images/gallery-xray.png',
+    image: 'https://media.istockphoto.com/id/2160720006/photo/medical-hospital-research-laboratory-caucasian-male-neurosurgeon-looking-at-tv-screen-with.jpg?s=612x612&w=0&k=20&c=KtLx7GkbI6Tw-FoS1YAnikEo9sQjrf-dm9zi5kaqebw=',
     overview:
       'Radiology provides imaging support for diagnosis, treatment planning and follow-up across many specialties.',
     highlights: ['X-ray imaging', 'Diagnostic support', 'Treatment planning', 'Report review'],
@@ -572,10 +588,10 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'neurology',
-    icon: 'Brain',
+    icon: '/images/imgi_16_neurology.png',
     title: 'Neurology',
     description: 'Expert diagnosis and management of brain, spine and nerve conditions.',
-    image: '/images/doctor-neuro.png',
+    image: 'https://media.istockphoto.com/id/1315727841/photo/artificial-intelligence-digital-concept.jpg?s=612x612&w=0&k=20&c=-N-g9PUcCBg1lGtA3PI7fRjEKhYLZSXvUgJy3CxKFC4=',
     overview:
       'Neurology care focuses on disorders of the brain, spine and nerves, including headaches, stroke, numbness and movement issues.',
     highlights: ['Brain health', 'Stroke care', 'Nerve evaluation', 'Ongoing monitoring'],
@@ -599,10 +615,10 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'dermatology',
-    icon: 'Sparkles',
+    icon: '/images/imgi_2_dermatologist.png',
     title: 'Dermatology',
     description: 'Comprehensive skin care and treatment for common and complex conditions.',
-    image: '/images/hero-doctor.png',
+    image: 'https://media.istockphoto.com/id/2185292067/photo/esthetic-center-led-facial-mask.jpg?s=612x612&w=0&k=20&c=vDaLZ33wVsvGyS79uiw9sSIAyd-9WIZ4Mb9s_NiU2w0=',
     overview:
       'Dermatology covers skin, hair and nail concerns with diagnosis and treatment for common and complex conditions.',
     highlights: ['Skin care', 'Hair concerns', 'Allergy support', 'Procedure guidance'],
@@ -626,10 +642,10 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'nephrology',
-    icon: 'Droplet',
+    icon: '/images/imgi_18_nephrology.png',
     title: 'Nephrology',
     description: 'Comprehensive kidney care and treatment planning for renal conditions.',
-    image: '/images/facility-lab.png',
+    image: 'https://media.istockphoto.com/id/1777620173/photo/kidney-disease-chronic-kidney-disease-ckd-doctor-with-human-model-to-study-and-treat-in.jpg?s=612x612&w=0&k=20&c=r2zEn718PnH9TQbnG3s6wL61hQtUzQ0WPbM_wLTIA7w=',
     overview:
       'Nephrology focuses on kidney health, renal function, blood pressure and chronic kidney disease management.',
     highlights: ['Kidney health', 'Renal monitoring', 'BP support', 'Long-term care'],
@@ -653,10 +669,10 @@ export const SERVICES: Service[] = [
   },
   {
     slug: 'physiotherapy',
-    icon: 'HandHeart',
+    icon: '/images/imgi_13_physiotherapist.png',
     title: 'Physiotherapy',
     description: 'Personalized rehabilitation care to improve movement and recovery.',
-    image: '/images/doctor-ortho.png',
+    image: 'https://img.magnific.com/free-photo/young-woman-doctors-appointment-with-rehabilitologist_169016-40103.jpg?semt=ais_test_b&w=740&q=80',
     overview:
       'Physiotherapy helps improve movement, strength and recovery after injury, surgery or long-term pain.',
     highlights: ['Recovery support', 'Movement therapy', 'Pain management', 'Exercise plans'],
@@ -678,7 +694,7 @@ export const SERVICES: Service[] = [
       },
     ],
   },
-] 
+];
 
 export type Facility = {
   title: string
