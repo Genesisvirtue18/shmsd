@@ -52,17 +52,17 @@ export default function Home() {
             title="A hospital experience that feels calm, coordinated and caring"
             description="We focus on the details that reduce stress for patients and families: simple communication, quick response and a cleaner care journey."
           />
-          <StaggerGroup className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <StaggerGroup className="mt-10 grid gap-4 grid-cols-2 xl:grid-cols-4">
             {pillars.map((pillar) => {
               const Icon = pillar.icon
               return (
                 <StaggerItem key={pillar.title} className="h-full">
                   <div className="h-full rounded-[1.5rem] border border-border bg-card p-5 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#B71C1C]/10 text-[#B71C1C]">
-                      <Icon className="h-6 w-6" aria-hidden />
+                    <span className="flex h-8 w-8 md:h-12 md:w-12 items-center justify-center rounded-2xl bg-[#B71C1C]/10 text-[#B71C1C]">
+                      <Icon className="h-5 w-5 md:h-6 md:w-6 " aria-hidden />
                     </span>
-                    <h3 className="mt-4 text-lg font-semibold text-foreground">{pillar.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{pillar.text}</p>
+                    <h3 className="mt-4 text-sm md:text-lg font-semibold text-foreground">{pillar.title}</h3>
+                    <p className="mt-2 text-xs md:text-sm leading-6 text-muted-foreground">{pillar.text}</p>
                   </div>
                 </StaggerItem>
               )

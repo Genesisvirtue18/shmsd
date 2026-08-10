@@ -32,6 +32,8 @@ type AppointmentFormProps = {
 const inputClass =
   'w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20'
 
+const normalizeValue = (value: string) => value.trim().toLowerCase().replace(/\s+/g, ' ')
+
 const createInitialValues = (
   initialValues?: Partial<AppointmentFormValues>,
 ): AppointmentFormValues => {
@@ -82,10 +84,34 @@ export function AppointmentForm({
     [form.doctor],
   )
 
+  const filteredDoctors = useMemo(() => {
+    if (!form.speciality) return DOCTOR_DIRECTORY
+
+    const selectedSpeciality = normalizeValue(form.speciality)
+
+    return DOCTOR_DIRECTORY.filter((doctor) => normalizeValue(doctor.department) === selectedSpeciality)
+  }, [form.speciality])
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target
+
+    if (name === 'speciality') {
+      setForm((prev) => {
+        const doctor = prev.doctor ? findDoctorByName(prev.doctor) : undefined
+        const doctorMatchesSpeciality =
+          doctor && normalizeValue(doctor.department) === normalizeValue(value)
+
+        return {
+          ...prev,
+          speciality: value,
+          doctor: doctorMatchesSpeciality ? prev.doctor : '',
+        }
+      })
+
+      return
+    }
 
     if (name === 'doctor') {
       const doctor = findDoctorByName(value)
@@ -204,7 +230,6 @@ export function AppointmentForm({
             required
             value={form.speciality}
             onChange={handleChange}
-            disabled={Boolean(form.doctor)}
             className={inputClass}
           >
             <option value="" disabled>
@@ -219,6 +244,10 @@ export function AppointmentForm({
           {form.doctor ? (
             <p className="mt-1 text-xs text-muted-foreground">
               Auto-filled from the selected doctor.
+            </p>
+          ) : form.speciality ? (
+            <p className="mt-1 text-xs text-muted-foreground">
+              Showing doctors for {form.speciality}.
             </p>
           ) : null}
         </div>
@@ -235,7 +264,7 @@ export function AppointmentForm({
             className={inputClass}
           >
             <option value="">Select a doctor</option>
-            {DOCTOR_DIRECTORY.map((doctor) => (
+            {filteredDoctors.map((doctor) => (
               <option key={doctor.name} value={doctor.name}>
                 {doctor.name}
               </option>

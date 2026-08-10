@@ -3,7 +3,7 @@ export const HOSPITAL = {
   name: 'Signature Heart & Multispeciality Hospital',
   shortName: 'Signature Hospital',
   tagline: 'Health Equality, Always',
-  phone: '076783 87693',
+  phone: '76783 87693',
   phoneHref: 'tel:+917678387693',
   whatsapp: '917678387693',
   email: 'info@shmsd.in',
@@ -12,7 +12,7 @@ export const HOSPITAL = {
   mapEmbedSrc:
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3499.5859770812967!2d77.2774668!3d28.702029099999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfddcdb2b6413%3A0x555cc0a55521c7b7!2sSignature%20Heart%20%26%20Multi-speciality%20hospital!5e0!3m2!1sen!2sin!4v1786362195880!5m2!1sen!2sin',
   hours: 'Open 24 hours',
-  emergencyNumber: '076783 87693',
+  emergencyNumber: '76783 87693',
 }
 
 export const NAV_LINKS = [
@@ -228,6 +228,7 @@ export const SERVICES: Service[] = [
       },
     ],
   },
+  /*
   {
     slug: 'cardiology',
     icon: '/images/imgi_10_cardiology.png',
@@ -260,6 +261,7 @@ export const SERVICES: Service[] = [
       },
     ],
   },
+  */
   {
     slug: 'gynecology-obstetrics',
     icon: '/images/imgi_8_gynaecologist.png',
@@ -346,6 +348,7 @@ export const SERVICES: Service[] = [
       },
     ],
   },
+  /*
   {
     slug: 'urology',
     icon: '/images/imgi_19_urology.png',
@@ -373,6 +376,8 @@ export const SERVICES: Service[] = [
       },
     ],
   },
+  */
+  /*
   {
     slug: 'infertility-ivf',
     icon: '/images/imgi_8_gynaecologist.png', // reused
@@ -400,6 +405,7 @@ export const SERVICES: Service[] = [
       },
     ],
   },
+  */
   {
     slug: 'ent',
     icon: '/images/imgi_9_ent.png',
@@ -481,6 +487,7 @@ export const SERVICES: Service[] = [
       },
     ],
   },
+  /*
   {
     slug: 'neurosurgery',
     icon: '/images/imgi_7_neurosurgery.png',
@@ -508,6 +515,7 @@ export const SERVICES: Service[] = [
       },
     ],
   },
+  */
   {
     slug: 'pediatrics',
     icon: '/images/imgi_12_paediatrician_2.png',
@@ -790,7 +798,6 @@ export const PATIENT_JOURNEY = [
   { step: 2, title: 'Visit Hospital', description: 'Arrive to a warm welcome and smooth check-in.', icon: 'Building2' },
   { step: 3, title: 'Diagnosis', description: 'Accurate assessment with in-house diagnostics.', icon: 'Microscope' },
   { step: 4, title: 'Treatment', description: 'Personalized treatment by expert specialists.', icon: 'Stethoscope' },
-  { step: 5, title: 'Recovery', description: 'Attentive follow-up care for a full recovery.', icon: 'HeartPulse' },
 ]
 
 export type Testimonial = {

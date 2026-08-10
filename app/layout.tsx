@@ -25,6 +25,24 @@ export const metadata: Metadata = {
     'affordable healthcare Delhi',
   ],
   authors: [{ name: 'Signature Heart & Multispeciality Hospital' }],
+  category: 'healthcare',
+  applicationName: 'Signature Heart & Multispeciality Hospital',
+icons: {
+  icon: '/favicon.jpeg',
+  apple: '/favicon.jpeg',
+  shortcut: '/favicon.jpeg',
+},
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   openGraph: {
     type: 'website',
     locale: 'en_IN',

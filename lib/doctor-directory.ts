@@ -44,18 +44,18 @@ export const DOCTOR_DIRECTORY: DoctorProfile[] = [
       'Dr. Aashima Aron is an obstetrician and gynaecologist who has graduated from prestigious medical colleges in India, including Lady Hardinge Medical College and Maulana Azad Medical College, Delhi. She has worked in different regions in India and overseas in London, UK, gaining vast experience while working with the stalwarts of this field.',
   },
   {
-    name: 'Dr. Megha Mittal',
+    name: 'Dr. Simran Sharma',
     qualification: 'MBBS, MD',
-    department: 'Psychiatrist',
+    department: 'Psychiatry',
     description:
-      'Dr. Megha Mittal is your solution to mental health concerns. Leave your worries behind as our expert provides compassionate care and effective treatment for anxiety, depression, dementia, schizophrenia, and bipolar disorder with minimal medication reliance. Rest assured, your mental well-being is our top priority.',
+      'Dr. Simran Sharma provides compassionate care for mental health concerns, including anxiety, depression, sleep issues and other psychiatric conditions.',
   },
   {
-    name: 'Dr. Tanmay Bansal',
-    qualification: 'MBBS, DLO',
-    department: '',
+    name: 'Dr. Shreya',
+    qualification: 'MBBS, MS',
+    department: 'ENT',
     description:
-      'Dr. Tanmay Bansal specializes in the diagnosis and treatment of various conditions such as polyps, DNS (deviated nasal septum), rhinitis, and tonsil enlargement. He is highly skilled in performing FESS (Functional Endoscopic Sinus Surgery), endoscopic surgery, ear surgery, throat surgeries, and other ENT related procedures.',
+      'Dr. Shreya specializes in ear, nose and throat care, including sinus issues, infections, hearing concerns and related procedures.',
   },
   {
     name: 'Dr. Apoorva Sehgal',
@@ -65,13 +65,12 @@ export const DOCTOR_DIRECTORY: DoctorProfile[] = [
       'Dr. Apoorva Sehgal specializes in addressing a wide range of orthopedic issues, including osteoarthritis, disk prolapse, fractures, ligament injuries, and sports-related injuries. With expertise in performing complex procedures such as bone grafting, total knee replacements, and hip replacements, our expert is highly skilled and competent in providing effective treatment options for your orthopedic needs.',
   },
   {
-    name: 'Dr. S.S. Patil',
-    qualification: 'MBBS, DNB',
-    department: 'General &Laparoscopic Surgery',
+    name: 'Dr. Pulkit Gupta',
+    qualification: 'MBBS, MS',
+    department: 'General Surgery',
     description:
-      'Dr. S. S. Patel is a renowned and proficient surgeon with extensive experience in treating a wide range of surgical conditions. He specializes in the surgical management of ailments such as Hernia, Hydrocele, Cholecystectomy, Hemorrhoids, and many others. With his exceptional skills and comprehensive background, he has provided successful treatment to numerous patients, enabling them to overcome these conditions effectively. And wide range of surgical conditions.',
+      'Dr. Pulkit Gupta provides general surgical care with a focus on safe procedures, clear planning and recovery support.',
   },
-
   {
     name: 'Dr. Atul Jain',
     qualification: 'MBBS, MD, Anesthesia',
@@ -80,32 +79,46 @@ export const DOCTOR_DIRECTORY: DoctorProfile[] = [
       'Dr. Atul Jain is an Anesthesiologist working in Signature Hospital. He has over 10 years of experience in general anesthesia and has a special interest in pain management. He is a highly skilled and experienced doctor who is committed to providing his patients with the best possible care.',
   },
   {
-    name: 'Dr. Gyanendra',
-    qualification: 'MBBS, MS, DNB',
-    department: 'Oncosurgery',
+    name: 'Dr. Praveen Kumar',
+    qualification: 'MBBS, DGO',
+    department: 'Gynecology & Obstetrics',
     description:
-      'Dr. Gyanendra is a highly skilled oncosurgeon with qualifications of MBBS, MS, and DNB. His expertise lies in the field of oncosurgery, where he brings extensive knowledge and experience to provide excellent care to his patients.',
+      'Dr. Praveen Kumar provides women’s health and maternity care with a calm, supportive approach.',
   },
   {
-    name: 'Dr. I Ahmed',
-    qualification: 'MBBS, DCH',
-    department: 'Pediatrician',
+    name: 'Dr. Shivam Sharma',
+    qualification: 'MBBS, MD',
+    department: 'Pediatrics',
     description:
-      'Dr. Ashim Ahmed, a skilled pediatrician with an MBBS and DCH degree, brings expertise in children health. With a passion for providing excellent care, Dr. Ahmed aims to ensure the well-being and proper development of every child under his guidance.',
+      'Dr. Shivam Sharma provides child health care, growth monitoring and treatment for common pediatric concerns.',
   },
   {
-    name: 'Dr. Sachin Garg',
-    qualification: 'MBBS, MD, Paediatrics',
-    department: 'Pediatrician',
+    name: 'Dr. Sanjay Sharma',
+    qualification: 'MBBS, MD',
+    department: 'Pediatrics',
     description:
-      'Dr. Sachin Garg, an accomplished pediatrician with MBBS and MD degrees, specializes in providing expert care to children. With extensive knowledge and experience, Dr. Garg is committed to ensuring the health and well-being of his patients.',
+      'Dr. Sanjay Sharma provides pediatric care with attention to child health, treatment and follow-up support.',
   },
   {
-    name: 'Dr. Aditya Sharma',
+    name: 'Dr. Ashish Sachan',
     qualification: 'MBBS, MS, MCH',
-    department: 'GI SURGERY',
+    department: 'Gastroenterology',
     description:
-      'Dr. Adya Sharma, MBBS, MS, MCh, is a skilled gastrointestinal surgeon specializing in advanced surgical techniques. With expertise in diagnosing and treating disorders of the digestive system, Dr. Sharma is committed to providing personalized care and delivering excellent outcomes for his patients.',
+      'Dr. Ashish Sachan specializes in gastrointestinal surgery and digestive system care.',
+  },
+  {
+    name: 'Dr. Kapil Kursiwal',
+    qualification: 'MBBS, MS, MCH',
+    department: 'Gastroenterology',
+    description:
+      'Dr. Kapil Kursiwal provides gastrointestinal surgical care with a focus on advanced treatment and recovery.',
+  },
+  {
+    name: 'Dr. Harender Singh',
+    qualification: 'MBBS, MD, Fellowship in Endoscopy',
+    department: 'Gastroenterology',
+    description:
+      'Dr. Harender Singh provides gastroenterology care, including digestive evaluation and endoscopy support.',
   },
   {
     name: 'Dr. Ashutosh Singh',
@@ -115,11 +128,11 @@ export const DOCTOR_DIRECTORY: DoctorProfile[] = [
       'Dr. Ashutosh Singh, MBBS, MD Anesthesia, is a highly qualified medical professional specializing in anesthesia. With extensive knowledge and expertise, Dr. Singh provides exceptional care and ensures patient comfort and safety during surgical procedures.',
   },
   {
-    name: 'Dr. Arvind Agrawal',
-    qualification: 'MBBS, MD',
+    name: 'Dr. Rahul Chauhan',
+    qualification: 'MBBS, MD, DM',
     department: 'Neurology',
     description:
-      'Dr. Arvind Agrawal, a highly qualified neurologist with an MBBS and MD degree, possesses extensive expertise in the field of neurology. His vast knowledge and experience enable him to provide exceptional care and support to his patients.',
+      'Dr. Rahul Chauhan provides neurology care for brain, spine and nerve-related concerns.',
   },
   {
     name: 'Dr. Harsh Prasoon',
@@ -143,10 +156,10 @@ export const DOCTOR_DIRECTORY: DoctorProfile[] = [
       'Dr. Achintya Sharma, a distinguished Cardiothoracic surgeon, brings expertise in MBBS, MS, and MCH. With cutting-edge techniques and compassionate care, he strives to deliver exceptional results, ensuring the health and vitality of your heart and thoracic region.',
   },
   {
-    name: 'Dr. Akriti Gupta',
+    name: 'Dr. Koshinder Vats',
     qualification: 'MBBS, MD',
     department: 'Dermatology',
-    description: '',
+    description: 'Dr. Koshinder Vats provides dermatology care for skin, hair and nail concerns.',
   },
   {
     name: 'Dr. Ayush Jain',
@@ -170,19 +183,19 @@ export const DOCTOR_DIRECTORY: DoctorProfile[] = [
       'Dr. Firoz Khan Saifi has years of experience and a passion for restoring movement and function. He offers personalized treatments, cutting-edge techniques, and a supportive atmosphere to help you on your journey to optimal physical health.',
   },
   {
-    name: 'Dr. Abhishek Agarwal',
-    qualification: 'MBBS, MD, Radiology',
-    department: 'Radiologist',
+    name: 'Dr. Arvind Agarwal',
+    qualification: 'MBBS, MD, Radiodiagnosis',
+    department: 'Radiology',
     description:
-      'Dr. Abhishek Agarwal is a highly qualified radiologist with an MBBS and MD in Radiology. With his extensive medical expertise, he specializes in diagnosing and interpreting medical images to aid in patient care. Dr. Agarwal dedication and knowledge make him a trusted professional in the field of radiology.',
+      'Dr. Arvind Agarwal provides radiology and radiodiagnosis services for accurate imaging and reporting.',
   },
 
   {
-    name: 'Dr. Tushar Gupta',
+    name: 'Dr. Pankaj',
     qualification: 'MBBS, MD, DM',
-    department: 'Nephrologist',
+    department: 'Nephrology',
     description:
-      'Dr. Tushar Gupta, a renowned nephrologist with expertise in renal disorders, is dedicated to providing exceptional care, personalized treatment plans, and improving kidney health. Trust your kidneys in the hands of an experienced specialist.',
+      'Dr. Pankaj provides nephrology care for kidney health, blood pressure and renal disorders.',
   },
 ]
 
@@ -207,9 +220,7 @@ export const MANAGEMENT_TEAM: DoctorProfile[] = [
 
 export const DOCTOR_SPECIALITIES = [
   ...new Set(
-    DOCTOR_DIRECTORY.map((doctor) => doctor.department).filter(
-      (department) => department.trim().length > 0,
-    ),
+    DOCTOR_DIRECTORY.map((doctor) => doctor.department).filter((department) => department.trim().length > 0),
   ),
 ]
 

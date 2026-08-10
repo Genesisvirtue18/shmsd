@@ -20,7 +20,20 @@ const PERKS = [
   { icon: PhoneCall, title: '24x7 Support', text: 'Reach us any time for urgent assistance.' },
 ]
 
-export default function AppointmentPage() {
+type AppointmentPageProps = {
+  searchParams?: Promise<{
+    doctor?: string | string[]
+    speciality?: string | string[]
+  }>
+}
+
+const pickValue = (value?: string | string[]) => (Array.isArray(value) ? value[0] : value)
+
+export default async function AppointmentPage({ searchParams }: AppointmentPageProps) {
+  const params = (await searchParams) ?? {}
+  const doctor = pickValue(params.doctor)
+  const speciality = pickValue(params.speciality)
+
   return (
     <>
       <PageHeader
@@ -66,7 +79,12 @@ export default function AppointmentPage() {
 
           <Reveal delay={0.1}>
             <div className="rounded-3xl border border-border bg-card p-6 shadow-lg sm:p-8">
-              <AppointmentForm />
+              <AppointmentForm
+                initialValues={{
+                  doctor,
+                  speciality,
+                }}
+              />
             </div>
           </Reveal>
         </div>

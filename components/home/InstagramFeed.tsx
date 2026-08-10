@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import {
@@ -111,7 +111,6 @@ const extractDepartmentFromTitle = (title: string) => {
 }
 
 export function InstagramFeed() {
-  const railRef = useRef<HTMLDivElement>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [activeChip, setActiveChip] = useState('All Videos')
   const [activeVideoId, setActiveVideoId] = useState(VIDEOS[0]?.id ?? '')
@@ -215,9 +214,8 @@ export function InstagramFeed() {
     }
   }, [activeVideoId, filteredVideos])
 
-  const featuredVideo = filteredVideos.find((video) => video.id === activeVideoId) ?? filteredVideos[0]
-
   const activeIndex = Math.max(0, filteredVideos.findIndex((video) => video.id === activeVideoId))
+  const featuredVideo = filteredVideos.find((video) => video.id === activeVideoId) ?? filteredVideos[0]
 
   const setRelativeVideo = (direction: 'left' | 'right') => {
     if (!filteredVideos.length) return
@@ -264,11 +262,11 @@ export function InstagramFeed() {
           })}
         </div>
 
-        <div className="relative mt-10">
+        <div className="relative mt-10 hidden md:block">
           <button
             type="button"
             onClick={() => setRelativeVideo('left')}
-            className="absolute left-[-6px] top-1/2 z-30 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:text-[#154c79] md:flex"
+            className="absolute z-30 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:text-[#154c79] md:flex"
             aria-label="Previous video"
           >
             <ChevronLeft className="h-5 w-5" aria-hidden />
@@ -285,7 +283,6 @@ export function InstagramFeed() {
                 const absOffset = Math.abs(offset)
                 const isVisible = absOffset <= 1
                 const isCenter = offset === 0
-                const isNear = absOffset === 1
 
                 if (!isVisible) return null
 
@@ -316,7 +313,7 @@ export function InstagramFeed() {
                       href={video.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex h-full w-full flex-row overflow-hidden"
+                      className="group flex h-full w-full flex-row overflow-hidden"
                     >
                       <div
                         className={`relative flex items-end overflow-hidden bg-gradient-to-br text-white ${
@@ -404,6 +401,98 @@ export function InstagramFeed() {
           >
             <ChevronRight className="h-5 w-5" aria-hidden />
           </button>
+        </div>
+
+        <div className="mt-8 md:hidden">
+          {featuredVideo ? (
+            <div className="overflow-hidden rounded-[1.75rem] border border-white/80 bg-white shadow-[0_24px_65px_rgba(21,76,121,0.14)]">
+              <Link
+                href={featuredVideo.url}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex h-full w-full flex-col overflow-hidden"
+              >
+                <div
+                  className={`relative min-h-[220px] overflow-hidden bg-gradient-to-br p-4 text-white ${featuredVideo.accent}`}
+                >
+                  {videoMeta[featuredVideo.id]?.thumbnail_url ? (
+                    <img
+                      src={videoMeta[featuredVideo.id].thumbnail_url}
+                      alt={videoMeta[featuredVideo.id]?.title ?? featuredVideo.title}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : null}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.22),_transparent_45%)]" />
+                  <div className="absolute inset-0 bg-black/18" />
+
+                  <div className="relative z-10 flex items-start justify-between gap-3">
+                    <div className="max-w-[75%] rounded-full bg-white/15 px-2.5 py-1 text-[0.62rem] font-semibold tracking-[0.16em] text-white/90 backdrop-blur-sm">
+                      {featuredVideo.department}
+                    </div>
+                    <div className="rounded-full bg-black/35 px-2.5 py-1 text-[0.68rem] font-semibold text-white">
+                      Shorts
+                    </div>
+                  </div>
+
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/92 text-[#154c79] shadow-lg">
+                      <Play className="ml-1 h-6 w-6 fill-current" aria-hidden />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white p-4">
+                  <p className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[#2b7a9a]">
+                    Doctor Recommended
+                  </p>
+                  <h3 className="mt-2 text-[1.02rem] font-semibold leading-snug text-slate-900">
+                    {videoMeta[featuredVideo.id]?.title ?? featuredVideo.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-5 text-slate-500">
+                    {featuredVideo.department} short from {videoMeta[featuredVideo.id]?.author_name || 'Signature Hospital'}
+                  </p>
+                  <div className="mt-4 flex items-center gap-2 rounded-full bg-[#f3fafc] px-3 py-2">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[#2b7a9a] shadow-sm">
+                      <span className="text-[0.65rem] font-semibold">◌</span>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="truncate text-[0.72rem] font-semibold text-slate-700">
+                        {videoMeta[featuredVideo.id]?.author_name || 'Signature Hospital'}
+                      </p>
+                      <p className="truncate text-[0.62rem] text-slate-400">
+                        {featuredVideo.department}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+
+              <div className="grid grid-cols-2 gap-2 border-t border-slate-100 p-3">
+                <button
+                  type="button"
+                  onClick={() => setRelativeVideo('left')}
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-600"
+                  aria-label="Previous video"
+                >
+                  <ChevronLeft className="mr-1 h-4 w-4" aria-hidden />
+                  Prev
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setRelativeVideo('right')}
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-600"
+                  aria-label="Next video"
+                >
+                  Next
+                  <ChevronRight className="ml-1 h-4 w-4" aria-hidden />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="rounded-[1.75rem] border border-dashed border-slate-300 bg-white px-6 py-10 text-center text-sm text-slate-500">
+              No videos found for your search.
+            </div>
+          )}
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">

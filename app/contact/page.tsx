@@ -60,17 +60,7 @@ export default function ContactPage() {
                   </div>
                 </Reveal>
               ))}
-              <Reveal>
-                <a
-                  href={HOSPITAL.phoneHref}
-                  className="flex items-center gap-4 rounded-2xl bg-secondary p-5 text-secondary-foreground shadow-sm transition-transform hover:-translate-y-0.5"
-                >
-                  <span className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-secondary-foreground/15">
-                    <Ambulance className="h-5 w-5" aria-hidden />
-                  </span>
-                 
-                </a>
-              </Reveal>
+             
             </div>
           </div>
 

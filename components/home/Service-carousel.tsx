@@ -13,13 +13,13 @@ export function ServiceCarousel({ Service }: { Service: SERVICES[] }) {
     <div className="lg:hidden">
       <Swiper
         modules={[Pagination]}
-        slidesPerView={1.08}
+        slidesPerView={2}
         spaceBetween={16}
         pagination={{ clickable: true }}
         grabCursor
         touchStartPreventDefault={false}
         breakpoints={{
-          480: { slidesPerView: 1.25 },
+          480: { slidesPerView: 2 },
           640: { slidesPerView: 1.6 },
         }}
         className="!pb-10"

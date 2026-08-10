@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 export function FaqAccordion() {
   const [open, setOpen] = useState<number | null>(0)
   return (
-    <div className="mx-auto max-w-3xl space-y-3">
+    <div className="mx-auto grid max-w-3xl grid-cols-2 gap-2 sm:grid-cols-1 sm:gap-3">
       {FAQS.map((faq, i) => {
         const isOpen = open === i
         return (
@@ -22,17 +22,19 @@ export function FaqAccordion() {
             <button
               type="button"
               onClick={() => setOpen(isOpen ? null : i)}
-              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
+              className="flex w-full items-start justify-between gap-2 px-3 py-3 text-left sm:items-center sm:gap-4 sm:px-6 sm:py-5"
               aria-expanded={isOpen}
             >
-              <span className="font-medium text-foreground">{faq.question}</span>
+              <span className="text-[0.78rem] font-medium leading-snug text-foreground sm:text-base">
+                {faq.question}
+              </span>
               <span
                 className={cn(
-                  'flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all duration-300',
+                  'flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-all duration-300 sm:h-8 sm:w-8',
                   isOpen ? 'rotate-45 bg-primary text-primary-foreground' : 'bg-primary/10 text-primary',
                 )}
               >
-                <Plus className="h-4 w-4" aria-hidden />
+                <Plus className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden />
               </span>
             </button>
             <div
@@ -42,7 +44,9 @@ export function FaqAccordion() {
               )}
             >
               <div className="overflow-hidden">
-                <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground sm:px-6">{faq.answer}</p>
+                <p className="px-3 pb-3 text-[0.72rem] leading-snug text-muted-foreground sm:px-6 sm:pb-5 sm:text-sm sm:leading-relaxed">
+                  {faq.answer}
+                </p>
               </div>
             </div>
           </div>
