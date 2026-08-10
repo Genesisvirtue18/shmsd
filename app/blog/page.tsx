@@ -81,7 +81,7 @@ export default async function BlogPage() {
     <img
       src={image}
       alt={post.title.rendered}
-      className="h-56 w-full object-cover transition duration-300 hover:scale-105"
+      className="h-full w-full object-contain transition duration-300 hover:scale-105"
     />
 
     <div className="p-6 flex flex-col ">

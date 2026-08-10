@@ -12,8 +12,9 @@ export function SiteSchema() {
     medicalSpecialty: ['Cardiovascular', 'Orthopedic', 'Neurologic', 'Emergency'],
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'C-2/41 A, Service Ln, Yamuna Vihar',
+      streetAddress: 'C-2/41 A, Main Service Ln, Block C, Yamuna Vihar',
       addressLocality: 'Delhi',
+      postalCode: '110053',
       addressCountry: 'IN',
     },
     availableService: [
@@ -22,7 +23,7 @@ export function SiteSchema() {
       { '@type': 'MedicalProcedure', name: 'Neurology' },
       { '@type': 'MedicalProcedure', name: 'Emergency & Trauma Care' },
     ],
-    openingHours: 'Mo-Su 00:00-23:59',
+    openingHours: HOSPITAL.hours,
   }
 
   return (

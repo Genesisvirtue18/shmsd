@@ -1,142 +1,283 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { Target, Eye, Check, ShieldPlus } from 'lucide-react'
+import Link from 'next/link'
+import type { ComponentType, ReactNode } from 'react'
+import {
+  BadgeCheck,
+  BookOpen,
+  BriefcaseMedical,
+  Eye,
+  MessageSquareQuote,
+  ShieldCheck,
+  ShieldAlert,
+  Target,
+  Users,
+} from 'lucide-react'
 import { PageHeader } from '@/components/page-header'
-import { SectionHeading } from '@/components/section-heading'
-import { StatsBar } from '@/components/home/stats'
+import { Reveal } from '@/components/reveal'
 import { CtaBanner } from '@/components/cta-banner'
-import { Reveal, StaggerGroup, StaggerItem } from '@/components/reveal'
-import { Icon } from '@/components/icon'
-import { WHY_CHOOSE } from '@/lib/data'
+import { DIRECTOR_PROFILE, MANAGEMENT_TEAM } from '@/lib/doctor-directory'
 
 export const metadata: Metadata = {
   title: 'About Us',
   description:
-    'Learn about Signature Heart & Multispeciality Hospital — our mission, vision and commitment to personalized, affordable, world-class healthcare in Delhi.',
+    'Learn about Signature Heart & Multispeciality Hospital - our vision, mission, management team, values and quality policies in Delhi.',
+}
+
+const sectionNav = [
+   { id: 'management-team', label: 'Management Team', icon: Users },
+  { id: 'vision-mission', label: 'Vision & Mission', icon: Target },
+ 
+
+  { id: 'our-story', label: 'Our Story', icon: BookOpen },
+  
+]
+
+const missionPoints = [
+  'Specialist-led multispeciality care',
+  '24x7 emergency and ICU readiness',
+  'Diagnostic support under one roof',
+  'Respectful, patient-first service',
+]
+
+const visionPoints = [
+  'A trusted hospital experience for every family',
+  'Clear treatment plans with compassionate care',
+  'Modern clinical standards with affordable access',
+]
+
+
+
+function SectionLink({
+  id,
+  label,
+  icon: Icon,
+}: {
+  id: string
+  label: string
+  icon: ComponentType<{ className?: string; 'aria-hidden'?: boolean }>
+}) {
+  return (
+    <a
+      href={`#${id}`}
+      className="group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 hover:text-[#0F4C81]"
+    >
+      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0F4C81]/10 text-[#0F4C81] transition-colors group-hover:bg-[#0F4C81] group-hover:text-white">
+        <Icon className="h-4 w-4" aria-hidden />
+      </span>
+      <span>{label}</span>
+    </a>
+  )
+}
+
+function SectionCard({
+  title,
+  children,
+  eyebrow,
+  id,
+}: {
+  title: string
+  children: ReactNode
+  eyebrow?: string
+  id: string
+}) {
+  return (
+    <section id={id} className="scroll-mt-28 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+      {eyebrow ? (
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#0F4C81]">{eyebrow}</p>
+      ) : null}
+      <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">{title}</h2>
+      <div className="mt-5">{children}</div>
+    </section>
+  )
 }
 
 export default function AboutPage() {
   return (
     <>
       <PageHeader
-        title="About Signature Hospital"
-        description="Committed to delivering personalized care and creating a positive, comfortable environment for every patient during their stay with us."
+        title="About Us"
+        description="Explore our vision, management team, policies and story, with quick section navigation on the left."
         breadcrumb={[{ label: 'About' }]}
       />
 
-      <section className="px-6 py-16 sm:py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
-          <Reveal direction="right">
-            <div className="overflow-hidden rounded-3xl border border-border shadow-xl">
-              <Image
-                src="/images/about-team.png"
-                alt="Signature Hospital medical team"
-                width={640}
-                height={520}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </Reveal>
-          <div>
-            <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
-                <ShieldPlus className="h-4 w-4" aria-hidden />
-                Health Equality, Always
-              </span>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h2 className="mt-4 font-serif text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
-                Personalized care that puts you first
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="mt-4 leading-relaxed text-muted-foreground">
-                At Signature Heart & Multispeciality Hospital, our top priority is providing individualized care that
-                meets the unique needs of each patient. We go above and beyond to ensure that our patients feel at ease
-                and comfortable during their stay with us.
-              </p>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <p className="mt-4 leading-relaxed text-muted-foreground">
-                With a team of expert doctors, nurses and support staff, we are fully committed to delivering the
-                highest quality care and services. Whether you are receiving inpatient or outpatient care, you can rest
-                assured you are in the best possible hands.
-              </p>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      <StatsBar />
-
-      <section className="px-6 py-16 sm:py-24">
-        <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2">
-          {[
-            {
-              icon: Target,
-              title: 'Our Mission',
-              text: 'To enhance the quality of life of our patients by treating everyone with the utmost respect and care, ensuring they feel valued, heard and supported throughout their treatment journey.',
-            },
-            {
-              icon: Eye,
-              title: 'Our Vision',
-              text: 'To be the most trusted multispeciality hospital in the region, where world-class, compassionate healthcare is always accessible and affordable.',
-            },
-          ].map((m, i) => (
-            <Reveal key={m.title} delay={i * 0.05}>
-              <div className="h-full rounded-3xl border border-border bg-card p-8 shadow-sm">
-                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent">
-                  <m.icon className="h-7 w-7" aria-hidden />
-                </span>
-                <h3 className="mt-5 font-serif text-2xl font-semibold text-foreground">{m.title}</h3>
-                <p className="mt-3 leading-relaxed text-muted-foreground">{m.text}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-muted px-6 py-16 sm:py-24">
+      <section className="px-4 py-8 sm:px-6 sm:py-12">
         <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="Why Choose Us"
-            title="What sets us apart"
-            description="From prevention to rehabilitation, our Centres of Excellence make sure every aspect of your care is seamless."
-          />
-          <StaggerGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {WHY_CHOOSE.map((w) => (
-              <StaggerItem key={w.title} className="h-full">
-                <div className="h-full rounded-2xl border border-border bg-card p-6 shadow-sm">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                    <Icon name={w.icon} className="h-6 w-6" aria-hidden />
-                  </span>
-                  <h3 className="mt-4 font-semibold text-foreground">{w.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{w.description}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerGroup>
+          
 
-          <Reveal>
-            <div className="mx-auto mt-14 max-w-3xl rounded-3xl border border-border bg-card p-8 text-center shadow-sm">
-              <h3 className="font-serif text-2xl font-semibold text-foreground">Protect yourself and those you love</h3>
-              <p className="mt-3 leading-relaxed text-muted-foreground">
-                Vaccination is crucial in preventing the spread of diseases and protecting individuals from severe
-                illness. We encourage preventive care to safeguard the health of patients and the wider community — an
-                ounce of prevention is worth a pound of cure.
-              </p>
-              <ul className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2">
-                {['Preventive check-ups', 'Vaccination drives', 'Community health'].map((p) => (
-                  <li key={p} className="flex items-center gap-2 text-sm text-foreground">
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success/15 text-success">
-                      <Check className="h-3.5 w-3.5" aria-hidden />
-                    </span>
-                    {p}
-                  </li>
-                ))}
-              </ul>
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
+            <aside className="lg:sticky lg:top-24 lg:w-72 lg:flex-none">
+              <div className="rounded-3xl border border-slate-200 bg-white p-3 shadow-sm">
+                <div className="px-3 py-2">
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">On this page</p>
+                </div>
+                <nav className="mt-2 grid gap-1">
+                  {sectionNav.map((item) => (
+                    <SectionLink key={item.id} id={item.id} label={item.label} icon={item.icon} />
+                  ))}
+                </nav>
+              </div>
+            </aside>
+
+            <div className="flex-1 space-y-8">
+              <div className="lg:hidden">
+                <div className="rounded-3xl border border-slate-200 bg-white p-3 shadow-sm">
+                  <div className="flex gap-2 overflow-x-auto pb-1">
+                    {sectionNav.map((item) => (
+                      <a
+                        key={item.id}
+                        href={`#${item.id}`}
+                        className="whitespace-nowrap rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700"
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <SectionCard id="vision-mission" eyebrow="Vision & Mission" title="Vision and mission">
+                <div className="grid gap-5 lg:grid-cols-2">
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0F4C81]/10 text-[#0F4C81]">
+                        <Target className="h-5 w-5" aria-hidden />
+                      </span>
+                      <div>
+                        <h3 className="text-lg font-semibold text-slate-900">Our Mission</h3>
+                        <p className="text-sm text-slate-500">Patient-first care at every step</p>
+                      </div>
+                    </div>
+                    <p className="mt-4 text-sm leading-7 text-slate-600">
+                      To deliver specialist-led care that is respectful, accessible and centered on each patient&apos;s
+                      needs, while keeping treatment clear, calm and supportive.
+                    </p>
+                    <ul className="mt-5 space-y-3">
+                      {missionPoints.map((point) => (
+                        <li key={point} className="flex items-start gap-2 text-sm text-slate-700">
+                          <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                            <BadgeCheck className="h-3.5 w-3.5" aria-hidden />
+                          </span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0F4C81]/10 text-[#0F4C81]">
+                        <Eye className="h-5 w-5" aria-hidden />
+                      </span>
+                      <div>
+                        <h3 className="text-lg font-semibold text-slate-900">Our Vision</h3>
+                        <p className="text-sm text-slate-500">Trusted care for the region</p>
+                      </div>
+                    </div>
+                    <p className="mt-4 text-sm leading-7 text-slate-600">
+                      To be the most trusted multispeciality hospital in our region, where world-class, compassionate
+                      healthcare is always accessible and affordable.
+                    </p>
+                    <ul className="mt-5 space-y-3">
+                      {visionPoints.map((point) => (
+                        <li key={point} className="flex items-start gap-2 text-sm text-slate-700">
+                          <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                            <BadgeCheck className="h-3.5 w-3.5" aria-hidden />
+                          </span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </SectionCard>
+
+              <SectionCard id="management-team" eyebrow="Management Team" title="Management team">
+                <div className="grid gap-5 lg:grid-cols-2">
+                  {MANAGEMENT_TEAM.map((member) => (
+                    <article
+                      key={member.name}
+                      className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm"
+                    >
+                      <div className="grid gap-0 md:grid-cols-1">
+                        <div className="relative min-h-[220px] bg-slate-100">
+                          <Image
+                            src={member.image || '/images/about-team.png'}
+                            alt={member.name}
+                            fill
+                            className="object-contain"
+                            sizes="(max-width: 768px) 100vw, 180px"
+                          />
+                        </div>
+                        <div className="p-5">
+                          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#0F4C81]">
+                            {member.department}
+                          </p>
+                          <h3 className="mt-2 text-2xl font-bold text-slate-900">{member.name}</h3>
+                          <p className="mt-1 text-sm font-medium uppercase tracking-[0.18em] text-slate-400">
+                            {member.qualification}
+                          </p>
+                          <p className="mt-4 text-sm leading-7 text-slate-600">{member.description}</p>
+                          {member.slug ? (
+                            <div className="mt-5">
+                              <Link
+                                href={`/about/management/${member.slug}`}
+                                className="inline-flex items-center gap-2 rounded-full bg-[#0F4C81] px-4 py-2.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+                              >
+                                View details
+                              </Link>
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </SectionCard>
+
+           
+
+              <SectionCard id="our-story" eyebrow="Our Story" title="Our story">
+                <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+                  <div className="overflow-hidden rounded-2xl border border-slate-200">
+                    <Image
+                      src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkmJGhAovzGXZH55uV9bGhJtySZwCeg20xOf2tv2mQFpWG5qWALaFgjmGLHkW8TI5xjF8vpT17LDe3-amPf53l73UzhxSYcrmc3v5wf4WChaGCxi07wvPxHtDI2ZC4VPQdGFP2V=s1360-w1360-h1020-rw"
+                      alt="Signature Hospital medical team"
+                      width={720}
+                      height={620}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="space-y-4 text-sm leading-7 text-slate-600">
+                    <p>
+                      Signature Heart & Multispeciality Hospital was built to make specialist healthcare feel more
+                      connected, more understandable and more human.
+                    </p>
+                    <p>
+                      From diagnosis to recovery, we aim to keep patients informed and supported with a care pathway
+                      that is organized, efficient and respectful.
+                    </p>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {[
+                        'Specialist-led consultations',
+                        'Modern diagnostics and ICU support',
+                        '24x7 emergency readiness',
+                        'Affordable treatment planning',
+                      ].map((item) => (
+                        <div key={item} className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-700">
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </SectionCard>
+
+              
+
+           
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
 

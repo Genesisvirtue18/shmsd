@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowRight, CalendarCheck, Check, ChevronRight, Phone, ShieldCheck } from 'lucide-react'
 import { Icon } from '@/components/icon'
-import { SERVICES } from '@/lib/data'
+import { HOSPITAL, SERVICES } from '@/lib/data'
 
 type Params = { slug: string }
 
@@ -148,9 +148,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                           <CalendarCheck className="h-4 w-4" aria-hidden />
                         </Link>
                         <a
-                          href="tel:+917012109635"
-                          className="inline-flex items-center gap-2 rounded-full border border-background/20 bg-background/10 px-4 py-2.5 text-sm font-semibold text-background transition-colors hover:bg-background/15"
-                        >
+                        href={HOSPITAL.phoneHref}
+                        className="inline-flex items-center gap-2 rounded-full border border-background/20 bg-background/10 px-4 py-2.5 text-sm font-semibold text-background transition-colors hover:bg-background/15"
+                      >
                           <Phone className="h-4 w-4" aria-hidden />
                           Call Now
                         </a>

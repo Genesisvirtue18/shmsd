@@ -1,21 +1,14 @@
 'use client'
 
 import Image from 'next/image'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { GALLERY } from '@/lib/data'
-import { cn } from '@/lib/utils'
-
-const CATEGORIES = ['All', ...Array.from(new Set(GALLERY.map((g) => g.category)))]
 
 export function GalleryGrid() {
-  const [filter, setFilter] = useState('All')
   const [lightbox, setLightbox] = useState<number | null>(null)
 
-  const items = useMemo(
-    () => (filter === 'All' ? GALLERY : GALLERY.filter((g) => g.category === filter)),
-    [filter],
-  )
+  const items = GALLERY
 
   const openAt = lightbox !== null ? items[lightbox] : null
   const move = (dir: number) =>
@@ -23,27 +16,6 @@ export function GalleryGrid() {
 
   return (
     <div>
-      <div className="mb-8 flex flex-wrap justify-center gap-2">
-        {CATEGORIES.map((cat) => (
-          <button
-            key={cat}
-            type="button"
-            onClick={() => {
-              setFilter(cat)
-              setLightbox(null)
-            }}
-            className={cn(
-              'rounded-full px-4 py-2 text-sm font-medium transition-colors',
-              filter === cat
-                ? 'bg-primary text-primary-foreground shadow-md shadow-primary/25'
-                : 'border border-border bg-card text-foreground hover:border-primary/40 hover:text-primary',
-            )}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
       <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
         {items.map((item, i) => (
           <button
@@ -59,12 +31,6 @@ export function GalleryGrid() {
               height={400}
               className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <span className="absolute inset-0 flex items-end bg-gradient-to-t from-foreground/70 to-transparent p-4 opacity-0 transition-opacity group-hover:opacity-100">
-              <span className="text-sm font-medium text-background">{item.alt}</span>
-            </span>
-            <span className="absolute left-3 top-3 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold text-primary backdrop-blur">
-              {item.category}
-            </span>
           </button>
         ))}
       </div>
@@ -96,15 +62,14 @@ export function GalleryGrid() {
           >
             <ChevronLeft className="h-6 w-6" aria-hidden />
           </button>
-          <div className="relative max-h-[85vh] max-w-4xl" onClick={(e) => e.stopPropagation()}>
+          <div className="relative max-h-[92vh] w-[min(96vw,1200px)]" onClick={(e) => e.stopPropagation()}>
             <Image
               src={openAt.src}
               alt={openAt.alt}
-              width={1200}
-              height={800}
-              className="max-h-[85vh] w-auto rounded-2xl object-contain"
+              width={1800}
+              height={1200}
+              className="h-auto max-h-[92vh] w-full rounded-2xl object-contain"
             />
-            <p className="mt-3 text-center text-sm text-background/80">{openAt.alt}</p>
           </div>
           <button
             type="button"

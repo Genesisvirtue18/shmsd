@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { ArrowLeft, ArrowRight, CheckCircle2, PhoneCall, ShieldCheck } from 'lucide-react'
 import { PartnerLogo } from '@/components/partner-logo'
 import { ExternalLink } from "lucide-react";
+import { HOSPITAL } from '@/lib/data'
 
 export const metadata: Metadata = {
   title: 'Empanelled TPA',
@@ -249,7 +250,7 @@ export default function EmpanelledTpaPage() {
                       </div>
                       <div className="flex gap-3">
                         <a
-                          href="tel:+917012109635"
+                          href={HOSPITAL.phoneHref}
                           className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-transform hover:-translate-y-0.5"
                         >
                           Check Your Coverage

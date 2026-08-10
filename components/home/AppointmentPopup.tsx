@@ -4,6 +4,7 @@ import { type FormEvent, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CalendarDays, PhoneCall, X } from 'lucide-react'
+import { HOSPITAL } from '@/lib/data'
 
 const STORAGE_KEY = 'signature-hospital-appointment-popup-dismissed-until'
 const HIDE_FOR_MS = 24 * 60 * 60 * 1000
@@ -53,9 +54,7 @@ Name: ${name}
 Phone: ${phone}
 Concern: ${concern}`
 
-    const whatsappUrl = `https://wa.me/917012109635?text=${encodeURIComponent(
-      message,
-    )}`
+    const whatsappUrl = `https://wa.me/${HOSPITAL.whatsapp}?text=${encodeURIComponent(message)}`
 
     dismiss()
     window.open(whatsappUrl, '_blank')

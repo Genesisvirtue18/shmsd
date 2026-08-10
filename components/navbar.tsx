@@ -4,9 +4,45 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Menu, X } from 'lucide-react'
-import { NAV_LINKS, HOSPITAL } from '@/lib/data'
+import { ChevronDown, Menu, X } from 'lucide-react'
+import { NAV_LINKS, HOSPITAL, SERVICE_LINKS } from '@/lib/data'
 import { cn } from '@/lib/utils'
+
+const SOCIAL_LINKS = [
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/signature.hospital',
+    icon: 'instagram',
+  },
+  {
+    label: 'YouTube',
+    href: 'https://www.youtube.com/@SignatureHospital-o1e',
+    icon: 'youtube',
+  },
+]
+
+function SocialIcon({ kind }: { kind: 'instagram' | 'youtube' }) {
+  if (kind === 'instagram') {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5">
+        <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" />
+      </svg>
+    )
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5">
+      <path
+        d="M21.6 8.2c-.2-1.3-1.2-2.3-2.5-2.5C17.2 5.4 12 5.4 12 5.4s-5.2 0-7.1.3C3.6 5.9 2.6 6.9 2.4 8.2 2.1 10 2.1 12 2.1 12s0 2 .3 3.8c.2 1.3 1.2 2.3 2.5 2.5 1.9.3 7.1.3 7.1.3s5.2 0 7.1-.3c1.3-.2 2.3-1.2 2.5-2.5.3-1.8.3-3.8.3-3.8s0-2-.3-3.8Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      />
+      <path d="M10 9.5v5l4.5-2.5-4.5-2.5Z" fill="currentColor" />
+    </svg>
+  )
+}
 
 export function Navbar() {
   const pathname = usePathname()
@@ -41,7 +77,7 @@ export function Navbar() {
             <span className="rounded-full bg-primary-foreground/12 px-3 py-1">24x7 Emergency Care</span>
             <span>{HOSPITAL.address}</span>
           </div>
-          <div className="flex items-center gap-3">
+           <div className="flex items-center gap-3">
             <a href={HOSPITAL.phoneHref} className="hover:underline">
               {HOSPITAL.phone}
             </a>
@@ -56,8 +92,8 @@ export function Navbar() {
       {/* Main nav */}
       <nav
         className={cn(
-          'border-b bg-white transition-all duration-300',
-          scrolled ? ' border-border shadow-sm' : 'border-transparent bg-background',
+          'border-b bg-white transition-all duration-300 shadow-sm' ,
+          scrolled ? ' border-border shadow-sm' : 'border-transparent bg-white',
         )}
         aria-label="Primary"
       >
@@ -76,6 +112,49 @@ export function Navbar() {
           <ul className="hidden items-center gap-1 lg:flex">
             {NAV_LINKS.map((link) => {
               const active = pathname === link.href
+
+              if (link.label === 'Specialities') {
+                const specialitiesActive = pathname.startsWith('/departments')
+                return (
+                  <li key={link.href} className="relative group">
+                    <button
+                      type="button"
+                      className={cn(
+                        'inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                        specialitiesActive
+                          ? 'text-foreground'
+                          : 'text-foreground/80 hover:text-foreground',
+                      )}
+                      style={
+                        specialitiesActive
+                          ? {
+                              color: brand,
+                              backgroundColor: brandSoft,
+                            }
+                          : undefined
+                      }
+                    >
+                      {link.label}
+                      <ChevronDown className="h-4 w-4" aria-hidden />
+                    </button>
+
+                    <div className="invisible absolute left-1/2 top-full z-50 mt-3 w-[320px] -translate-x-1/2 rounded-3xl border border-border bg-background p-3 opacity-0 shadow-2xl shadow-black/10 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                      <div className="grid max-h-[380px] gap-1 overflow-y-auto">
+                        {SERVICE_LINKS.map((item) => (
+                          <Link
+                            key={item.slug}
+                            href={item.href}
+                            className="rounded-2xl px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </li>
+                )
+              }
+
               return (
                 <li key={link.href}>
                   <Link
@@ -101,18 +180,22 @@ export function Navbar() {
           </ul>
 
           <div className="flex items-center gap-2">
-            <a
-              href={HOSPITAL.phoneHref}
-              className="hidden items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-primary/30 hover:text-primary lg:inline-flex"
-            >
-              Call Now
-            </a>
-            <Link
-              href="/appointment"
-              className="hidden items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-transform hover:-translate-y-0.5 lg:inline-flex"
-            >
-              Book Appointment
-            </Link>
+            <div className="hidden items-center gap-2 lg:flex">
+              {SOCIAL_LINKS.map((social) => {
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-sm transition-transform hover:-translate-y-0.5 hover:border-primary/30 hover:text-primary"
+                    aria-label={social.label}
+                  >
+                    <SocialIcon kind={social.icon} />
+                  </a>
+                )
+              })}
+            </div>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
@@ -161,6 +244,35 @@ export function Navbar() {
           <ul className="flex flex-1 flex-col gap-1 overflow-y-auto p-4">
             {NAV_LINKS.map((link) => {
               const active = pathname === link.href
+              const specialitiesActive = pathname.startsWith('/departments')
+
+              if (link.label === 'Specialities') {
+                return (
+                  <li key={link.href} className="space-y-2">
+                    <div
+                      className={cn(
+                        'rounded-xl px-4 py-3 text-base font-medium',
+                        specialitiesActive ? 'text-foreground' : 'text-foreground',
+                      )}
+                      style={specialitiesActive ? { color: brand, backgroundColor: brandSoft } : undefined}
+                    >
+                      {link.label}
+                    </div>
+                    <div className="ml-3 grid gap-1 border-l border-border pl-3">
+                      {SERVICE_LINKS.map((item) => (
+                        <Link
+                          key={item.slug}
+                          href={item.href}
+                          className="rounded-lg px-3 py-2 text-sm text-foreground/75 transition-colors hover:bg-muted hover:text-foreground"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </li>
+                )
+              }
+
               return (
                 <li key={link.href}>
                   <Link
@@ -177,6 +289,24 @@ export function Navbar() {
               )
             })}
           </ul>
+          <div className="border-t border-border p-4">
+            <div className="flex items-center gap-3">
+              {SOCIAL_LINKS.map((social) => {
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-foreground shadow-sm transition-transform hover:-translate-y-0.5 hover:border-primary/30 hover:text-primary"
+                    aria-label={social.label}
+                  >
+                    <SocialIcon kind={social.icon} />
+                  </a>
+                )
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </header>

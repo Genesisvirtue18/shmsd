@@ -16,7 +16,7 @@ const CONTACT_ITEMS = [
   { icon: MapPin, label: 'Address', value: HOSPITAL.address },
   { icon: Phone, label: 'Phone', value: HOSPITAL.phone, href: HOSPITAL.phoneHref },
   { icon: Mail, label: 'Email', value: HOSPITAL.email, href: `mailto:${HOSPITAL.email}` },
-  { icon: Clock, label: 'Hours', value: 'Open 24 hours, all days' },
+  { icon: Clock, label: 'Hours', value: HOSPITAL.hours },
 ]
 
 export default function ContactPage() {
@@ -68,10 +68,7 @@ export default function ContactPage() {
                   <span className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-secondary-foreground/15">
                     <Ambulance className="h-5 w-5" aria-hidden />
                   </span>
-                  <div>
-                    <p className="text-sm font-semibold">24x7 Emergency</p>
-                    <p className="text-sm opacity-90">{HOSPITAL.emergencyNumber}</p>
-                  </div>
+                 
                 </a>
               </Reveal>
             </div>
@@ -95,7 +92,7 @@ export default function ContactPage() {
         <div className="relative h-[360px] w-full overflow-hidden">
           <iframe
             title={`Map of ${HOSPITAL.name}`}
-            src={`https://www.google.com/maps?q=${encodeURIComponent(HOSPITAL.mapQuery)}&output=embed`}
+            src={HOSPITAL.mapEmbedSrc}
             className="h-full w-full border-0"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

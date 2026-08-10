@@ -39,7 +39,10 @@ export function DepartmentCard({
   department: Department;
 }) {
   return (
-    <article className="group h-full rounded-[1.5rem] border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-xl hover:shadow-primary/10 sm:p-6">
+    <article
+      id={department.slug}
+      className="group h-full rounded-[1.5rem] border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-xl hover:shadow-primary/10 sm:p-6"
+    >
       <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
         <Icon name={department.icon} className="h-6 w-6" strokeWidth={1.8} />
       </div>

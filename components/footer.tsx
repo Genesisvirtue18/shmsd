@@ -1,11 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Clock3, Mail, MapPin, Phone } from 'lucide-react'
-import { HOSPITAL, NAV_LINKS, DEPARTMENTS } from '@/lib/data'
+import { HOSPITAL, NAV_LINKS, SERVICE_LINKS } from '@/lib/data'
 
 export function Footer() {
-  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(HOSPITAL.address)}&output=embed`
-
   return (
     <footer className="border-t border-border bg-foreground text-background">
       <div className="mx-auto max-w-7xl px-6 py-14">
@@ -54,12 +52,12 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-background">Departments</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-background">Specialities</h3>
             <ul className="mt-5 grid gap-3 text-sm text-background/75 sm:grid-cols-2">
-              {DEPARTMENTS.slice(0, 8).map((dept) => (
+              {SERVICE_LINKS.slice(0, 8).map((dept) => (
                 <li key={dept.slug}>
-                  <Link href="/departments" className="transition-colors hover:text-accent">
-                    {dept.title}
+                  <Link href={dept.href} className="transition-colors hover:text-accent">
+                    {dept.label}
                   </Link>
                 </li>
               ))}
@@ -71,7 +69,7 @@ export function Footer() {
             <div className="mt-5 overflow-hidden rounded-2xl border border-background/10">
               <iframe
                 title="Hospital location map"
-                src={mapSrc}
+                src={HOSPITAL.mapEmbedSrc}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="h-48 w-full"

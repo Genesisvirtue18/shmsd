@@ -1,69 +1,145 @@
 'use client'
 
-import { useState } from 'react'
 import {
-  CalendarCheck,
-  Loader2,
-  MessageCircle,
-} from 'lucide-react'
-import { DEPARTMENTS } from '@/lib/data'
+  type ChangeEvent,
+  type FormEvent,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
+import { Loader2, MessageCircle } from 'lucide-react'
+import { DOCTOR_DIRECTORY, DOCTOR_SPECIALITIES, findDoctorByName } from '@/lib/doctor-directory'
+import { HOSPITAL } from '@/lib/data'
+
+type AppointmentFormValues = {
+  name: string
+  phone: string
+  email: string
+  speciality: string
+  doctor: string
+  date: string
+  time: string
+  message: string
+}
+
+type AppointmentFormProps = {
+  initialValues?: Partial<AppointmentFormValues>
+  submitLabel?: string
+  note?: string
+  onSubmitted?: () => void
+}
 
 const inputClass =
   'w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20'
 
-export function AppointmentForm() {
-  const [status, setStatus] = useState<'idle' | 'loading'>('idle')
+const createInitialValues = (
+  initialValues?: Partial<AppointmentFormValues>,
+): AppointmentFormValues => {
+  const doctorName = initialValues?.doctor ?? ''
+  const doctor = doctorName ? findDoctorByName(doctorName) : undefined
 
-  const [form, setForm] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    department: '',
-    date: '',
-    time: '',
-    message: '',
-  })
+  return {
+    name: initialValues?.name ?? '',
+    phone: initialValues?.phone ?? '',
+    email: initialValues?.email ?? '',
+    speciality: initialValues?.speciality ?? doctor?.department ?? '',
+    doctor: doctor?.name ?? doctorName,
+    date: initialValues?.date ?? '',
+    time: initialValues?.time ?? '',
+    message: initialValues?.message ?? '',
+  }
+}
+
+export function AppointmentForm({
+  initialValues,
+  submitLabel = 'Book via WhatsApp',
+  note = 'Clicking the button will open WhatsApp with your appointment details pre-filled.',
+  onSubmitted,
+}: AppointmentFormProps) {
+  const defaultValues = useMemo(
+    () => createInitialValues(initialValues),
+    [
+      initialValues?.name,
+      initialValues?.phone,
+      initialValues?.email,
+      initialValues?.speciality,
+      initialValues?.doctor,
+      initialValues?.date,
+      initialValues?.time,
+      initialValues?.message,
+    ],
+  )
+
+  const [status, setStatus] = useState<'idle' | 'loading'>('idle')
+  const [form, setForm] = useState<AppointmentFormValues>(defaultValues)
+
+  useEffect(() => {
+    setForm(defaultValues)
+  }, [defaultValues])
+
+  const selectedDoctor = useMemo(
+    () => findDoctorByName(form.doctor),
+    [form.doctor],
+  )
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
+    const { name, value } = e.target
+
+    if (name === 'doctor') {
+      const doctor = findDoctorByName(value)
+
+      setForm((prev) => ({
+        ...prev,
+        doctor: value,
+        speciality: doctor?.department ?? prev.speciality,
+      }))
+
+      return
+    }
+
     setForm((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }))
   }
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
     setStatus('loading')
 
-    const whatsappMessage = `Hello Signature Hospital,
+    const speciality = selectedDoctor?.department || form.speciality
+    const doctorName = selectedDoctor?.name || form.doctor
 
-I would like to book an appointment.
+    const whatsappMessage = [
+      `Hello ${HOSPITAL.shortName},`,
+      '',
+      'I would like to book an appointment.',
+      '',
+      `Name: ${form.name}`,
+      `Phone: ${form.phone}`,
+      `Email: ${form.email || 'Not provided'}`,
+      `Speciality: ${speciality || 'Not selected'}`,
+      `Doctor: ${doctorName || 'Not selected'}`,
+      `Preferred Date: ${form.date || 'Not selected'}`,
+      `Preferred Time: ${form.time || 'Not selected'}`,
+      '',
+      `Message: ${form.message || 'No additional message.'}`,
+      '',
+      'Please contact me to confirm my appointment.',
+      'Thank you.',
+    ].join('\n')
 
-👤 Name: ${form.name}
-📞 Phone: ${form.phone}
-📧 Email: ${form.email || 'Not Provided'}
-🏥 Department: ${form.department}
-📅 Preferred Date: ${form.date}
-🕒 Preferred Time: ${form.time}
-
-📝 Message:
-${form.message || 'No additional message.'}
-
-Please contact me to confirm my appointment.
-
-Thank you.`
-
-    const whatsappURL = `https://wa.me/917012109635?text=${encodeURIComponent(
+    const whatsappURL = `https://wa.me/${HOSPITAL.whatsapp}?text=${encodeURIComponent(
       whatsappMessage,
     )}`
 
-    setTimeout(() => {
+    window.setTimeout(() => {
       setStatus('idle')
       window.open(whatsappURL, '_blank')
-    }, 600)
+      onSubmitted?.()
+    }, 500)
   }
 
   return (
@@ -73,13 +149,9 @@ Thank you.`
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label
-            htmlFor="name"
-            className="mb-1.5 block text-sm font-medium text-foreground"
-          >
+          <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-foreground">
             Full Name
           </label>
-
           <input
             id="name"
             name="name"
@@ -92,13 +164,9 @@ Thank you.`
         </div>
 
         <div>
-          <label
-            htmlFor="phone"
-            className="mb-1.5 block text-sm font-medium text-foreground"
-          >
+          <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-foreground">
             Phone Number
           </label>
-
           <input
             id="phone"
             name="phone"
@@ -112,13 +180,9 @@ Thank you.`
         </div>
 
         <div>
-          <label
-            htmlFor="email"
-            className="mb-1.5 block text-sm font-medium text-foreground"
-          >
+          <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-foreground">
             Email
           </label>
-
           <input
             id="email"
             name="email"
@@ -131,49 +195,62 @@ Thank you.`
         </div>
 
         <div>
-          <label
-            htmlFor="department"
-            className="mb-1.5 block text-sm font-medium text-foreground"
-          >
-            Department
+          <label htmlFor="speciality" className="mb-1.5 block text-sm font-medium text-foreground">
+            Speciality
           </label>
-
           <select
-            id="department"
-            name="department"
+            id="speciality"
+            name="speciality"
             required
-            value={form.department}
+            value={form.speciality}
             onChange={handleChange}
+            disabled={Boolean(form.doctor)}
             className={inputClass}
           >
             <option value="" disabled>
-              Select a department
+              Select a speciality
             </option>
+            {DOCTOR_SPECIALITIES.map((speciality) => (
+              <option key={speciality} value={speciality}>
+                {speciality}
+              </option>
+            ))}
+          </select>
+          {form.doctor ? (
+            <p className="mt-1 text-xs text-muted-foreground">
+              Auto-filled from the selected doctor.
+            </p>
+          ) : null}
+        </div>
 
-            {DEPARTMENTS.map((department) => (
-              <option
-                key={department.slug}
-                value={department.title}
-              >
-                {department.title}
+        <div>
+          <label htmlFor="doctor" className="mb-1.5 block text-sm font-medium text-foreground">
+            Doctor
+          </label>
+          <select
+            id="doctor"
+            name="doctor"
+            value={form.doctor}
+            onChange={handleChange}
+            className={inputClass}
+          >
+            <option value="">Select a doctor</option>
+            {DOCTOR_DIRECTORY.map((doctor) => (
+              <option key={doctor.name} value={doctor.name}>
+                {doctor.name}
               </option>
             ))}
           </select>
         </div>
 
         <div>
-          <label
-            htmlFor="date"
-            className="mb-1.5 block text-sm font-medium text-foreground"
-          >
+          <label htmlFor="date" className="mb-1.5 block text-sm font-medium text-foreground">
             Preferred Date
           </label>
-
           <input
             id="date"
             name="date"
             type="date"
-            required
             value={form.date}
             onChange={handleChange}
             className={inputClass}
@@ -181,18 +258,13 @@ Thank you.`
         </div>
 
         <div>
-          <label
-            htmlFor="time"
-            className="mb-1.5 block text-sm font-medium text-foreground"
-          >
+          <label htmlFor="time" className="mb-1.5 block text-sm font-medium text-foreground">
             Preferred Time
           </label>
-
           <input
             id="time"
             name="time"
             type="time"
-            required
             value={form.time}
             onChange={handleChange}
             className={inputClass}
@@ -201,13 +273,9 @@ Thank you.`
       </div>
 
       <div className="mt-4">
-        <label
-          htmlFor="message"
-          className="mb-1.5 block text-sm font-medium text-foreground"
-        >
+        <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-foreground">
           Message (Optional)
         </label>
-
         <textarea
           id="message"
           name="message"
@@ -232,14 +300,13 @@ Thank you.`
         ) : (
           <>
             <MessageCircle className="h-4 w-4" />
-            Book via WhatsApp
+            {submitLabel}
           </>
         )}
       </button>
 
       <p className="mt-3 text-center text-xs text-muted-foreground">
-        Clicking the button will open WhatsApp with your appointment details
-        pre-filled.
+        {note}
       </p>
     </form>
   )

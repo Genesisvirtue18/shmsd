@@ -1,225 +1,449 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Camera, Heart, MessageCircleMore } from 'lucide-react'
-import Image from 'next/image'
-const instagramHref = 'https://www.instagram.com/signature.hospital/'
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  Search,
+} from 'lucide-react'
 
-// Your provided real Instagram Embed URLs
-const instagramUrls = [
-  'https://www.instagram.com/reel/C3XjdFTPNax/',
-  'https://www.instagram.com/reel/C3iS8YXiETC/',
-  'https://www.instagram.com/reel/Dbk3rdHjpsD/',
-  'https://www.instagram.com/reel/DbfZTkqjzbP/',
+const youtubeChannelHref = 'https://www.youtube.com/@SignatureHospital-o1e/shorts'
+const instagramHref = 'https://www.instagram.com/signature.hospital'
+
+type VideoCard = {
+  id: string
+  url: string
+  fallbackTitle: string
+  accent: string
+}
+
+const VIDEOS: VideoCard[] = [
+  {
+    id: 'iE2RzbTi0C8',
+    url: 'https://youtube.com/shorts/iE2RzbTi0C8?si=oJXHPU_KvXc-_5EH',
+    fallbackTitle: 'YouTube Short',
+    accent: 'from-slate-950 via-slate-800 to-sky-700',
+  },
+  {
+    id: 'WoroQppWSIU',
+    url: 'https://www.youtube.com/shorts/WoroQppWSIU',
+    fallbackTitle: 'YouTube Short',
+    accent: 'from-rose-950 via-rose-800 to-orange-700',
+  },
+  {
+    id: 'zPN-Dk2wL9Y',
+    url: 'https://www.youtube.com/shorts/zPN-Dk2wL9Y',
+    fallbackTitle: 'YouTube Short',
+    accent: 'from-zinc-950 via-zinc-800 to-amber-700',
+  },
+  {
+    id: 'F2XTCK0h2x4',
+    url: 'https://www.youtube.com/shorts/F2XTCK0h2x4',
+    fallbackTitle: 'YouTube Short',
+    accent: 'from-sky-950 via-sky-800 to-cyan-700',
+  },
+  {
+    id: '6aAE_7tbP-g',
+    url: 'https://www.youtube.com/shorts/6aAE_7tbP-g',
+    fallbackTitle: 'YouTube Short',
+    accent: 'from-emerald-950 via-emerald-800 to-teal-700',
+  },
+  {
+    id: 'cxKXv69prCM',
+    url: 'https://www.youtube.com/shorts/cxKXv69prCM',
+    fallbackTitle: 'YouTube Short',
+    accent: 'from-indigo-950 via-indigo-800 to-violet-700',
+  },
 ]
 
+const DEPARTMENT_KEYWORDS: Array<{ keyword: string; label: string }> = [
+  { keyword: 'maternity', label: 'Maternity' },
+  { keyword: 'gynaecology', label: 'Gynaecology' },
+  { keyword: 'gynecology', label: 'Gynaecology' },
+  { keyword: 'gynae', label: 'Gynaecology' },
+  { keyword: 'women', label: 'Women Care' },
+  { keyword: 'mother', label: 'Maternity' },
+  { keyword: 'child', label: 'Paediatrics' },
+  { keyword: 'pediatric', label: 'Paediatrics' },
+  { keyword: 'paediatric', label: 'Paediatrics' },
+  { keyword: 'heart', label: 'Cardiology' },
+  { keyword: 'cardio', label: 'Cardiology' },
+  { keyword: 'knee', label: 'Knee' },
+  { keyword: 'angioplasty', label: 'Angioplasty' },
+  { keyword: 'diabetes', label: 'Diabetes' },
+  { keyword: 'shoulder', label: 'Shoulder & Neck' },
+  { keyword: 'neck', label: 'Shoulder & Neck' },
+  { keyword: 'back', label: 'Back Pain' },
+  { keyword: 'spine', label: 'Spine' },
+  { keyword: 'arthritis', label: 'Osteoarthritis' },
+  { keyword: 'osteoarthritis', label: 'Osteoarthritis' },
+  { keyword: 'gfc', label: 'GFC' },
+]
+
+const extractDepartmentFromTitle = (title: string) => {
+  const normalized = title.toLowerCase()
+
+  for (const entry of DEPARTMENT_KEYWORDS) {
+    if (normalized.includes(entry.keyword)) {
+      return entry.label
+    }
+  }
+
+  const segments = title
+    .split('|')
+    .map((segment) => segment.trim())
+    .filter(Boolean)
+
+  const meaningfulSegment = segments.find(
+    (segment) =>
+      !/^patient testimonial$/i.test(segment) &&
+      !/^testimonial$/i.test(segment) &&
+      !/signature hospital/i.test(segment) &&
+      !/multi-speciality hospital/i.test(segment) &&
+      !/multispeciality hospital/i.test(segment),
+  )
+
+  return meaningfulSegment || title.trim() || 'General'
+}
+
 export function InstagramFeed() {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const railRef = useRef<HTMLDivElement>(null)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [activeChip, setActiveChip] = useState('All Videos')
+  const [activeVideoId, setActiveVideoId] = useState(VIDEOS[0]?.id ?? '')
+  const [videoMeta, setVideoMeta] = useState<
+    Record<string, { title: string; thumbnail_url: string; author_name: string }>
+  >({})
+
+  const videoRows = useMemo(
+    () =>
+      VIDEOS.map((video) => {
+        const title = videoMeta[video.id]?.title ?? video.fallbackTitle
+        const department = extractDepartmentFromTitle(title)
+
+        return {
+          ...video,
+          title,
+          department,
+        }
+      }),
+    [videoMeta],
+  )
+
+  const departmentChips = useMemo(
+    () => ['All Videos', ...Array.from(new Set(videoRows.map((video) => video.department)))],
+    [videoRows],
+  )
+
+  const filteredVideos = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase()
+
+    return videoRows.filter((video) => {
+      const matchesQuery =
+        query.length === 0 ||
+        video.title.toLowerCase().includes(query) ||
+        video.department.toLowerCase().includes(query) ||
+        (videoMeta[video.id]?.author_name ?? 'Signature Hospital').toLowerCase().includes(query)
+
+      const matchesChip = activeChip === 'All Videos' || video.department === activeChip
+
+      return matchesQuery && matchesChip
+    })
+  }, [activeChip, searchTerm, videoMeta, videoRows])
 
   useEffect(() => {
-    // Inject Instagram's official embed.js script
-    if (!document.querySelector('script[src="//www.instagram.com/embed.js"]')) {
-      const script = document.createElement('script')
-      script.src = '//www.instagram.com/embed.js'
-      script.async = true
-      document.body.appendChild(script)
+    let alive = true
+
+    const loadMetadata = async () => {
+      const nextMeta: Record<
+        string,
+        { title: string; thumbnail_url: string; author_name: string }
+      > = {}
+
+      await Promise.all(
+        VIDEOS.map(async (video) => {
+          try {
+            const response = await fetch(
+              `https://www.youtube.com/oembed?url=${encodeURIComponent(video.url)}&format=json`,
+            )
+
+            if (!response.ok) return
+
+            const data = (await response.json()) as {
+              title?: string
+              thumbnail_url?: string
+              author_name?: string
+            }
+
+            if (!data.title || !data.thumbnail_url) return
+
+            nextMeta[video.id] = {
+              title: data.title,
+              thumbnail_url: data.thumbnail_url,
+              author_name: data.author_name || 'Signature Hospital',
+            }
+          } catch {
+            // Keep the fallback card content if the embed metadata is unavailable.
+          }
+        }),
+      )
+
+      if (alive) {
+        setVideoMeta(nextMeta)
+      }
     }
 
-    // Trigger Instagram's processor to turn blockquotes into iframes
-    const timer = setTimeout(() => {
-      if (window.instgrm) {
-        window.instgrm.Embeds.process()
-      }
-    }, 1000)
+    loadMetadata()
 
-    return () => clearTimeout(timer)
+    return () => {
+      alive = false
+    }
   }, [])
 
-  return (
-    <section className="bg-white px-6 py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl">
-        <div className="text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#B71C1C]/15 bg-[#fff4f4] px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-[#B71C1C]">
-            Stay Connected
-          </span>
-          <h2 className="mt-4 text-balance font-sans text-2xl font-semibold leading-tight text-foreground sm:text-4xl">
-            Follow Signature Hospital on Instagram
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
-            Real-time reels directly from our Instagram profile.
-          </p>
-        </div>
+  useEffect(() => {
+    if (!filteredVideos.length) {
+      setActiveVideoId('')
+      return
+    }
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          {/* Info Card - Kept exactly as you had it */}
-         <motion.div
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, amount: 0.2 }}
-  transition={{ duration: 0.6, ease: "easeOut" }}
-  whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(255, 255, 255, 0.08)" }}
-  className="relative flex flex-col justify-between overflow-hidden rounded-[2rem] border border-zinc-800 bg-zinc-900 p-8 text-white shadow-[0_10px_40px_rgba(0,0,0,0.8)] transition-all duration-500"
->
-  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8">
-    {/* Avatar Section */}
-    <div className="relative shrink-0">
-      <div className="flex h-28 w-28 items-center justify-center rounded-full bg-[linear-gradient(135deg,#1e293b,#334155)] shadow-md border-2 border-zinc-800">
-        {/* Actual Logo Container */}
-        <div className="relative flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-zinc-800 shadow-inner">
-          <Image 
-            src="/images/favicon.jpg" 
-            alt="Signature Hospital Logo" 
-            fill 
-            className="object-cover"
+    if (!filteredVideos.some((video) => video.id === activeVideoId)) {
+      setActiveVideoId(filteredVideos[0].id)
+    }
+  }, [activeVideoId, filteredVideos])
+
+  const featuredVideo = filteredVideos.find((video) => video.id === activeVideoId) ?? filteredVideos[0]
+
+  const activeIndex = Math.max(0, filteredVideos.findIndex((video) => video.id === activeVideoId))
+
+  const setRelativeVideo = (direction: 'left' | 'right') => {
+    if (!filteredVideos.length) return
+
+    const delta = direction === 'left' ? -1 : 1
+    const nextIndex = (activeIndex + delta + filteredVideos.length) % filteredVideos.length
+    setActiveVideoId(filteredVideos[nextIndex].id)
+  }
+
+  return (
+    <section className="bg-[#eaf3f8] px-4 py-14 sm:px-6 sm:py-20">
+      <div className="mx-auto max-w-6xl">
+        <div className="mx-auto flex max-w-[24rem] items-center rounded-full border border-slate-200 bg-white px-4 py-3 shadow-sm">
+          <Search className="h-4 w-4 text-slate-400" aria-hidden />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            placeholder="Search videos..."
+            className="ml-3 w-full bg-transparent text-sm outline-none placeholder:text-slate-400"
           />
         </div>
-      </div>
-    </div>
 
-    {/* Details Section */}
-    <div className="flex-1 text-center sm:text-left w-full">
-      
-      {/* Username */}
-      <div className="flex items-center justify-center sm:justify-start gap-2">
-        <h3 className="text-2xl font-bold tracking-tight text-white">signature.hospital</h3>
-       
-      </div>
-
-      {/* Display Name */}
-      <p className="mt-1 text-sm text-zinc-400">
-        Signature heart &amp; multi-speciality hospital
-      </p>
-
-  
-
-      {/* Category */}
-      <p className="mt-3 text-[0.8rem] font-medium text-zinc-500">Hospital</p>
-
-      {/* Bio */}
-      <div className="mt-1 text-sm leading-relaxed text-zinc-300">
-        <p className="whitespace-pre-line">
-          Signature Hospital | Heart, Gynae &amp; Multispeciality Care | 24x7 | Yamuna Vihar, Delhi | Expert Doctors | Book Now!{' '}
-         
-        </p>
-      </div>
-
-      {/* Address */}
-      <p className="mt-1 text-xs text-zinc-500">
-        C -2/41 A, Service Ln Yamuna Vihar, Delhi, India 110053
-      </p>
-
-      {/* Google Review Link */}
-      <Link 
-        href="https://g.page/r/CbfHlVWlwFxVEB0/review" 
-        target="_blank"
-        className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-[#60a5fa] hover:underline"
-      >
-        <svg viewBox="0 0 24 24" fill="none" className="h-3 w-3" stroke="currentColor" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-        g.page/r/CbfHlVWlwFxVEB0/review
-      </Link>
-
-      {/* Action Buttons - Dark Mode Optimized */}
-      <div className="mt-5 flex flex-wrap items-center justify-center sm:justify-start gap-2 w-auto ">
-        <Link href="https://www.instagram.com/signature.hospital/" className="flex-1 sm:flex-none rounded-lg bg-[#0095F6] px-10 py-1.5 text-sm font-semibold text-white transition-opacity hover:opacity-90">
-          Follow
-        </Link>
-      
-     
-      </div>
-
-    </div>
-  </div>
-</motion.div>
-
-          {/* Reels Grid - Pure Native Embeds hidden inside beautiful cards */}
-          <div 
-            ref={containerRef}
-            className="grid gap-4 sm:grid-cols-2"
-          >
-            {instagramUrls.map((url, index) => (
-              <motion.div
-                key={url}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.45, delay: index * 0.05 }}
-                whileHover={{ y: -5 }}
-                className="group relative overflow-hidden rounded-[1.6rem] border border-border bg-card shadow-[0_16px_42px_rgba(15,23,42,0.08)]"
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
+          {departmentChips.map((chip) => {
+            const active = activeChip === chip
+            return (
+              <button
+                key={chip}
+                type="button"
+                onClick={() => setActiveChip(chip)}
+                className={`rounded-full border px-4 py-2 text-sm transition ${
+                  active
+                    ? 'border-[#154c79] bg-[#154c79] text-white shadow-md shadow-[#154c79]/20'
+                    : 'border-slate-200 bg-white text-slate-700 hover:border-[#154c79]/40 hover:text-[#154c79]'
+                }`}
+                title={chip}
               >
-                {/* 
-                  👇 We use your native blockquotes, but inject special CSS classes 
-                  to HIDE the headers, footers, and comments. Only the reel remains!
-                */}
-                <div className="instagram-clean-embed w-full h-full flex items-center justify-center">
-                  <blockquote 
-                    className="instagram-media"
-                    data-instgrm-captioned
-                    data-instgrm-permalink={url}
-                    data-instgrm-version="14"
-                    style={{ 
-                      background: 'transparent', 
-                      border: '0', 
-                      borderRadius: '0', 
-                      boxShadow: 'none', 
-                      margin: '0 auto', 
-                      padding: '0', 
-                      width: '100%', 
-                      minWidth: 'unset',
-                      maxWidth: '100%',
-                      height: '100%'
+                <span className="max-w-[12rem] truncate inline-block align-middle">
+                  {chip}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+
+        <div className="relative mt-10">
+          <button
+            type="button"
+            onClick={() => setRelativeVideo('left')}
+            className="absolute left-[-6px] top-1/2 z-30 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:text-[#154c79] md:flex"
+            aria-label="Previous video"
+          >
+            <ChevronLeft className="h-5 w-5" aria-hidden />
+          </button>
+
+          <div
+            className="relative mx-auto flex min-h-[350px] items-center justify-center overflow-hidden px-2 sm:min-h-[390px] md:min-h-[430px]"
+          >
+            {filteredVideos.length > 0 ? (
+              filteredVideos.map((video, index) => {
+                const meta = videoMeta[video.id]
+                const title = meta?.title ?? video.title
+                const offset = index - activeIndex
+                const absOffset = Math.abs(offset)
+                const isVisible = absOffset <= 1
+                const isCenter = offset === 0
+                const isNear = absOffset === 1
+
+                if (!isVisible) return null
+
+                const translateX = offset === 0 ? 0 : offset < 0 ? -180 : 180
+                const scale = isCenter ? 1 : 0.86
+                const opacity = isCenter ? 1 : 0.65
+                const zIndex = isCenter ? 30 : 20
+                const cardWidth = isCenter
+                  ? 'w-[min(90vw,740px)]'
+                  : 'w-[min(70vw,540px)]'
+                const cardHeight = isCenter ? 'h-[315px] sm:h-[340px]' : 'h-[245px] sm:h-[265px]'
+
+                return (
+                  <motion.article
+                    key={video.id}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.45, delay: index * 0.04 }}
+                    className={`absolute  ${cardWidth} ${cardHeight} overflow-hidden rounded-[2.1rem] border border-white/80 bg-white shadow-[0_24px_65px_rgba(21,76,121,0.18)]`}
+                    style={{
+                      transform: `translate(-50%, -50%) translateX(${translateX}px) scale(${scale})`,
+                      opacity,
+                      zIndex,
                     }}
                   >
-                    <div style={{ padding: '0' }}>
-                      <a href={url} target="_blank" rel="noreferrer" style={{ display: 'block' }}>
-                        <div style={{ padding: '50% 0' }}></div>
-                      </a>
-                    </div>
-                  </blockquote>
-                </div>
-              </motion.div>
-            ))}
+                    <Link
+                      href={video.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex h-full w-full flex-row overflow-hidden"
+                    >
+                      <div
+                        className={`relative flex items-end overflow-hidden bg-gradient-to-br text-white ${
+                          isCenter ? 'w-[52%] p-5 sm:p-6' : 'w-[45%] p-4'
+                        } ${video.accent}`}
+                      >
+                        {meta?.thumbnail_url ? (
+                          <img
+                            src={meta.thumbnail_url}
+                            alt={title}
+                            className="absolute inset-0 h-full w-full object-cover"
+                          />
+                        ) : null}
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.22),_transparent_45%)]" />
+                        <div className="absolute inset-0 bg-black/18" />
+
+                        <div className="relative z-10 flex w-full items-start justify-between">
+                          <div className="max-w-[72%] rounded-full bg-white/15 px-2.5 py-1 text-[0.62rem] font-semibold tracking-[0.16em] text-white/90 backdrop-blur-sm">
+                            {video.department}
+                          </div>
+                          <div className="rounded-full bg-black/35 px-2.5 py-1 text-[0.68rem] font-semibold text-white">
+                            Shorts
+                          </div>
+                        </div>
+
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/92 text-[#154c79] shadow-lg transition-transform duration-300 group-hover:scale-110">
+                            <Play className="ml-1 h-6 w-6 fill-current" aria-hidden />
+                          </div>
+                        </div>
+                        </div>
+
+                        <div
+                          className={`flex flex-1 flex-col justify-between bg-white ${
+                            isCenter ? 'p-6 sm:p-7' : 'p-4'
+                          }`}
+                      >
+                        <div className={isCenter ? 'pr-2' : 'pr-1'}>
+                          <p className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[#2b7a9a]">
+                            Doctor Recommended
+                          </p>
+                          <h3
+                            className={`mt-3 font-semibold leading-tight text-slate-900 ${
+                              isCenter ? 'text-[1.25rem] sm:text-[1.55rem]' : 'text-[1rem] sm:text-[1.05rem]'
+                            }`}
+                          >
+                            {title}
+                          </h3>
+                          <p className="mt-2 max-w-md text-sm leading-6 text-slate-500">
+                            {video.department} short from {meta?.author_name || 'Signature Hospital'}
+                          </p>
+                          {isCenter ? <div className="mt-10 h-0.5 w-8 bg-[#2b7a9a]" /> : null}
+                        </div>
+
+                        <div className="mt-5 flex items-center gap-2 rounded-full bg-[#f3fafc] px-3 py-2">
+                          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[#2b7a9a] shadow-sm">
+                            <span className="text-[0.65rem] font-semibold">◌</span>
+                          </div>
+                          <div className="min-w-0">
+                            <p className="truncate text-[0.72rem] font-semibold text-slate-700">
+                              {meta?.author_name || 'Signature Hospital'}
+                            </p>
+                            <p className="truncate text-[0.62rem] text-slate-400">
+                              {video.department}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.article>
+                )
+              })
+            ) : (
+              <div className="rounded-[2rem] border border-dashed border-slate-300 bg-white px-8 py-12 text-center text-sm text-slate-500">
+                No videos found for your search.
+              </div>
+            )}
           </div>
+
+          <button
+            type="button"
+            onClick={() => setRelativeVideo('right')}
+            className="absolute right-[-6px] top-1/2 z-30 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:text-[#154c79] md:flex"
+            aria-label="Next video"
+          >
+            <ChevronRight className="h-5 w-5" aria-hidden />
+          </button>
+        </div>
+
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <Link
+            href={youtubeChannelHref}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-semibold text-[#154c79] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#ffe8e8] text-[#d11f1f]">
+              <span className="text-[0.68rem] font-black">YT</span>
+            </span>
+            <span className="text-left">
+              Watch on YouTube
+              <span className="block text-xs font-normal text-slate-500">
+                Patient education videos
+              </span>
+            </span>
+            <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
+          </Link>
+
+          <Link
+            href={instagramHref}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-semibold text-[#154c79] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#f4f8e9] text-[#6a8f2a]">
+              <span className="text-[0.68rem] font-black">@</span>
+            </span>
+            <span className="text-left">
+              Follow on Instagram
+              <span className="block text-xs font-normal text-slate-500">
+                @signature.hospital
+              </span>
+            </span>
+            <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
+          </Link>
         </div>
       </div>
-
-      {/* 
-        🟢 CRITICAL STYLES:
-        These CSS rules target Instagram's native generated HTML elements 
-        and force them to HIDE the headers, footers, and captions.
-      */}
-      <style dangerouslySetInnerHTML={{ __html: `
-        .instagram-clean-embed iframe {
-          border-radius: 1.6rem !important;
-          aspect-ratio: 9 / 16 !important;
-          width: 100% !important;
-          height: auto !important;
-          max-height: 300px !important;
-        }
-        /* Hide the top header (Profile picture + username) */
-        .instagram-clean-embed .x1i10hfl,
-        .instagram-clean-embed .x1qjc9v5,
-        .instagram-clean-embed header {
-          display: none !important;
-        }
-        /* Hide the caption, comments, and footer */
-        .instagram-clean-embed .x1m39q7l,
-        .instagram-clean-embed .x1n2onr6,
-        .instagram-clean-embed .x1c4vz4f,
-        .instagram-clean-embed .x1qjc9v5,
-        .instagram-clean-embed footer,
-        .instagram-clean-embed ._aagv,
-        .instagram-clean-embed ._abl-, 
-        .instagram-clean-embed ._aagw,
-        .instagram-clean-embed ._aahi {
-          display: none !important;
-        }
-        /* Ensure the video/iframe takes up full height */
-        .instagram-clean-embed .x1n2onr6 {
-          height: 100% !important;
-        }
-      `}} />
     </section>
   )
 }

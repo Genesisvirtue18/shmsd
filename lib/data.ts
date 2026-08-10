@@ -3,13 +3,16 @@ export const HOSPITAL = {
   name: 'Signature Heart & Multispeciality Hospital',
   shortName: 'Signature Hospital',
   tagline: 'Health Equality, Always',
-  phone: '+91 7012109635',
-  phoneHref: 'tel:+917012109635',
-  whatsapp: '917012109635',
+  phone: '076783 87693',
+  phoneHref: 'tel:+917678387693',
+  whatsapp: '917678387693',
   email: 'info@shmsd.in',
-  address: 'C-2/41 A, Service Ln, Yamuna Vihar, Delhi',
-  mapQuery: 'Yamuna Vihar, Delhi',
-  emergencyNumber: '+91 7012109635',
+  address: 'C-2/41 A, Main Service Ln, Block C, Yamuna Vihar, Delhi 110053',
+  mapQuery: 'Signature Heart & Multi-speciality Hospital, C-2/41 A, Main Service Ln, Block C, Yamuna Vihar, Delhi 110053',
+  mapEmbedSrc:
+    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3499.5859770812967!2d77.2774668!3d28.702029099999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfddcdb2b6413%3A0x555cc0a55521c7b7!2sSignature%20Heart%20%26%20Multi-speciality%20hospital!5e0!3m2!1sen!2sin!4v1786362195880!5m2!1sen!2sin',
+  hours: 'Open 24 hours',
+  emergencyNumber: '076783 87693',
 }
 
 export const NAV_LINKS = [
@@ -696,6 +699,14 @@ export const SERVICES: Service[] = [
   },
 ];
 
+export const SERVICE_LINKS = SERVICES.map((service) => ({
+  label: service.title,
+  href: `/services/${service.slug}`,
+  slug: service.slug,
+}))
+
+export const SPECIALITY_LINKS = SERVICE_LINKS
+
 export type Facility = {
   title: string
   description: string
@@ -863,13 +874,40 @@ export const FAQS: Faq[] = [
 ]
 
 export const GALLERY = [
-  { src: '/images/hero-hospital.png', alt: 'Hospital building exterior', category: 'Building' },
-  { src: '/images/gallery-reception.png', alt: 'Reception and lobby', category: 'Interior' },
-  { src: '/images/gallery-room.png', alt: 'Private patient room', category: 'Rooms' },
-  { src: '/images/facility-icu.png', alt: 'Intensive care unit', category: 'ICU' },
-  { src: '/images/facility-ot.png', alt: 'Operation theatre', category: 'Surgery' },
-  { src: '/images/facility-lab.png', alt: 'Diagnostic laboratory', category: 'Diagnostics' },
-  { src: '/images/gallery-pharmacy.png', alt: 'In-house pharmacy', category: 'Pharmacy' },
-  { src: '/images/gallery-xray.png', alt: 'Digital X-ray and imaging', category: 'Diagnostics' },
-  { src: '/images/facility-ambulance.png', alt: 'Ambulance service', category: 'Emergency' },
+  { src: '/images/gallery (1).jpeg', alt: 'Gallery photo 1'  },
+
+  { src: '/images/gallery (2).jpeg', alt: 'Gallery photo 2'  },
+  { src: '/images/gallery (3).jpeg', alt: 'Gallery photo 3'  },
+  { src: '/images/gallery (4).jpeg', alt: 'Gallery photo 4'  },
+  { src: '/images/gallery (5).jpeg', alt: 'Gallery photo 5'  },
+  { src: '/images/gallery (6).jpeg', alt: 'Gallery photo 6'  },
+  { src: '/images/gallery (7).jpeg', alt: 'Gallery photo 7'  },
+  { src: '/images/gallery (8).jpeg', alt: 'Gallery photo 8'  },
+  { src: '/images/gallery (9).jpeg', alt: 'Gallery photo 9'  },
+  { src: '/images/gallery (10).jpeg', alt: 'Gallery photo 10'  },
+  { src: '/images/gallery (11).jpeg', alt: 'Gallery photo 11'  },
+  { src: '/images/gallery (12).jpeg', alt: 'Gallery photo 12'  },
+  { src: '/images/gallery (13).jpeg', alt: 'Gallery photo 13'  },
+  { src: '/images/gallery (14).jpeg', alt: 'Gallery photo 14'  },
+  { src: '/images/gallery (15).jpeg', alt: 'Gallery photo 15'  },
+  { src: '/images/gallery (16).jpeg', alt: 'Gallery photo 16'  },
+  { src: '/images/gallery (17).jpeg', alt: 'Gallery photo 17'  },
+  { src: '/images/gallery (18).jpeg', alt: 'Gallery photo 18'  },
+  { src: '/images/gallery (19).jpeg', alt: 'Gallery photo 19'  },
+  { src: '/images/gallery (20).jpeg', alt: 'Gallery photo 20'  },
+  { src: '/images/gallery (21).jpeg', alt: 'Gallery photo 21'  },
+  { src: '/images/gallery (22).jpeg', alt: 'Gallery photo 22'  },
+  { src: '/images/gallery (23).jpeg', alt: 'Gallery photo 23'  },
+  { src: '/images/gallery (24).jpeg', alt: 'Gallery photo 24'  },
+  { src: '/images/gallery (25).jpeg', alt: 'Gallery photo 25'  },
+  { src: '/images/gallery (26).jpeg', alt: 'Gallery photo 26'  },
+  { src: '/images/gallery (27).jpeg', alt: 'Gallery photo 27'  },
+  { src: '/images/gallery (28).jpeg', alt: 'Gallery photo 28'  },
+  { src: '/images/gallery (29).jpeg', alt: 'Gallery photo 29'  },
+  { src: '/images/gallery (30).jpeg', alt: 'Gallery photo 30'  },
+  { src: '/images/gallery (31).jpeg', alt: 'Gallery photo 31'  },
+  { src: '/images/gallery (32).jpeg', alt: 'Gallery photo 32'  },
+  { src: '/images/gallery (33).jpeg', alt: 'Gallery photo 33'  },
+  { src: '/images/gallery (34).jpeg', alt: 'Gallery photo 34'  },
+  { src: '/images/gallery (35).jpeg', alt: 'Gallery photo 35'  },
 ]
