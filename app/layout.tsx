@@ -51,13 +51,13 @@ icons: {
     title: 'Signature Heart & Multispeciality Hospital | Premium Healthcare in Delhi',
     description:
       'World-class multispeciality care with expert doctors, advanced ICU, 24x7 emergency and affordable treatment in Yamuna Vihar, Delhi.',
-    images: [{ url: '/images/hero-hospital.png', width: 1200, height: 630, alt: 'Signature Hospital building' }],
+    images: [{ url: '/images/about_preview.png', width: 1200, height: 630, alt: 'Signature Hospital about preview' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Signature Heart & Multispeciality Hospital',
     description: 'Premium, affordable multispeciality healthcare in Delhi.',
-    images: ['/images/hero-hospital.png'],
+    images: ['/images/about_preview.png'],
   },
   generator: 'v0.app',
 }

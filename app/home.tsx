@@ -5,6 +5,7 @@ import { GoogleReviews } from '@/components/home/GoogleReviews'
 import { LatestBlogs } from '@/components/home/LatestBlogs'
 import { InstagramFeed } from '@/components/home/InstagramFeed'
 import { StatsBar } from '@/components/home/stats'
+import { AboutPreview } from '@/components/home/about-preview'
 import { ServiceCarousel } from '@/components/home/Service-carousel'
 import { DoctorsCarousel } from '@/components/home/doctors-carousel'
 import { PatientJourney } from '@/components/home/patient-journey'
@@ -43,6 +44,7 @@ export default function Home() {
       <Hero />
       <AppointmentPopup />
       <StatsBar />
+      <AboutPreview />
 
       <section className="px-6 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl">

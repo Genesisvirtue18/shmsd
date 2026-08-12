@@ -3,7 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { ComponentType } from 'react'
-import { ArrowLeft, BadgeCheck, BriefcaseMedical, HeartPulse, ShieldCheck, Sparkles, Users } from 'lucide-react'
+import { ArrowLeft, BadgeCheck, BriefcaseMedical, CalendarCheck, HeartPulse, ShieldCheck, Sparkles, Users } from 'lucide-react'
+import { buildAppointmentHref } from '@/lib/appointment'
 import { MANAGEMENT_TEAM, type DoctorProfile } from '@/lib/doctor-directory'
 
 type Params = { slug: string }
@@ -152,16 +153,18 @@ export default async function ManagementDetailPage({ params }: { params: Promise
 
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
-                  href="/about#management-team"
+                  href={
+                    member.slug === 'ashish-singhal'
+                      ? '/contact'
+                      : buildAppointmentHref({
+                          doctor: member.name,
+                          speciality: member.department,
+                        })
+                  }
                   className="inline-flex items-center gap-2 rounded-full bg-[#0F4C81] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-transform hover:-translate-y-0.5"
                 >
-                  View management section
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-[#0F4C81] hover:text-[#0F4C81]"
-                >
-                  Contact hospital
+                  <CalendarCheck className="h-4 w-4" aria-hidden />
+                  {member.slug === 'ashish-singhal' ? 'Contact us' : 'Book appointment'}
                 </Link>
               </div>
             </div>

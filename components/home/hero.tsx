@@ -1,15 +1,14 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { CalendarCheck, Phone, Stethoscope, Users, Heart, Building2, X, User, Mail, Calendar, MessageSquare, CheckCircle } from 'lucide-react'
+import { CalendarCheck, Phone, Building2, X, User, Mail, Calendar, MessageSquare, CheckCircle } from 'lucide-react'
 import { HOSPITAL } from '@/lib/data'
 
 const container = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.08 } },
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.5 } },
 }
 
 const item = {
@@ -61,74 +60,102 @@ export function Hero() {
 
   return (
     <>
-      <section className="relative min-h-screen overflow-hidden bg-background">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlgfv2lgrBjbn4o59ZoJYwcBlUX8lnirOBHQng7MwkIZxBam28EZFWgOAPL5c3THd_tKitMsrD4dpXeXZpuuPz1kK4b5cNvqFuZifIrMtIp3-epWgO8hZbdR3iEZlEC0SpWzt8P=s1360-w1360-h1020-rw"
-            alt="Hospital Background"
-            fill
-            priority
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-transparent" />
-          <div className="absolute inset-0 bg-black/60 " />
-        </div>
+      <section className="relative min-h-screen overflow-hidden bg-[#f8fbff]">
+       {/* Background Video + Responsive Overlay */}
+<div className="absolute inset-0 z-0 overflow-hidden">
+  <video
+    className="h-full w-full object-cover"
+    autoPlay
+    muted
+    loop
+    playsInline
+    poster="/images/hero-doctor.png"
+    preload="metadata"
+    aria-hidden
+  >
+    <source src="/images/hero.mp4" type="video/mp4" />
+  </video>
 
-        {/* Decorative accent lines */}
-        <div className="absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-[#B71C1C] via-[#00B4D8] to-[#0077B6]" aria-hidden />
-        
-        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-center gap-8 px-6 py-20 md:py-28">
-          <motion.div variants={container} initial="hidden" animate="visible" className="max-w-3xl">
-            {/* Tagline */}
-            <motion.span
-              variants={item}
-              className="inline-flex items-center gap-2 rounded-full border border-[#B71C1C]/30 bg-[#B71C1C]/10 px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#B71C1C]"
-            >
-              <Building2 className="h-3.5 w-3.5" aria-hidden />
-              {HOSPITAL.tagline || "Even Hospitals | Even Clinics"}
-            </motion.span>
+  {/* Desktop overlay - light and transparent */}
+  <div className="absolute inset-0 hidden bg-[linear-gradient(110deg,rgba(255,255,255,0.38)_0%,rgba(255,255,255,0.25)_45%,rgba(255,255,255,0.10)_100%)] md:block" />
 
-            {/* Main Headline */}
-            <motion.h1
-              variants={item}
-              className="mt-5 max-w-2xl text-balance text-4xl font-bold leading-tight tracking-tight text-white sm:text-2xl lg:text-4xl"
-            >
-              Designed to keep you
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#B71C1C] to-[#00B4D8]">
-                healthy, not hospitalised
-              </span>
-            </motion.h1>
+  {/* Mobile overlay - stronger behind text, transparent elsewhere */}
+  <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0.20)_20%,rgba(255,255,255,0.68)_34%,rgba(255,255,255,0.62)_62%,rgba(255,255,255,0.18)_78%,rgba(255,255,255,0.05)_100%)] md:hidden" />
 
-            {/* Description */}
-            <motion.p
-              variants={item}
-              className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-white/80 sm:text-lg"
-            >
-              Experience healthcare that starts early, supports you throughout, 
-              and helps you stay well even after you leave.
-            </motion.p>
+  {/* Soft desktop center readability */}
+  <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.18),transparent_55%)] md:block" />
 
-            {/* CTA Buttons */}
-            <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-4">
-              <button
-                onClick={() => setIsFormOpen(true)}
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#B71C1C] to-[#00B4D8] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#B71C1C]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#B71C1C]/40"
-              >
-                <CalendarCheck className="h-4 w-4" aria-hidden />
-                Book Appointment
-              </button>
-              <a
-                href={HOSPITAL.phoneHref || "tel:+918047495555"}
-                className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/50"
-              >
-                <Phone className="h-4 w-4" aria-hidden />
-                Call Now
-              </a>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+  {/* Very subtle brand tint */}
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(183,28,28,0.025),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(0,180,216,0.025),transparent_48%)]" />
+</div>
+
+{/* Decorative accent line */}
+<div
+  className="absolute inset-x-0 top-0 z-20 h-1 bg-[#B71C1C]"
+  aria-hidden
+/>
+
+{/* Hero Content */}
+<div className="relative z-10 flex min-h-screen max-w-7xl flex-col justify-center px-5 py-24 sm:px-6 md:py-28">
+  <motion.div
+    variants={container}
+    initial="hidden"
+    animate="visible"
+    className="max-w-3xl"
+  >
+    {/* Tagline */}
+    <motion.span
+      variants={item}
+      className="inline-flex items-center gap-2 rounded-full border border-[#B71C1C]/20 bg-white/75 px-3.5 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-[#B71C1C] shadow-sm backdrop-blur-md sm:px-4 sm:text-[0.7rem]"
+    >
+      <Building2 className="h-3.5 w-3.5 shrink-0" aria-hidden />
+      {HOSPITAL.tagline || "Even Hospitals | Even Clinics"}
+    </motion.span>
+
+    {/* Main Headline */}
+    <motion.h1
+      variants={item}
+      className="mt-5 max-w-2xl text-balance text-[2rem] font-bold leading-[1.08] tracking-tight text-black drop-shadow-sm sm:text-5xl lg:text-6xl"
+    >
+      Designed to keep you
+      <span className="block text-[#B71C1C]">
+        healthy, not hospitalised
+      </span>
+    </motion.h1>
+
+    {/* Description */}
+    <motion.p
+      variants={item}
+      className="mt-4 max-w-xl text-pretty text-sm leading-relaxed text-slate-800 drop-shadow-sm sm:text-lg"
+    >
+      Experience healthcare that starts early, supports you throughout,
+      and helps you stay well even after you leave.
+    </motion.p>
+
+    {/* CTA Buttons */}
+    <motion.div
+      variants={item}
+      className="mt-7 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4"
+    >
+      <button
+        onClick={() => setIsFormOpen(true)}
+        className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#B71C1C] to-[#00B4D8] px-6 py-3 text-xs font-semibold text-white shadow-lg shadow-[#B71C1C]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#B71C1C]/40 sm:px-8 sm:py-3.5 sm:text-sm"
+      >
+        <CalendarCheck className="h-4 w-4" aria-hidden />
+        Book Appointment
+      </button>
+
+      <a
+        href={HOSPITAL.phoneHref || "tel:+918047495555"}
+        className="inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/75 px-6 py-3 text-xs font-semibold text-slate-900 shadow-sm backdrop-blur-md transition-all hover:border-slate-300 hover:bg-white sm:px-8 sm:py-3.5 sm:text-sm"
+      >
+        <Phone className="h-4 w-4" aria-hidden />
+        Call Now
+      </a>
+    </motion.div>
+  </motion.div>
+</div>
+             </section>
 
       {/* Pop-up Form Modal */}
       {isFormOpen && (

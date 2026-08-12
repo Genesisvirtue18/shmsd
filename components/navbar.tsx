@@ -10,6 +10,11 @@ import { cn } from '@/lib/utils'
 
 const SOCIAL_LINKS = [
   {
+    label: 'Facebook',
+    href: 'https://www.facebook.com/Signaturehospital/',
+    icon: 'facebook',
+  },
+  {
     label: 'Instagram',
     href: 'https://www.instagram.com/signature.hospital',
     icon: 'instagram',
@@ -21,7 +26,18 @@ const SOCIAL_LINKS = [
   },
 ]
 
-function SocialIcon({ kind }: { kind: 'instagram' | 'youtube' }) {
+function SocialIcon({ kind }: { kind: 'facebook' | 'instagram' | 'youtube' }) {
+  if (kind === 'facebook') {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5">
+        <path
+          d="M14 8.5V7.2c0-.8.5-1.2 1.2-1.2h1.3V3H14.5C12.2 3 11 4.4 11 6.7v1.8H9v3h2V21h3.2v-9.5h2.4l.4-3h-2.8Z"
+          fill="currentColor"
+        />
+      </svg>
+    )
+  }
+
   if (kind === 'instagram') {
     return (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-5 w-5">

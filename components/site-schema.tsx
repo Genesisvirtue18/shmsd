@@ -21,7 +21,7 @@ export function SiteSchema() {
         url: 'https://shmsd.in',
         telephone: `+91${HOSPITAL.whatsapp}`,
         email: HOSPITAL.email,
-        image: ['https://shmsd.in/images/hero-hospital.png'],
+        image: ['https://shmsd.in/images/about_preview.png'],
         logo: 'https://shmsd.in/icon',
         medicalSpecialty: ['Cardiovascular', 'Orthopedic', 'Neurologic', 'Emergency'],
         address: {

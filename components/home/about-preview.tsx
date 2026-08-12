@@ -24,8 +24,8 @@ export function AboutPreview() {
           <div className="relative">
             <div className="overflow-hidden rounded-[2rem] border border-border bg-card shadow-xl shadow-primary/10">
               <Image
-                src="/images/about-team.png"
-                alt="Our team of doctors and nurses"
+                src="/images/about_preview.png"
+                alt="Hospital gallery preview"
                 width={640}
                 height={520}
                 className="h-full w-full object-cover"

@@ -42,9 +42,6 @@ export function FloatingWidgets() {
 
   return (
     <>
-     
-
-      {/* Speed-dial (right) */}
       <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">
         {showTop ? (
           <button
@@ -57,16 +54,21 @@ export function FloatingWidgets() {
           </button>
         ) : null}
 
-        <div className={cn('flex flex-col items-end gap-3 transition-all', open ? 'opacity-100' : 'pointer-events-none translate-y-2 opacity-0')}>
+        <div
+          className={cn(
+            'flex flex-col items-end gap-2 transition-all',
+            open ? 'opacity-100' : 'pointer-events-none translate-y-2 opacity-0',
+          )}
+        >
           {actions.map((a) => {
             const Ico = a.icon
             const content = (
               <>
-                <span className="rounded-full bg-foreground px-3 py-1 text-xs font-medium text-background shadow">
-                  {a.label}
-                </span>
-                <span className={cn('flex h-12 w-12 items-center justify-center rounded-full shadow-lg', a.className)}>
+                <span className={cn('flex h-11 w-11 items-center justify-center rounded-full shadow-lg', a.className)}>
                   <Ico className="h-5 w-5" aria-hidden />
+                </span>
+                <span className="rounded-full border border-border bg-background px-4 py-2 text-xs font-medium text-foreground shadow-sm">
+                  {a.label}
                 </span>
               </>
             )

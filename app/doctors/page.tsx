@@ -1,8 +1,9 @@
 "use client";
 
+import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { Search, X } from 'lucide-react'
-import { AppointmentModal } from '@/components/appointment-modal'
+import { buildAppointmentHref } from '@/lib/appointment'
 import { DIRECTOR_PROFILE, DOCTOR_DIRECTORY, type DoctorProfile } from '@/lib/doctor-directory'
 
 const DirectorSection = () => {
@@ -42,11 +43,14 @@ const DirectorSection = () => {
 
 const DoctorCard = ({
   doctor,
-  onBookAppointment,
 }: {
   doctor: DoctorProfile
-  onBookAppointment: (doctor: DoctorProfile) => void
 }) => {
+  const appointmentHref = buildAppointmentHref({
+    doctor: doctor.name,
+    speciality: doctor.department,
+  })
+
   return (
     <div className="mb-4 flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow duration-200 hover:shadow-md">
       <div className="flex-1 space-y-2">
@@ -63,13 +67,12 @@ const DoctorCard = ({
         <p className="max-w-3xl text-xs leading-6 text-slate-500">{doctor.description}</p>
 
         <div className="pt-2">
-          <button
-            type="button"
-            onClick={() => onBookAppointment(doctor)}
-            className="rounded-full bg-[#B71C1C] px-5 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#861717]"
+          <Link
+            href={appointmentHref}
+            className="inline-flex rounded-full bg-[#B71C1C] px-5 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#861717]"
           >
             Book appointment
-          </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -80,8 +83,6 @@ export default function DoctorsPage() {
   const doctors = DOCTOR_DIRECTORY
   const [selectedDepartments, setSelectedDepartments] = useState<string[]>([])
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedDoctor, setSelectedDoctor] = useState<DoctorProfile | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const departments = useMemo(
     () => [...new Set(doctors.map((doctor) => doctor.department).filter(Boolean))],
@@ -116,11 +117,6 @@ export default function DoctorsPage() {
   const clearFilters = () => {
     setSelectedDepartments([])
     setSearchTerm('')
-  }
-
-  const handleBookAppointment = (doctor: DoctorProfile) => {
-    setSelectedDoctor(doctor)
-    setIsModalOpen(true)
   }
 
   return (
@@ -218,7 +214,6 @@ export default function DoctorsPage() {
                     <DoctorCard
                       key={`${doctor.name}-${doctor.department}-${index}`}
                       doctor={doctor}
-                      onBookAppointment={handleBookAppointment}
                     />
                   ))
                 ) : (
@@ -231,13 +226,6 @@ export default function DoctorsPage() {
           </main>
         </div>
       </div>
-
-      <AppointmentModal
-        open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        doctorName={selectedDoctor?.name}
-        speciality={selectedDoctor?.department}
-      />
     </div>
   )
 }

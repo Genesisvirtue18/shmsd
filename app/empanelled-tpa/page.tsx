@@ -174,8 +174,7 @@ export default function EmpanelledTpaPage() {
           </button>
 
           <div className="rounded-[2.25rem] border border-border bg-card p-5 shadow-[0_18px_60px_rgba(15,23,42,0.12)] sm:p-6">
-            <div className="rounded-[1.9rem] border border-border bg-background/80 p-5 sm:p-7">
-              <div className="flex flex-col gap-5 border-b border-border pb-5 xl:flex-row xl:items-start xl:justify-between">
+            <div className="flex flex-col gap-5 border-b border-border pb-5 xl:flex-row xl:items-start xl:justify-between">
                 <div className="max-w-2xl">
                   <span className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
                     <ShieldCheck className="h-4 w-4" aria-hidden />
@@ -221,7 +220,6 @@ export default function EmpanelledTpaPage() {
               <div className="mt-4 text-xs text-muted-foreground">
                 Legal | Policy | Privacy | Terms of Use. All rights reserved
               </div>
-            </div>
           </div>
 
           {/* <div className="grid gap-6">

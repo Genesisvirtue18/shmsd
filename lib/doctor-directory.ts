@@ -206,7 +206,8 @@ export const DIRECTOR_PROFILE: DoctorProfile = {
   department: 'Director',
   description:
     'As healthcare providers, it is our responsibility to prioritize the needs and well-being of our patients above all else. We must strive to provide the highest quality of care, treatment, and support to ensure that our patients receive the best possible outcomes. Our patients deserve nothing less than our best efforts and dedication.',
-  image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW815XCBWVR-hL_CFZ_5oJltGzRRSswb2bxh0lafW9c9wkjjKDIl91Ezc&s=10',
+     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW815XCBWVR-hL_CFZ_5oJltGzRRSswb2bxh0lafW9c9wkjjKDIl91Ezc&s=10',
+
 }
 
 export const MANAGEMENT_TEAM: DoctorProfile[] = [
@@ -214,7 +215,9 @@ export const MANAGEMENT_TEAM: DoctorProfile[] = [
   {
     slug: 'surbhi-gupta',
     ...DOCTOR_DIRECTORY.find((doctor) => doctor.name === 'Dr. Surbhi Gupta')!,
-    image: 'https://jghdelhi.net/wp-content/uploads/2019/02/Dr.-Surbhi-Gupta-Gynae.webp',
+     
+      image: 'https://jghdelhi.net/wp-content/uploads/2019/02/Dr.-Surbhi-Gupta-Gynae.webp'
+
   },
 ]
 

@@ -65,7 +65,7 @@ export default function ContactPage() {
           </div>
 
           <Reveal delay={0.1}>
-            <div className="rounded-3xl border border-border bg-card p-6 shadow-lg sm:p-8">
+            <div>
               <h2 className="font-serif text-2xl font-semibold text-foreground">Book an Appointment</h2>
               <p className="mt-2 text-sm text-muted-foreground">
                 Fill in your details and our team will confirm your slot shortly.

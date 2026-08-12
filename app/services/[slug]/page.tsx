@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowRight, CalendarCheck, Check, ChevronRight, Phone, ShieldCheck } from 'lucide-react'
 import { Icon } from '@/components/icon'
+import { buildAppointmentHref } from '@/lib/appointment'
 import { HOSPITAL, SERVICES } from '@/lib/data'
 import { DOCTOR_DIRECTORY, type DoctorProfile } from '@/lib/doctor-directory'
 
@@ -45,15 +46,6 @@ function getServiceDoctors(serviceSlug: string, serviceTitle: string): DoctorPro
     const department = normalize(doctor.department)
     return department.length > 0 && normalizedAliases.has(department)
   })
-}
-
-function buildAppointmentHref(doctor: DoctorProfile, serviceTitle: string) {
-  const params = new URLSearchParams({
-    doctor: doctor.name,
-    speciality: doctor.department || serviceTitle,
-  })
-
-  return `/appointment?${params.toString()}`
 }
 
 export function generateStaticParams() {
@@ -318,7 +310,10 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                             </div>
                             <p className="mt-3 text-xs leading-5 text-muted-foreground">{doctor.description}</p>
                             <Link
-                              href={buildAppointmentHref(doctor, service.title)}
+                              href={buildAppointmentHref({
+                                doctor: doctor.name,
+                                speciality: doctor.department || service.title,
+                              })}
                               className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition hover:opacity-90"
                             >
                               Book Appointment

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ArrowRight, CalendarCheck } from 'lucide-react'
 
 import { Icon } from '@/components/icon'
+import { buildAppointmentHref } from '@/lib/appointment'
 import type { Department, Doctor, Service } from '@/lib/data'
 
 //
@@ -62,6 +63,11 @@ export function DepartmentCard({
 // DOCTOR CARD (UNCHANGED)
 //
 export function DoctorCard({ doctor }: { doctor: Doctor }) {
+  const appointmentHref = buildAppointmentHref({
+    doctor: doctor.name,
+    speciality: doctor.department,
+  })
+
   return (
     <article className="group h-full overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-primary/10">
       
@@ -79,7 +85,7 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
         </p>
 
         <Link
-          href="/appointment"
+          href={appointmentHref}
           className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary/10 px-4 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
         >
           <CalendarCheck className="h-4 w-4" />

@@ -78,14 +78,12 @@ export default async function AppointmentPage({ searchParams }: AppointmentPageP
           </div>
 
           <Reveal delay={0.1}>
-            <div className="rounded-3xl border border-border bg-card p-6 shadow-lg sm:p-8">
-              <AppointmentForm
-                initialValues={{
-                  doctor,
-                  speciality,
-                }}
-              />
-            </div>
+            <AppointmentForm
+              initialValues={{
+                doctor,
+                speciality,
+              }}
+            />
           </Reveal>
         </div>
       </section>

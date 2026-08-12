@@ -115,7 +115,7 @@ export function AppointmentModal({
                 )}
               </div>
 
-              <div className="bg-white p-6 sm:p-8">
+              <div className="bg-slate-50 p-6 sm:p-8">
                 <AppointmentForm
                   initialValues={{
                     doctor: doctorName ?? '',

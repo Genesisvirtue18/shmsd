@@ -84,8 +84,8 @@ export function GoogleReviews() {
           </p>
         </div>
 
-        <div className="mt-10 rounded-[2rem] border border-border bg-card p-5 shadow-[0_20px_70px_rgba(15,23,42,0.08)] sm:p-6">
-          <div className="flex flex-col gap-5 rounded-[1.6rem] border border-border bg-white p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mt-10">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <div className="flex items-center gap-3">
                 <span className="text-3xl font-semibold tracking-tight text-[#102033] sm:text-4xl">{averageRating}.0</span>
@@ -108,7 +108,7 @@ export function GoogleReviews() {
             </a>
           </div>
 
-          <div className="mt-6 flex items-center justify-between">
+          <div className="mt-8 flex items-center justify-between">
             <button
               type="button"
               onClick={() => scroll('left')}
