@@ -1,3 +1,5 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import { HeartPulse, ShieldCheck, Stethoscope, TimerReset } from 'lucide-react'
 import {Hero} from '@/components/home/hero'
 import { AppointmentPopup } from '@/components/home/AppointmentPopup'
@@ -14,13 +16,11 @@ import { SectionHeading } from '@/components/section-heading'
 import { StaggerGroup, StaggerItem } from '@/components/reveal'
 import {  DoctorCard,ServiceCard } from '@/components/cards'
 import { SERVICES, DOCTORS } from '@/lib/data'
+import { MANAGEMENT_TEAM } from '@/lib/doctor-directory'
+import { ROUTES } from '@/lib/routes'
 
 const pillars = [
-  {
-    icon: ShieldCheck,
-    title: 'Guided admissions',
-    text: 'Smooth check-in, insurance support and clear hand-holding from the first call onward.',
-  },
+
   {
     icon: Stethoscope,
     title: 'Specialist consultations',
@@ -50,11 +50,69 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             align="left"
+            eyebrow="Leadership"
+            title="Meet the people leading patient care"
+            description="Our management team combines medical experience, calm leadership and a patient-first approach."
+          />
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+            {MANAGEMENT_TEAM.map((member) => (
+              <article
+                key={member.slug || member.name}
+                className="overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10"
+              >
+                <div className="grid gap-0 md:grid-cols-[180px_minmax(0,1fr)]">
+                  <div className="relative aspect-[4/5] bg-gradient-to-br from-primary/10 via-white to-muted/40 md:min-h-[240px]">
+                    <Image
+                      src={member.image || '/images/about-team.png'}
+                      alt={member.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 180px"
+                    />
+                  </div>
+
+                  <div className="p-5 sm:p-6">
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+                      {member.department}
+                    </p>
+                    <h3 className="mt-2 text-2xl font-semibold leading-tight text-foreground">
+                      {member.name}
+                    </h3>
+                    <p className="mt-1 text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                      {member.qualification}
+                    </p>
+                    <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                      {member.description}
+                    </p>
+
+                    {member.slug ? (
+                      <div className="mt-5">
+                        <Link
+                          href={ROUTES.doctor(member.slug)}
+                          className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
+                        >
+                          View Profile
+                        </Link>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            align="left"
             eyebrow="Why patients trust us"
             title="A hospital experience that feels calm, coordinated and caring"
             description="We focus on the details that reduce stress for patients and families: simple communication, quick response and a cleaner care journey."
           />
-          <StaggerGroup className="mt-10 grid gap-4 grid-cols-2 xl:grid-cols-4">
+          <StaggerGroup className="mt-10 grid gap-4 grid-cols-3 xl:grid-cols-3">
             {pillars.map((pillar) => {
               const Icon = pillar.icon
               return (

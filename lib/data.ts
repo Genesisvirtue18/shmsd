@@ -1,4 +1,6 @@
 
+import { ROUTES } from '@/lib/routes'
+
 export const HOSPITAL = {
   name: 'Signature Heart & Multispeciality Hospital',
   shortName: 'Signature Hospital',
@@ -16,15 +18,15 @@ export const HOSPITAL = {
 }
 
 export const NAV_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'Specialities', href: '/services' },
-  { label: 'Facilities', href: '/facilities' },
-  { label: 'Doctors', href: '/doctors' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-  { label: 'Gallery', href: '/gallery' },
-  { label: 'TPA', href: '/empanelled-tpa' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Home', href: ROUTES.home },
+  { label: 'Specialities', href: ROUTES.specialities },
+  { label: 'Facilities', href: ROUTES.facilities },
+  { label: 'Doctors', href: ROUTES.doctors },
+  { label: 'About', href: ROUTES.about },
+  { label: 'Contact', href: ROUTES.contact },
+  { label: 'Gallery', href: ROUTES.gallery },
+  { label: 'TPA', href: ROUTES.tpa },
+  { label: 'Blog', href: ROUTES.blog },
 ]
 
 export type Department = {
@@ -141,6 +143,7 @@ export type Service = {
   description: string
   image: string
   overview: string
+  clinicalAreas: string[]
   highlights: string[]
   steps: { title: string; description: string }[]
   benefits: string[]
@@ -157,6 +160,7 @@ export interface Service {
   description: string;
   image: string;
   overview: string;
+  clinicalAreas: string[];
   highlights: string[];
   steps: { title: string; description: string }[];
   benefits: string[];
@@ -168,10 +172,11 @@ export const SERVICES: Service[] = [
     slug: 'general-medicine',
     icon: '/images/imgi_6_general_physician.png',
     title: 'General Medicine',
-    description: 'Primary healthcare services and first-line medical evaluation for everyday health concerns.',
+    description: 'First-contact medical care for common illnesses, symptom evaluation and preventive check-ups.',
     image: 'https://static.vecteezy.com/system/resources/thumbnails/069/871/287/small_2x/bright-red-capsules-scattered-on-reflective-surface-in-a-close-up-composition-showcasing-texture-and-details-photo.jpeg',
     overview:
-      'Our general medicine team offers first-contact medical care, careful diagnosis and treatment planning for common illnesses, recurring symptoms and preventive health concerns.',
+      'Our general medicine team provides first-contact medical care, careful diagnosis and treatment planning for everyday illnesses, recurring symptoms and preventive health concerns.',
+    clinicalAreas: ['Fever and infections', 'Diabetes and BP', 'Preventive health', 'Medication review'],
     highlights: ['Initial consultation', 'Preventive care', 'Medication guidance', 'Follow-up support'],
     steps: [
       { title: 'Consultation', description: 'A doctor reviews your symptoms, medical history and current concerns.' },
@@ -200,10 +205,11 @@ export const SERVICES: Service[] = [
     slug: 'general-surgery',
     icon: '/images/imgi_5_general_surgery.png',
     title: 'General Surgery',
-    description: 'Safe, modern surgical care for a wide range of general procedures.',
+    description: 'Safe, modern surgical care for abdominal and routine general procedures.',
     image: 'https://media.post.rvohealth.io/wp-content/uploads/sites/3/2024/03/Heart-Surgery-Aortic-Valve-Replacemen-thumbnail.jpg',
     overview:
-      'Our surgical team provides planned and emergency procedures with a focus on safety, precision and smooth recovery.',
+      'Our surgical team provides planned and emergency procedures with a focus on safety, precision and smooth recovery after common general surgery conditions.',
+    clinicalAreas: ['Hernia', 'Gallbladder disease', 'Appendicitis', 'Piles and anorectal care'],
     highlights: ['Pre-op assessment', 'Procedure planning', 'Sterile OT', 'Recovery monitoring'],
     steps: [
       { title: 'Pre-operative review', description: 'We assess fitness, risks and treatment goals before surgery.' },
@@ -266,16 +272,26 @@ export const SERVICES: Service[] = [
     slug: 'gynecology-obstetrics',
     icon: '/images/imgi_8_gynaecologist.png',
     title: 'Gynecology & Obstetrics',
-    description: "Complete care for women's health, maternity and newborn support.",
+    description: 'Complete women’s health, maternity and reproductive care across every stage of life.',
     image: 'https://media.istockphoto.com/id/1169198910/photo/womans-palms-pressed-together-and-keep-embryo-from-paper-red-lood-comes-from-the-baby-and.jpg?s=612x612&w=0&k=20&c=VfotXiqQQFkmyBrN2f7zZ3nmkgsvlNDl6868Z_lrkA8=',
     overview:
-      'Women’s health care includes preventive check-ups, pregnancy care, delivery support and treatment for common gynecological concerns.',
+      'Women’s health care includes preventive check-ups, pregnancy care, delivery support and treatment for common gynecological concerns such as menstrual issues, PCOS and infertility.',
+    clinicalAreas: [
+      'PCOS / PCOD',
+      'Menstrual irregularities',
+      'Infertility evaluation',
+      'Antenatal and postnatal care',
+      'High-risk pregnancy',
+      'Fibroids and pelvic pain',
+      'Menopause care',
+      'Adolescent gynecology',
+    ],
     highlights: ['Prenatal care', 'Delivery support', 'Women’s health', 'Newborn guidance'],
     steps: [
-      { title: 'Initial review', description: 'We discuss symptoms, goals and any pregnancy-related concerns.' },
-      { title: 'Care planning', description: 'A personalized plan is created for health, pregnancy or delivery.' },
-      { title: 'Monitoring', description: 'Regular check-ups and tests support safe ongoing care.' },
-      { title: 'Post-care support', description: 'We continue guidance through recovery and follow-up.' },
+      { title: 'Initial review', description: 'We discuss symptoms, menstrual history, fertility goals and any pregnancy-related concerns.' },
+      { title: 'Care planning', description: 'A personalized plan is created for gynecological care, pregnancy support or delivery planning.' },
+      { title: 'Monitoring', description: 'Regular check-ups, scans and lab tests support safe ongoing care.' },
+      { title: 'Post-care support', description: 'We continue guidance through recovery, contraception counselling and follow-up.' },
     ],
     benefits: [
       'Compassionate women’s health support',
@@ -298,10 +314,11 @@ export const SERVICES: Service[] = [
     slug: 'pulmonology',
     icon: '/images/imgi_15_internal_medicine.png', // fallback
     title: 'Pulmonology',
-    description: 'Evaluation, diagnosis and treatment of respiratory diseases.',
+    description: 'Evaluation, diagnosis and treatment for breathing and lung conditions.',
     image: 'https://www.shutterstock.com/shutterstock/videos/4027366653/thumb/1.jpg?ip=x480',
     overview:
       'Pulmonology services focus on respiratory health, including cough, asthma, breathlessness, chronic lung conditions and recovery support.',
+    clinicalAreas: ['Asthma', 'COPD', 'Pneumonia', 'Chronic cough'],
     highlights: ['Asthma care', 'Breathing tests', 'Lung evaluation', 'Follow-up treatment'],
     steps: [
       { title: 'Respiratory review', description: 'We review symptoms such as cough, wheezing and shortness of breath.' },
@@ -325,10 +342,11 @@ export const SERVICES: Service[] = [
     slug: 'orthopedics',
     icon: '/images/imgi_20_ortho.png',
     title: 'Orthopedics',
-    description: 'Treatment for fractures, deformities, sports injuries and joint pain.',
+    description: 'Bone, joint and spine care for injuries, pain and mobility problems.',
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2ZzKurmAQShwiXUtK-ZG-D3k5eSmUzMUERFqyNwkjygHg0azMx9DeIHY&s=10',
     overview:
       'Orthopedic care covers bones, joints, ligaments, sports injuries and mobility-related pain with a recovery-first approach.',
+    clinicalAreas: ['Fractures and trauma', 'Arthritis', 'Sports injuries', 'Joint replacement'],
     highlights: ['Fracture care', 'Joint pain', 'Sports injury', 'Mobility support'],
     steps: [
       { title: 'Orthopedic exam', description: 'We assess pain, movement, swelling and injury history.' },
@@ -414,6 +432,7 @@ export const SERVICES: Service[] = [
     image: 'https://media.istockphoto.com/id/1325611798/photo/hearing-exam-for-elderly-citizen-people-otolaryngologist-doctor-checking-mature-womans-ear.jpg?s=612x612&w=0&k=20&c=pQ5IyYl64kwTCnsBp55cpPAe4fNXPve7avagagTs73A=',
     overview:
       'ENT care supports ear, nose and throat concerns such as sinus problems, hearing issues, infections and voice or swallowing symptoms.',
+    clinicalAreas: ['Sinusitis', 'Ear infections', 'Hearing loss', 'Tonsillitis'],
     highlights: ['Sinus care', 'Ear infections', 'Hearing checks', 'Throat evaluation'],
     steps: [
       { title: 'ENT consultation', description: 'We review your symptoms and any recurring infections or pain.' },
@@ -441,6 +460,7 @@ export const SERVICES: Service[] = [
     image: 'https://www.peerlesshospital.com/barasat/images/blog_image/why_you_might_need_gastro.webp',
     overview:
       'Gastroenterology services focus on digestive health including stomach pain, acidity, liver issues and long-term gut concerns.',
+    clinicalAreas: ['Acidity and reflux', 'Stomach pain', 'Liver disease', 'IBS and constipation'],
     highlights: ['Digestive evaluation', 'Liver care', 'Acidity treatment', 'Follow-up support'],
     steps: [
       { title: 'Consultation', description: 'We review digestive symptoms, triggers and medical history.' },
@@ -468,6 +488,7 @@ export const SERVICES: Service[] = [
     image: 'https://static.vecteezy.com/system/resources/thumbnails/074/896/285/small/a-red-paper-head-with-a-stethoscope-on-it-photo.jpg',
     overview:
       'Psychiatry care offers respectful support for emotional wellbeing, anxiety, mood concerns, sleep problems and behavioural health.',
+    clinicalAreas: ['Anxiety', 'Depression', 'Sleep problems', 'Stress management'],
     highlights: ['Mental health support', 'Counselling', 'Medication review', 'Ongoing care'],
     steps: [
       { title: 'Confidential consultation', description: 'We listen carefully to your concerns in a private setting.' },
@@ -524,6 +545,7 @@ export const SERVICES: Service[] = [
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfDg3CSEwIqk9IOOu3-jYBFfKcjSh2pNPI9IsV6YOoVcGHv088QXYAVlQH&s=10',
     overview:
       'Pediatric care focuses on child health, growth, vaccination and treatment for everyday childhood illnesses.',
+    clinicalAreas: ['Newborn care', 'Vaccination', 'Fever and cough', 'Growth monitoring'],
     highlights: ['Child health', 'Vaccination', 'Growth checks', 'Illness treatment'],
     steps: [
       { title: 'Child consultation', description: 'We review symptoms, growth and wellness concerns.' },
@@ -551,6 +573,7 @@ export const SERVICES: Service[] = [
     image: 'https://static.vecteezy.com/system/resources/thumbnails/034/875/777/small/the-cosmetologist-makes-markings-on-the-patient-s-face-drawing-correction-lines-before-the-facial-contouring-procedure-or-plastic-surgery-preparation-time-for-cosmetic-treatment-video.jpg',
     overview:
       'Plastic surgery combines reconstructive and aesthetic procedures with a focus on safety, planning and natural-looking outcomes.',
+    clinicalAreas: ['Reconstructive surgery', 'Scar revision', 'Aesthetic surgery', 'Burn reconstruction'],
     highlights: ['Reconstruction', 'Aesthetic procedures', 'Consultation', 'Recovery care'],
     steps: [
       { title: 'Consultation', description: 'We discuss goals, concerns and safe treatment options.' },
@@ -578,6 +601,7 @@ export const SERVICES: Service[] = [
     image: 'https://media.istockphoto.com/id/2160720006/photo/medical-hospital-research-laboratory-caucasian-male-neurosurgeon-looking-at-tv-screen-with.jpg?s=612x612&w=0&k=20&c=KtLx7GkbI6Tw-FoS1YAnikEo9sQjrf-dm9zi5kaqebw=',
     overview:
       'Radiology provides imaging support for diagnosis, treatment planning and follow-up across many specialties.',
+    clinicalAreas: ['X-ray', 'Ultrasound', 'CT scan', 'MRI'],
     highlights: ['X-ray imaging', 'Diagnostic support', 'Treatment planning', 'Report review'],
     steps: [
       { title: 'Request', description: 'Your doctor recommends the right imaging test for the concern.' },
@@ -605,6 +629,7 @@ export const SERVICES: Service[] = [
     image: 'https://media.istockphoto.com/id/1315727841/photo/artificial-intelligence-digital-concept.jpg?s=612x612&w=0&k=20&c=-N-g9PUcCBg1lGtA3PI7fRjEKhYLZSXvUgJy3CxKFC4=',
     overview:
       'Neurology care focuses on disorders of the brain, spine and nerves, including headaches, stroke, numbness and movement issues.',
+    clinicalAreas: ['Stroke', 'Migraine', 'Epilepsy', 'Nerve disorders'],
     highlights: ['Brain health', 'Stroke care', 'Nerve evaluation', 'Ongoing monitoring'],
     steps: [
       { title: 'Neurology consult', description: 'We review your symptoms and neurological history.' },
@@ -632,6 +657,7 @@ export const SERVICES: Service[] = [
     image: 'https://media.istockphoto.com/id/2185292067/photo/esthetic-center-led-facial-mask.jpg?s=612x612&w=0&k=20&c=vDaLZ33wVsvGyS79uiw9sSIAyd-9WIZ4Mb9s_NiU2w0=',
     overview:
       'Dermatology covers skin, hair and nail concerns with diagnosis and treatment for common and complex conditions.',
+    clinicalAreas: ['Acne', 'Eczema', 'Psoriasis', 'Hair loss'],
     highlights: ['Skin care', 'Hair concerns', 'Allergy support', 'Procedure guidance'],
     steps: [
       { title: 'Skin review', description: 'We examine the concern and review any triggers or history.' },
@@ -659,6 +685,7 @@ export const SERVICES: Service[] = [
     image: 'https://media.istockphoto.com/id/1777620173/photo/kidney-disease-chronic-kidney-disease-ckd-doctor-with-human-model-to-study-and-treat-in.jpg?s=612x612&w=0&k=20&c=r2zEn718PnH9TQbnG3s6wL61hQtUzQ0WPbM_wLTIA7w=',
     overview:
       'Nephrology focuses on kidney health, renal function, blood pressure and chronic kidney disease management.',
+    clinicalAreas: ['Chronic kidney disease', 'Hypertension', 'Dialysis care', 'Protein in urine'],
     highlights: ['Kidney health', 'Renal monitoring', 'BP support', 'Long-term care'],
     steps: [
       { title: 'Evaluation', description: 'Kidney symptoms and lab results are reviewed carefully.' },
@@ -686,6 +713,7 @@ export const SERVICES: Service[] = [
     image: 'https://img.magnific.com/free-photo/young-woman-doctors-appointment-with-rehabilitologist_169016-40103.jpg?semt=ais_test_b&w=740&q=80',
     overview:
       'Physiotherapy helps improve movement, strength and recovery after injury, surgery or long-term pain.',
+    clinicalAreas: ['Back pain rehab', 'Post-surgery rehab', 'Sports rehab', 'Stroke rehabilitation'],
     highlights: ['Recovery support', 'Movement therapy', 'Pain management', 'Exercise plans'],
     steps: [
       { title: 'Assessment', description: 'We evaluate movement, pain and daily activity limitations.' },
@@ -709,7 +737,7 @@ export const SERVICES: Service[] = [
 
 export const SERVICE_LINKS = SERVICES.map((service) => ({
   label: service.title,
-  href: `/services/${service.slug}`,
+  href: ROUTES.service(service.slug),
   slug: service.slug,
 }))
 

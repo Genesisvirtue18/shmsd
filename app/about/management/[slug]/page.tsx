@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return {
     title: `${member.name} | About`,
     description: member.description,
-    alternates: { canonical: `/about/management/${member.slug}` },
+    alternates: { canonical: `/hospitals-near-me/delhi-hospital/doctors/${member.slug}` },
   }
 }
 
@@ -92,13 +92,13 @@ export default async function ManagementDetailPage({ params }: { params: Promise
 
         <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm">
           <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
-            <div className="relative min-h-[420px] bg-gradient-to-br from-slate-50 to-slate-100">
+            <div className="relative aspect-[4/5] bg-gradient-to-br from-slate-50 to-slate-100 lg:min-h-[420px]">
               <Image
                 src={member.image || '/images/about-team.png'}
                 alt={member.name}
                 fill
                 priority
-                className="object-contain p-6 sm:p-8"
+                className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>

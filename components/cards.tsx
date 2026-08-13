@@ -5,6 +5,7 @@ import { ArrowRight, CalendarCheck } from 'lucide-react'
 import { Icon } from '@/components/icon'
 import { buildAppointmentHref } from '@/lib/appointment'
 import type { Department, Doctor, Service } from '@/lib/data'
+import { ROUTES } from '@/lib/routes'
 
 //
 // SERVICE CARD
@@ -12,7 +13,7 @@ import type { Department, Doctor, Service } from '@/lib/data'
 export function ServiceCard({ service }: { service: Service }) {
   return (
     <Link
-      href={`/services/${service.slug}`}
+      href={ROUTES.service(service.slug)}
       className="group relative block h-full rounded-[1.75rem] border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 sm:p-6"
       aria-label={`View details for ${service.title}`}
     >
@@ -26,6 +27,9 @@ export function ServiceCard({ service }: { service: Service }) {
         <h3 className="mt-4 text-xs font-semibold  text-foreground sm:text-xs">
           {service.title}
         </h3>
+        <p className="mt-2 line-clamp-3 text-xs leading-5 text-muted-foreground">
+          {service.description}
+        </p>
       </div>
     </Link>
   )

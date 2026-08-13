@@ -1,10 +1,24 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { CalendarCheck, Phone, Building2, X, User, Mail, Calendar, MessageSquare, CheckCircle } from 'lucide-react'
+import {
+  CalendarCheck,
+  Calendar,
+  CheckCircle,
+  Home,
+  Building2,
+  Mail,
+  MessageSquare,
+  Phone,
+  Stethoscope,
+  User,
+  X,
+} from 'lucide-react'
 import { HOSPITAL } from '@/lib/data'
+import { ROUTES } from '@/lib/routes'
 
 const container = {
   hidden: {},
@@ -17,6 +31,7 @@ const item = {
 }
 
 export function Hero() {
+  const pathname = usePathname()
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
@@ -27,6 +42,14 @@ export function Hero() {
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+
+  const mobileLinks = [
+    { label: 'Home', href: '/', icon: Home },
+    { label: 'Specialities', href: '/services', icon: Stethoscope },
+    { label: 'About', href: '/about', icon: Building2 },
+    { label: 'Contact', href: '/contact', icon: Phone },
+    { label: 'Book', href: '/appointment', icon: CalendarCheck },
+  ]
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -60,102 +83,79 @@ export function Hero() {
 
   return (
     <>
-      <section className="relative min-h-screen overflow-hidden bg-[#f8fbff]">
-       {/* Background Video + Responsive Overlay */}
-<div className="absolute inset-0 z-0 overflow-hidden">
-  <video
-    className="h-full w-full object-cover"
-    autoPlay
-    muted
-    loop
-    playsInline
-    poster="/images/hero-doctor.png"
-    preload="metadata"
-    aria-hidden
-  >
-    <source src="/images/hero.mp4" type="video/mp4" />
-  </video>
+      <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#0a1320]">
+        {/* Background Video */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <video
+            className="h-full w-full object-cover object-[center_28%]"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/images/hero-doctor.png"
+            preload="metadata"
+            aria-hidden
+          >
+            <source src="/images/hero.mp4" type="video/mp4" />
+          </video>
 
-  {/* Desktop overlay - light and transparent */}
-  <div className="absolute inset-0 hidden bg-[linear-gradient(110deg,rgba(255,255,255,0.38)_0%,rgba(255,255,255,0.25)_45%,rgba(255,255,255,0.10)_100%)] md:block" />
+          {/* Readability overlay */}
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(183,28,28,0.34)_0%,rgba(183,28,28,0.22)_28%,rgba(7,15,28,0.38)_62%,rgba(7,15,28,0.62)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(183,28,28,0.14),transparent_34%)]" />
+        </div>
 
-  {/* Mobile overlay - stronger behind text, transparent elsewhere */}
-  <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0.20)_20%,rgba(255,255,255,0.68)_34%,rgba(255,255,255,0.62)_62%,rgba(255,255,255,0.18)_78%,rgba(255,255,255,0.05)_100%)] md:hidden" />
+        <div className="absolute inset-x-0 top-0 z-20 h-1 bg-[#B71C1C]" aria-hidden />
 
-  {/* Soft desktop center readability */}
-  <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.18),transparent_55%)] md:block" />
+        {/* Hero Content */}
+        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-4 py-10 pb-28 sm:px-6 md:py-24 md:pb-24">
+          <motion.div variants={container} initial="hidden" animate="visible" className="max-w-3xl text-center md:text-left">
+            <motion.span
+              variants={item}
+              className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/12 px-4 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-white shadow-lg shadow-black/10 backdrop-blur-md md:mx-0 sm:text-[0.72rem]"
+            >
+              <Building2 className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              {HOSPITAL.tagline || 'Even Hospitals | Even Clinics'}
+            </motion.span>
 
-  {/* Very subtle brand tint */}
-  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(183,28,28,0.025),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(0,180,216,0.025),transparent_48%)]" />
-</div>
+            <motion.h1
+              variants={item}
+              className="mx-auto mt-5 max-w-2xl text-balance font-serif text-[2.35rem] font-bold leading-[1.02] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-3xl lg:mx-0 lg:text-6xl"
+            >
+              Designed to keep you
+              <span className="block text-white/95">healthy, not hospitalised</span>
+            </motion.h1>
 
-{/* Decorative accent line */}
-<div
-  className="absolute inset-x-0 top-0 z-20 h-1 bg-[#B71C1C]"
-  aria-hidden
-/>
+            <motion.p
+              variants={item}
+              className="mx-auto mt-4 max-w-2xl text-pretty text-[0.98rem] leading-7 text-white/88 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)] sm:text-lg md:mx-0"
+            >
+              Experience healthcare that starts early, supports you throughout,
+              and helps you stay well even after you leave.
+            </motion.p>
 
-{/* Hero Content */}
-<div className="relative z-10 flex min-h-screen max-w-7xl flex-col justify-center px-5 py-24 sm:px-6 md:py-28">
-  <motion.div
-    variants={container}
-    initial="hidden"
-    animate="visible"
-    className="max-w-3xl"
-  >
-    {/* Tagline */}
-    <motion.span
-      variants={item}
-      className="inline-flex items-center gap-2 rounded-full border border-[#B71C1C]/20 bg-white/75 px-3.5 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-[#B71C1C] shadow-sm backdrop-blur-md sm:px-4 sm:text-[0.7rem]"
-    >
-      <Building2 className="h-3.5 w-3.5 shrink-0" aria-hidden />
-      {HOSPITAL.tagline || "Even Hospitals | Even Clinics"}
-    </motion.span>
+            <motion.div variants={item} className="mt-7 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <Link
+                href="/hospitals-near-me/delhi-hospital/contact"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#B71C1C] px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-[#B71C1C]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#B71C1C]/35 sm:w-auto sm:rounded-full sm:px-8 sm:py-3.5"
+              >
+                <CalendarCheck className="h-4 w-4" aria-hidden />
+                Book an Appointment
+              </Link>
 
-    {/* Main Headline */}
-    <motion.h1
-      variants={item}
-      className="mt-5 max-w-2xl text-balance text-[2rem] font-bold leading-[1.08] tracking-tight text-black drop-shadow-sm sm:text-5xl lg:text-6xl"
-    >
-      Designed to keep you
-      <span className="block text-[#B71C1C]">
-        healthy, not hospitalised
-      </span>
-    </motion.h1>
+              <Link
+                href={ROUTES.specialities}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/22 bg-white/10 px-6 py-4 text-sm font-semibold text-white shadow-sm backdrop-blur-md transition-all hover:bg-white/15 sm:w-auto sm:rounded-full sm:px-8 sm:py-3.5"
+              >
+                Explore Treatments
+              </Link>
+            </motion.div>
 
-    {/* Description */}
-    <motion.p
-      variants={item}
-      className="mt-4 max-w-xl text-pretty text-sm leading-relaxed text-slate-800 drop-shadow-sm sm:text-lg"
-    >
-      Experience healthcare that starts early, supports you throughout,
-      and helps you stay well even after you leave.
-    </motion.p>
+           
+          </motion.div>
+        </div>
 
-    {/* CTA Buttons */}
-    <motion.div
-      variants={item}
-      className="mt-7 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4"
-    >
-      <button
-        onClick={() => setIsFormOpen(true)}
-        className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#B71C1C] to-[#00B4D8] px-6 py-3 text-xs font-semibold text-white shadow-lg shadow-[#B71C1C]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#B71C1C]/40 sm:px-8 sm:py-3.5 sm:text-sm"
-      >
-        <CalendarCheck className="h-4 w-4" aria-hidden />
-        Book Appointment
-      </button>
-
-      <a
-        href={HOSPITAL.phoneHref || "tel:+918047495555"}
-        className="inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/75 px-6 py-3 text-xs font-semibold text-slate-900 shadow-sm backdrop-blur-md transition-all hover:border-slate-300 hover:bg-white sm:px-8 sm:py-3.5 sm:text-sm"
-      >
-        <Phone className="h-4 w-4" aria-hidden />
-        Call Now
-      </a>
-    </motion.div>
-  </motion.div>
-</div>
-             </section>
+        
+      </section>
 
       {/* Pop-up Form Modal */}
       {isFormOpen && (

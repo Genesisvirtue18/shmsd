@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   title: 'Gallery',
   description:
     'Take a visual tour of Signature Heart & Multispeciality Hospital through our building, reception, patient rooms, ICU, operation theatre, laboratory, pharmacy and more.',
-  alternates: { canonical: '/gallery' },
+  alternates: { canonical: '/hospitals-near-me/delhi-hospital/gallery' },
   openGraph: {
     title: 'Gallery | Signature Heart & Multispeciality Hospital',
     description:
       'Take a visual tour of Signature Heart & Multispeciality Hospital through our facilities, care teams and patient environment.',
-    url: 'https://shmsd.in/gallery',
+    url: 'https://shmsd.in/hospitals-near-me/delhi-hospital/gallery',
     siteName: 'Signature Heart & Multispeciality Hospital',
     type: 'website',
     images: [

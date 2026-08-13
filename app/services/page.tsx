@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'Our Services',
   description:
     'Explore the medical specialties at Signature Heart & Multispeciality Hospital across medicine, surgery, cardiology, gynaecology, orthopaedics, neurology and more.',
-  alternates: { canonical: '/services' },
+  alternates: { canonical: '/hospitals-near-me/delhi-hospital/speciality' },
 }
 
 export default function ServicesPage() {

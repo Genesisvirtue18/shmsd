@@ -9,7 +9,7 @@ import { HOSPITAL } from '@/lib/data'
 export const metadata: Metadata = {
   title: 'Contact Us',
   description: `Contact Signature Heart & Multispeciality Hospital. Call ${HOSPITAL.phone}, email ${HOSPITAL.email} or visit us at ${HOSPITAL.address}. 24x7 emergency services available.`,
-  alternates: { canonical: '/contact' },
+  alternates: { canonical: '/hospitals-near-me/delhi-hospital/contact' },
 }
 
 const CONTACT_ITEMS = [

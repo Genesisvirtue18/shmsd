@@ -6,6 +6,7 @@ import { BadgeCheck, BookOpen, Eye, Target, Users } from 'lucide-react'
 import { PageHeader } from '@/components/page-header'
 import { CtaBanner } from '@/components/cta-banner'
 import { MANAGEMENT_TEAM } from '@/lib/doctor-directory'
+import { ROUTES } from '@/lib/routes'
 
 export const metadata: Metadata = {
   title: 'About Us',
@@ -168,12 +169,12 @@ export default function AboutPage() {
                       className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm"
                     >
                       <div className="grid gap-0 md:grid-cols-1">
-                        <div className="relative min-h-[220px] bg-slate-100">
+                        <div className="relative aspect-[4/5] bg-slate-100 md:min-h-[220px]">
                           <Image
                             src={member.image || '/images/about-team.png'}
                             alt={member.name}
                             fill
-                            className="object-contain"
+                            className="object-cover"
                             sizes="(max-width: 768px) 100vw, 180px"
                           />
                         </div>
@@ -189,7 +190,7 @@ export default function AboutPage() {
                           {member.slug ? (
                             <div className="mt-5">
                               <Link
-                                href={`/about/management/${member.slug}`}
+                                href={ROUTES.doctor(member.slug)}
                                 className="inline-flex items-center gap-2 rounded-full bg-[#0F4C81] px-4 py-2.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
                               >
                                 View details

@@ -60,11 +60,11 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return {
     title: `${service.title} | Services`,
     description: service.overview,
-    alternates: { canonical: `/services/${service.slug}` },
+    alternates: { canonical: `/hospitals-near-me/delhi-hospital/speciality/${service.slug}` },
     openGraph: {
       title: `${service.title} | Signature Hospital`,
       description: service.overview,
-      url: `https://shmsd.in/services/${service.slug}`,
+      url: `https://shmsd.in/hospitals-near-me/delhi-hospital/speciality/${service.slug}`,
       siteName: 'Signature Heart & Multispeciality Hospital',
       type: 'article',
       images: [
@@ -134,23 +134,44 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                     />
                   </div>
 
+                  {service.clinicalAreas.length > 0 ? (
+                    <div className="mt-5">
+                      <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                        Common Services & Conditions
+                      </h3>
+                      <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                        {service.clinicalAreas.map((area) => (
+                          <div
+                            key={area}
+                            className="rounded-2xl border border-border bg-background/80 px-3 py-2 text-sm text-foreground"
+                          >
+                            {area}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+
                   <div className="mt-5">
-                   <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Quick Summary</h3>
-                      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                        {service.title} care is delivered by specialists with a focus on safe planning, clear
-                        communication and follow-up support throughout the treatment journey.
-                      </p>
+                    <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Quick Summary</h3>
+                    <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                      {service.title} care is delivered by specialists with a focus on safe planning, clear
+                      communication and follow-up support throughout the treatment journey.
+                    </p>
                   </div>
 
-                  <div className="mt-6">
-                    <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                  <div className="mt-5">
+                    <h3 className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-primary">
                       Treatment Journey & Milestones
                     </h3>
-                    <div className="mt-4 space-y-3 lg:hidden">
+                    <div className="mt-3 space-y-2 lg:hidden">
                       {service.steps.map((step, index) => (
-                        <div key={step.title} className="relative flex gap-3 rounded-2xl border border-border bg-background/80 p-3">
+                        <div
+                          key={step.title}
+                          className="group relative flex gap-3 rounded-2xl border border-border bg-background/80 p-2.5 transition-all duration-200 hover:border-primary/20 hover:bg-background"
+                        >
                           <div className="relative flex flex-col items-center pt-0.5">
-                            <span className="flex h-7 w-7 items-center justify-center rounded-full border border-primary/20 bg-primary/10 text-[0.7rem] font-semibold text-primary">
+                            <span className="flex h-6 w-6 items-center justify-center rounded-full border border-primary/20 bg-primary/10 text-[0.65rem] font-semibold text-primary">
                               {index + 1}
                             </span>
                             {index !== service.steps.length - 1 ? (
@@ -158,25 +179,27 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                             ) : null}
                           </div>
                           <div className="min-w-0 flex-1">
-                            <h4 className="text-sm font-semibold text-foreground">{step.title}</h4>
-                            <p className="mt-1 text-[0.72rem] leading-snug text-muted-foreground">
+                            <h4 className="text-[0.92rem] font-semibold leading-tight text-foreground">{step.title}</h4>
+                            <p className="mt-1 line-clamp-3 text-[0.68rem] leading-4 text-muted-foreground group-hover:line-clamp-none group-hover:leading-5">
                               {step.description}
                             </p>
                           </div>
                         </div>
                       ))}
                     </div>
-                    <div className="mt-4 hidden grid-cols-2 gap-3 lg:grid lg:grid-cols-4">
+                    <div className="mt-3 hidden grid-cols-2 gap-2.5 lg:grid lg:grid-cols-4">
                       {service.steps.map((step, index) => (
                         <div
                           key={step.title}
-                          className="flex h-full flex-col rounded-2xl border border-border bg-background/80 p-3 text-center"
+                          className="group flex h-full flex-col rounded-2xl border border-border bg-background/80 p-2.5 text-center transition-all duration-200 hover:border-primary/20 hover:bg-background"
                         >
-                          <div className="mx-auto flex h-8 w-8 items-center justify-center rounded-full border border-primary/20 bg-primary/10 text-xs font-semibold text-primary">
+                          <div className="mx-auto flex h-7 w-7 items-center justify-center rounded-full border border-primary/20 bg-primary/10 text-[0.68rem] font-semibold text-primary">
                             {index + 1}
                           </div>
-                          <h4 className="mt-3 font-semibold text-foreground">{step.title}</h4>
-                          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{step.description}</p>
+                          <h4 className="mt-2 text-[0.95rem] font-semibold leading-tight text-foreground">{step.title}</h4>
+                          <p className="mt-1 line-clamp-4 text-[0.72rem] leading-4 text-muted-foreground group-hover:line-clamp-none group-hover:leading-5">
+                            {step.description}
+                          </p>
                         </div>
                       ))}
                     </div>

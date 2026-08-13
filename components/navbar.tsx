@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { ChevronDown, Menu, X } from 'lucide-react'
 import { NAV_LINKS, HOSPITAL, SERVICE_LINKS } from '@/lib/data'
+import { ROUTES } from '@/lib/routes'
 import { cn } from '@/lib/utils'
 
 const SOCIAL_LINKS = [
@@ -98,7 +99,7 @@ export function Navbar() {
               {HOSPITAL.phone}
             </a>
             <span className="text-primary-foreground/60">|</span>
-            <Link href="/appointment" className="hover:underline">
+            <Link href={ROUTES.appointment} className="hover:underline">
               Book Appointment
             </Link>
           </div>
@@ -130,7 +131,7 @@ export function Navbar() {
               const active = pathname === link.href
 
               if (link.label === 'Specialities') {
-                const specialitiesActive = pathname.startsWith('/departments')
+                const specialitiesActive = pathname.startsWith(ROUTES.specialities)
                 return (
                   <li key={link.href} className="relative group">
                     <button
@@ -260,7 +261,7 @@ export function Navbar() {
           <ul className="flex flex-1 flex-col gap-1 overflow-y-auto p-4">
             {NAV_LINKS.map((link) => {
               const active = pathname === link.href
-              const specialitiesActive = pathname.startsWith('/departments')
+              const specialitiesActive = pathname.startsWith(ROUTES.specialities)
 
               if (link.label === 'Specialities') {
                 return (
