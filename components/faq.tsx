@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 export function FaqAccordion() {
   const [open, setOpen] = useState<number | null>(0)
   return (
-    <div className="mx-auto grid max-w-3xl grid-cols-2 gap-2 sm:grid-cols-1 sm:gap-3">
+    <div className="mx-auto grid max-w-2xl grid-cols-1 gap-3">
       {FAQS.map((faq, i) => {
         const isOpen = open === i
         return (
@@ -22,10 +22,10 @@ export function FaqAccordion() {
             <button
               type="button"
               onClick={() => setOpen(isOpen ? null : i)}
-              className="flex w-full items-start justify-between gap-2 px-3 py-3 text-left sm:items-center sm:gap-4 sm:px-6 sm:py-5"
+              className="flex w-full items-start justify-between gap-3 px-4 py-4 text-left sm:items-center sm:gap-4 sm:px-6 sm:py-5"
               aria-expanded={isOpen}
             >
-              <span className="text-[0.78rem] font-medium leading-snug text-foreground sm:text-base">
+              <span className="text-sm font-medium leading-snug text-foreground sm:text-base">
                 {faq.question}
               </span>
               <span
@@ -44,7 +44,7 @@ export function FaqAccordion() {
               )}
             >
               <div className="overflow-hidden">
-                <p className="px-3 pb-3 text-[0.72rem] leading-snug text-muted-foreground sm:px-6 sm:pb-5 sm:text-sm sm:leading-relaxed">
+                <p className="px-4 pb-4 text-xs leading-snug text-muted-foreground sm:px-6 sm:pb-5 sm:text-sm sm:leading-relaxed">
                   {faq.answer}
                 </p>
               </div>

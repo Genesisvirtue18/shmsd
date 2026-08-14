@@ -107,7 +107,7 @@ export function Hero() {
         <div className="absolute inset-x-0 top-0 z-20 h-1 bg-[#B71C1C]" aria-hidden />
 
         {/* Hero Content */}
-        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-4 py-10 pb-28 sm:px-6 md:py-24 md:pb-24">
+        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-start px-4 py-8 pb-24 pt-24 sm:px-6 sm:py-12 sm:pb-24 md:justify-center md:py-24 md:pb-24">
           <motion.div variants={container} initial="hidden" animate="visible" className="max-w-3xl text-center md:text-left">
             <motion.span
               variants={item}
@@ -119,7 +119,7 @@ export function Hero() {
 
             <motion.h1
               variants={item}
-              className="mx-auto mt-5 max-w-2xl text-balance font-serif text-[2.35rem] font-bold leading-[1.02] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-3xl lg:mx-0 lg:text-6xl"
+              className="mx-auto mt-5 max-w-2xl text-balance font-serif text-[2rem] font-bold leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-3xl lg:mx-0 lg:text-6xl"
             >
               Designed to keep you
               <span className="block text-white/95">healthy, not hospitalised</span>
@@ -127,7 +127,7 @@ export function Hero() {
 
             <motion.p
               variants={item}
-              className="mx-auto mt-4 max-w-2xl text-pretty text-[0.98rem] leading-7 text-white/88 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)] sm:text-lg md:mx-0"
+              className="mx-auto mt-4 max-w-2xl text-pretty text-[0.95rem] leading-6 text-white/88 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)] sm:text-lg sm:leading-7 md:mx-0"
             >
               Experience healthcare that starts early, supports you throughout,
               and helps you stay well even after you leave.

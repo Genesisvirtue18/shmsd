@@ -7,7 +7,8 @@ import { GoogleReviews } from '@/components/home/GoogleReviews'
 import { LatestBlogs } from '@/components/home/LatestBlogs'
 import { InstagramFeed } from '@/components/home/InstagramFeed'
 import { StatsBar } from '@/components/home/stats'
-import { AboutPreview } from '@/components/home/about-preview'
+import { HospitalOverview } from '@/components/home/HospitalOverview'
+import { QuickAccessMosaic } from '@/components/home/QuickAccessMosaic'
 import { ServiceCarousel } from '@/components/home/Service-carousel'
 import { DoctorsCarousel } from '@/components/home/doctors-carousel'
 import { PatientJourney } from '@/components/home/patient-journey'
@@ -44,7 +45,8 @@ export default function Home() {
       <Hero />
       <AppointmentPopup />
       <StatsBar />
-      <AboutPreview />
+      <HospitalOverview />
+      <QuickAccessMosaic />
 
       <section className="px-6 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl">
@@ -112,17 +114,17 @@ export default function Home() {
             title="A hospital experience that feels calm, coordinated and caring"
             description="We focus on the details that reduce stress for patients and families: simple communication, quick response and a cleaner care journey."
           />
-          <StaggerGroup className="mt-10 grid gap-4 grid-cols-3 xl:grid-cols-3">
+          <StaggerGroup className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {pillars.map((pillar) => {
               const Icon = pillar.icon
               return (
                 <StaggerItem key={pillar.title} className="h-full">
-                  <div className="h-full rounded-[1.5rem] border border-border bg-card p-5 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
-                    <span className="flex h-8 w-8 md:h-12 md:w-12 items-center justify-center rounded-2xl bg-[#B71C1C]/10 text-[#B71C1C]">
-                      <Icon className="h-5 w-5 md:h-6 md:w-6 " aria-hidden />
+                  <div className="h-full rounded-[1.5rem] border border-border bg-card p-5 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg sm:p-6">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#B71C1C]/10 text-[#B71C1C] md:h-12 md:w-12">
+                      <Icon className="h-5 w-5 md:h-6 md:w-6" aria-hidden />
                     </span>
-                    <h3 className="mt-4 text-sm md:text-lg font-semibold text-foreground">{pillar.title}</h3>
-                    <p className="mt-2 text-xs md:text-sm leading-6 text-muted-foreground">{pillar.text}</p>
+                    <h3 className="mt-4 text-base font-semibold text-foreground md:text-lg">{pillar.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{pillar.text}</p>
                   </div>
                 </StaggerItem>
               )
