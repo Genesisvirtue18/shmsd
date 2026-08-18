@@ -32,7 +32,7 @@ type HeroSlide = {
 
 const heroSlides: HeroSlide[] = [
   {
-    image: '/images/1.png',
+    image: '/images/1.jpeg',
     eyebrow: 'Hospital Building',
     title: 'Trusted Multispeciality Care, Close to You',
     subtitle:
@@ -42,7 +42,7 @@ const heroSlides: HeroSlide[] = [
     alt: 'Hospital building banner',
   },
   {
-    image: '/images/2.png',
+    image: '/images/2.jpeg',
     eyebrow: 'Doctor Consultation',
     title: 'Compassionate Care for Every Family',
     subtitle:
@@ -52,7 +52,7 @@ const heroSlides: HeroSlide[] = [
     alt: 'Doctor consultation banner',
   },
   {
-    image: '/images/3.png',
+    image: '/images/3.jpeg',
     eyebrow: 'Heart Specialist',
     title: 'Expert Heart Care You Can Trust',
     subtitle:
