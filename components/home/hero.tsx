@@ -138,8 +138,47 @@ export function Hero() {
 
   return (
     <>
-      <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#08111d]">
-        <div className="absolute inset-0 z-0 overflow-hidden">
+    <section className="relative isolate h-auto min-h-0! overflow-hidden bg-red-400 md:min-h-[40svh]">
+        {/* Mobile banner */}
+  <div className="absolute block h-fit w-full md:hidden">
+    {heroSlides.map((slide, index) => (
+      <div
+        key={slide.image}
+        className={
+          index === activeSlide
+            ? "relative block h-fit w-full"
+            : "hidden"
+        }
+      >
+        <Image
+          src={slide.image}
+          alt={slide.title}
+          width={1200}
+          height={400}
+          priority={index === 0}
+          sizes="100vw"
+          className="block h-auto w-full"
+        />
+
+        <div className="absolute inset-y-0 left-0 flex w-[52%] items-center">
+          <div className="px-3 text-white">
+            <h1 className="text-sm font-bold leading-tight">
+              {slide.title}
+            </h1>
+
+            <p className="mt-1 text-[7px] leading-tight">
+              {slide.subtitle}
+            </p>
+
+            <button className="mt-1.5 rounded bg-cyan-600 px-2 py-1 text-[6px] font-semibold">
+              {slide.buttonText || "Consult Now"}
+            </button>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+        <div className="absolute inset-0 z-0 overflow-hidden hidden md:block">
           <AnimatePresence initial={false}>
             <motion.div
               key={currentSlide.image}
@@ -156,7 +195,7 @@ export function Hero() {
                 priority={activeSlide === 0}
                 quality={95}
                 sizes="100vw"
-                className="object-cover object-center"
+                className="object-cover   object-[center_18%]"
               />
             </motion.div>
           </AnimatePresence>
@@ -165,20 +204,46 @@ export function Hero() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(183,28,28,0.22),transparent_32%)]" />
         </div>
 
-        <div className="sr-only" aria-hidden>
-          {heroSlides.map((slide) => (
-            <Image key={slide.image} src={slide.image} alt="" width={1} height={1} priority={false} />
-          ))}
-        </div>
+<section className="relative isolate h-fit !min-h-0 overflow-hidden bg-transparent md:min-h-[40svh] md:bg-red-400">
+
+  {/* Desktop background */}
+  <div className="absolute inset-0 z-0 hidden overflow-hidden md:block">
+    <AnimatePresence initial={false}>
+      <motion.div
+        key={currentSlide.image}
+        initial={{ opacity: 0, scale: 1.03 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 1.01 }}
+        transition={{
+          duration: 0.55,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="absolute inset-0"
+      >
+        <Image
+          src={currentSlide.image}
+          alt={currentSlide.alt}
+          fill
+          priority={activeSlide === 0}
+          quality={95}
+          sizes="100vw"
+          className="object-cover object-[center_18%]"
+        />
+      </motion.div>
+    </AnimatePresence>
+  </div>
+
+
+</section>
 
         <div className="absolute inset-x-0 top-0 z-20 h-1 bg-[#B71C1C]" aria-hidden />
 
-        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-between px-4 pb-8 pt-24 sm:px-6 sm:pb-10 sm:pt-28 lg:pb-12 lg:pt-28">
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-end px-4 pb-8 pt-[12svh] sm:px-6 sm:pb-10 sm:pt-28 md:min-h-[100svh] md:justify-between lg:pb-12 lg:pt-16">
           <motion.div
             variants={container}
             initial="hidden"
             animate="visible"
-            className="max-w-3xl text-center lg:text-left"
+            className="max-w-3xl text-center lg:text-left md:block hidden"
           >
             <motion.span
               variants={item}
@@ -190,7 +255,7 @@ export function Hero() {
 
             <motion.p
               variants={item}
-              className="mx-auto mt-5 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-white/72 lg:mx-0"
+              className="mx-auto mt-5 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-white/80 lg:mx-0"
             >
               {currentSlide.eyebrow}
             </motion.p>
@@ -198,7 +263,7 @@ export function Hero() {
             <motion.h1
               key={currentSlide.title}
               variants={item}
-              className="mx-auto mt-3 max-w-2xl text-balance font-serif text-[2rem] font-bold leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-4xl lg:mx-0 lg:text-6xl"
+              className="mx-auto mt-3 max-w-2xl text-balance font-serif text-[2.1rem] font-bold leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-4xl lg:mx-0 lg:text-6xl"
             >
               {currentSlide.title}
             </motion.h1>
@@ -206,30 +271,74 @@ export function Hero() {
             <motion.p
               key={currentSlide.subtitle}
               variants={item}
-              className="mx-auto mt-4 max-w-2xl text-pretty text-[0.95rem] leading-6 text-white/88 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)] sm:text-lg sm:leading-7 lg:mx-0"
+              className="mx-auto mt-4 max-w-2xl text-pretty text-[0.98rem] leading-6 text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)] sm:text-lg sm:leading-7 lg:mx-0"
             >
               {currentSlide.subtitle}
             </motion.p>
 
-            <motion.div variants={item} className="mt-7 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <motion.div
+              variants={item}
+              className="mt-7 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4"
+            >
               <Link
                 href={currentSlide.href}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#B71C1C] px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-[#B71C1C]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#B71C1C]/35 sm:w-auto sm:rounded-full sm:px-8 sm:py-3.5"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#B71C1C] px-4 py-3 text-xs font-semibold text-white shadow-lg shadow-[#B71C1C]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#B71C1C]/35 sm:w-auto sm:rounded-full sm:px-8 sm:py-3.5 sm:text-sm"
               >
-                <CalendarCheck className="h-4 w-4" aria-hidden />
+                <CalendarCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden />
                 {currentSlide.ctaLabel}
               </Link>
 
               <Link
                 href={ROUTES.specialities}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/22 bg-white/10 px-6 py-4 text-sm font-semibold text-white shadow-sm backdrop-blur-md transition-all hover:bg-white/15 sm:w-auto sm:rounded-full sm:px-8 sm:py-3.5"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/22 bg-white/10 px-4 py-3 text-xs font-semibold text-white shadow-sm backdrop-blur-md transition-all hover:bg-white/15 sm:w-auto sm:rounded-full sm:px-8 sm:py-3.5 sm:text-sm"
               >
                 Explore Treatments
               </Link>
             </motion.div>
           </motion.div>
+{/* 
+          <motion.div
+            variants={container}
+            initial="hidden"
+            animate="visible"
+            className="md:hidden"
+          >
+            <motion.div variants={item} className="overflow-hidden rounded-[1.4rem] border border-white/15 bg-[#2f5f93] shadow-2xl shadow-black/20">
+              <div className="grid min-h-[152px] grid-cols-[96px_minmax(0,1fr)] sm:grid-cols-[120px_minmax(0,1fr)]">
+                <div className="relative overflow-hidden">
+                  <Image
+                    src={currentSlide.image}
+                    alt={currentSlide.alt}
+                    fill
+                    priority={activeSlide === 0}
+                    quality={95}
+                    sizes="(max-width: 640px) 96px, 120px"
+                    className="object-cover object-center"
+                  />
+                </div>
 
-          <div className="mt-10 grid gap-4 lg:mt-0 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+                <div className="flex flex-col justify-center px-3 py-3 pr-4 text-white sm:px-4">
+                  <p className="text-[0.58rem] font-semibold uppercase tracking-[0.22em] text-white/80">
+                    {currentSlide.eyebrow}
+                  </p>
+                  <h1 className="mt-1 text-[0.92rem] font-semibold leading-[1.15] text-white sm:text-base">
+                    {currentSlide.title}
+                  </h1>
+                  <p className="mt-1 text-[0.68rem] leading-4 text-white/88 sm:text-[0.75rem]">
+                    {currentSlide.subtitle}
+                  </p>
+                  <Link
+                    href={currentSlide.href}
+                    className="mt-3 inline-flex w-fit items-center justify-center rounded-full bg-[#B71C1C] px-3 py-1.5 text-[0.66rem] font-semibold text-white shadow-lg shadow-[#B71C1C]/30 transition-transform hover:-translate-y-0.5"
+                  >
+                    {currentSlide.ctaLabel}
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div> */}
+
+          <div className="mt-10 hidden gap-4 md:grid lg:mt-0 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div className="flex items-center justify-center gap-2 lg:justify-start">
               <button
                 type="button"
@@ -281,6 +390,8 @@ export function Hero() {
             </div>
           </div>
         </div>
+
+        
       </section>
 
       {isFormOpen && (

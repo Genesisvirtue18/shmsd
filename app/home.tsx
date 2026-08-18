@@ -57,13 +57,13 @@ export default function Home() {
             description="Our management team combines medical experience, calm leadership and a patient-first approach."
           />
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
-            {MANAGEMENT_TEAM.map((member) => (
-              <article
-                key={member.slug || member.name}
-                className="overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10"
-              >
-                <div className="grid gap-0 md:grid-cols-[180px_minmax(0,1fr)]">
+            <div className="mt-10 grid gap-6 lg:grid-cols-2">
+              {MANAGEMENT_TEAM.map((member) => (
+                <article
+                  key={member.slug || member.name}
+                  className="flex h-full overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10"
+                >
+                  <div className="grid gap-0 md:grid-cols-[180px_minmax(0,1fr)]">
                   <div className="relative aspect-[4/5] bg-gradient-to-br from-primary/10 via-white to-muted/40 md:min-h-[240px]">
                     <Image
                       src={member.image || '/images/about-team.png'}
@@ -74,7 +74,7 @@ export default function Home() {
                     />
                   </div>
 
-                  <div className="p-5 sm:p-6">
+                  <div className="flex h-full flex-col p-5 sm:p-6">
                     <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
                       {member.department}
                     </p>
@@ -84,7 +84,7 @@ export default function Home() {
                     <p className="mt-1 text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
                       {member.qualification}
                     </p>
-                    <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                    <p className="mt-4 flex-1 line-clamp-6 text-sm leading-7 text-muted-foreground">
                       {member.description}
                     </p>
 

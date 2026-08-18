@@ -34,9 +34,12 @@ const servicePoints = [
 
 export function HospitalOverview() {
   return (
-    <section className="px-6 py-16 sm:py-24">
+    <section className="px-6 py-5 md:py-24">
       <div className="mx-auto max-w-7xl">
-        <Reveal>
+        
+
+        <div className="relative mt-10 overflow-hidden rounded-[2rem] border border-border bg-white p-5 shadow-xl shadow-primary/5 sm:p-8 lg:p-10">
+        <Reveal >
           <div className="mb-6 inline-flex items-center gap-3">
             <span className="h-7 w-[2px] bg-[#B71C1C]" aria-hidden />
             <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
@@ -46,19 +49,17 @@ export function HospitalOverview() {
         </Reveal>
 
         <Reveal delay={0.05}>
-          <p className="max-w-xl text-sm leading-7 text-muted-foreground sm:text-base">
+          <p className="max-w-xl pb-3 text-xs md:text-sm leading-7 text-muted-foreground sm:text-base">
             We thrive on building a healthier community for individuals and families with accessible, dependable
             care across Delhi NCR.
           </p>
         </Reveal>
-
-        <div className="relative mt-10 overflow-hidden rounded-[2rem] border border-border bg-white p-5 shadow-xl shadow-primary/5 sm:p-8 lg:p-10">
           <div className="pointer-events-none absolute inset-0" aria-hidden>
             <div className="absolute right-4 top-4 hidden h-48 w-48 rounded-full bg-primary/5 blur-3xl lg:block" />
             <div className="absolute bottom-0 right-0 hidden h-72 w-72 rounded-full bg-[#B71C1C]/5 blur-3xl lg:block" />
           </div>
 
-          <div className="relative grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div className="relative grid gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <Reveal direction="right">
               <div className="space-y-6">
                 <div className="overflow-hidden rounded-[1.5rem] border border-border bg-muted shadow-sm">

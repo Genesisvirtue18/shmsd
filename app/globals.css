@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
-  --font-serif: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-neo-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-neo-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, monospace;
 
   --color-background: var(--background);
@@ -45,13 +45,13 @@
   --radius: 0.9rem;
 
   --background: #f7fafc;
-  --foreground: #102033;
+  --foreground: #000000;
 
   --card: #ffffff;
-  --card-foreground: #102033;
+  --card-foreground: #000000;
 
   --popover: #ffffff;
-  --popover-foreground: #102033;
+  --popover-foreground: #000000;
 
   --primary: #b71c1c;
   --primary-foreground: #ffffff;
@@ -60,7 +60,7 @@
   --secondary-foreground: #ffffff;
 
   --muted: #eaf2f8;
-  --muted-foreground: #64748b;
+  --muted-foreground: #000000;
 
   --accent: #d32f2f;
   --accent-foreground: #ffffff;
@@ -88,18 +88,32 @@
     @apply bg-background text-foreground;
     font-feature-settings: 'liga' 1, 'calt' 1;
   }
+
+  ::placeholder {
+    color: #000 !important;
+    opacity: 0.55;
+  }
 }
+
+[class*='text-gray-'],
+[class*='text-slate-'],
+[class*='text-zinc-'],
+[class*='text-stone-'] {
+  color: #000 !important;
+}
+
 .swiper-button-next,
 .swiper-button-prev {
   color: white !important;
 }
 
 .swiper-pagination-bullet {
-  background: white !important;
+  background: #dc2626 !important;
   opacity: 0.5;
 }
 
 .swiper-pagination-bullet-active {
+  background: #b71c1c !important;
   opacity: 1;
   width: 24px;
   border-radius: 999px;

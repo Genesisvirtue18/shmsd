@@ -204,8 +204,14 @@ export const DIRECTOR_PROFILE: DoctorProfile = {
   name: 'Dr. Ashish Singhal',
   qualification: 'MBBS, MD, DM, DNB',
   department: 'Director',
-  description:
-    'As healthcare providers, it is our responsibility to prioritize the needs and well-being of our patients above all else. We must strive to provide the highest quality of care, treatment, and support to ensure that our patients receive the best possible outcomes. Our patients deserve nothing less than our best efforts and dedication.',
+  description: `As healthcare providers, it is our responsibility
+to prioritize the needs and well-being of our
+patients above all else. We must strive to
+provide the highest quality of care, treatment,
+and support to ensure that our patients receive
+the best possible outcomes. Our patients
+deserve nothing less than our best efforts
+and dedication.`,
   image: '/images/ashish.jpeg',
 }
 

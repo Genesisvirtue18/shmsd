@@ -23,7 +23,7 @@ export function DoctorsCarousel({ doctors }: { doctors: Doctor[] }) {
           480: { slidesPerView: 1.25 },
           640: { slidesPerView: 1.6 },
         }}
-        className="!pb-10"
+        className="!pb-10 [--swiper-pagination-bullet-inactive-color:#ef4444] [--swiper-pagination-color:#dc2626]"
       >
         {doctors.map((doctor) => (
           <SwiperSlide key={doctor.name} className="h-auto">

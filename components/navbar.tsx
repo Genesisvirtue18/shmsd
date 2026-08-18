@@ -137,10 +137,10 @@ export function Navbar() {
                     <button
                       type="button"
                       className={cn(
-                        'inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                        'inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm font-semibold text-black transition-colors',
                         specialitiesActive
-                          ? 'text-foreground'
-                          : 'text-foreground/80 hover:text-foreground',
+                          ? 'text-black'
+                          : 'text-black hover:text-black',
                       )}
                       style={
                         specialitiesActive
@@ -160,11 +160,11 @@ export function Navbar() {
                         {SERVICE_LINKS.map((item) => (
                           <Link
                             key={item.slug}
-                            href={item.href}
-                            className="rounded-2xl px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
-                          >
-                            {item.label}
-                          </Link>
+                          href={item.href}
+                          className="rounded-2xl px-4 py-3 text-sm font-medium text-black transition-colors hover:bg-muted hover:text-black"
+                        >
+                          {item.label}
+                        </Link>
                         ))}
                       </div>
                     </div>
@@ -177,8 +177,8 @@ export function Navbar() {
                   <Link
                     href={link.href}
                     className={cn(
-                      'rounded-full px-4 py-2 text-sm font-medium transition-colors',
-                      active ? 'text-foreground' : 'text-foreground/80 hover:text-foreground',
+                      'rounded-full px-4 py-2 text-sm font-semibold text-black transition-colors',
+                      active ? 'text-black' : 'text-black hover:text-black',
                     )}
                     style={
                       active
@@ -205,7 +205,7 @@ export function Navbar() {
                     href={social.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-sm transition-transform hover:-translate-y-0.5 hover:border-primary/30 hover:text-primary"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-white text-black shadow-sm transition-transform hover:-translate-y-0.5 hover:border-primary/30 hover:text-primary"
                     aria-label={social.label}
                   >
                     <SocialIcon kind={social.icon} />
@@ -216,7 +216,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-border text-foreground lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-border text-black lg:hidden"
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
             >
@@ -268,8 +268,8 @@ export function Navbar() {
                   <li key={link.href} className="space-y-2">
                     <div
                       className={cn(
-                        'rounded-xl px-4 py-3 text-base font-medium',
-                        specialitiesActive ? 'text-foreground' : 'text-foreground',
+                        'rounded-xl px-4 py-3 text-base font-semibold text-black',
+                        specialitiesActive ? 'text-black' : 'text-black',
                       )}
                       style={specialitiesActive ? { color: brand, backgroundColor: brandSoft } : undefined}
                     >
@@ -280,7 +280,7 @@ export function Navbar() {
                         <Link
                           key={item.slug}
                           href={item.href}
-                          className="rounded-lg px-3 py-2 text-sm text-foreground/75 transition-colors hover:bg-muted hover:text-foreground"
+                          className="rounded-lg px-3 py-2 text-sm font-medium text-black transition-colors hover:bg-muted hover:text-black"
                         >
                           {item.label}
                         </Link>
@@ -295,8 +295,8 @@ export function Navbar() {
                   <Link
                     href={link.href}
                     className={cn(
-                      'block rounded-xl px-4 py-3 text-base font-medium transition-colors',
-                      active ? 'text-foreground' : 'text-foreground hover:bg-muted',
+                      'block rounded-xl px-4 py-3 text-base font-semibold text-black transition-colors hover:bg-muted',
+                      active ? 'text-black' : 'text-black hover:bg-muted',
                     )}
                     style={active ? { color: brand, backgroundColor: brandSoft } : undefined}
                   >

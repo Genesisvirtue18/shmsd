@@ -22,7 +22,7 @@ export function ServiceCarousel({ Service }: { Service: SERVICES[] }) {
           480: { slidesPerView: 2 },
           640: { slidesPerView: 1.6 },
         }}
-        className="!pb-10"
+        className="!pb-10 [--swiper-pagination-bullet-inactive-color:#ef4444] [--swiper-pagination-color:#dc2626]"
       >
         {Service.map((dept) => (
           <SwiperSlide key={dept.slug} className="h-auto">

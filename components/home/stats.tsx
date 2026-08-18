@@ -7,7 +7,7 @@ const icons = [HeartPulse, Users2, Activity, Building2]
 
 export function StatsBar() {
   return (
-    <section className="relative z-10 px-6">
+    <section className="relative z-10 px-6 hidden md:block">
       <div className="mx-auto -mt-8 max-w-7xl">
         <StaggerGroup className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
           {STATS.map((s, index) => {
