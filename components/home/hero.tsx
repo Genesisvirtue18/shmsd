@@ -1,28 +1,71 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
-  CalendarCheck,
   Calendar,
+  CalendarCheck,
   CheckCircle,
-  Home,
+  ChevronLeft,
+  ChevronRight,
   Building2,
   Mail,
   MessageSquare,
   Phone,
-  Stethoscope,
   User,
   X,
 } from 'lucide-react'
 import { HOSPITAL } from '@/lib/data'
 import { ROUTES } from '@/lib/routes'
 
+type HeroSlide = {
+  image: string
+  eyebrow: string
+  title: string
+  subtitle: string
+  ctaLabel: string
+  href: string
+  alt: string
+}
+
+const heroSlides: HeroSlide[] = [
+  {
+    image: '/images/1.png',
+    eyebrow: 'Hospital Building',
+    title: 'Trusted Multispeciality Care, Close to You',
+    subtitle:
+      'Advanced healthcare, experienced specialists, and 24×7 emergency support all under one roof.',
+    ctaLabel: 'Explore Our Hospital',
+    href: ROUTES.about,
+    alt: 'Hospital building banner',
+  },
+  {
+    image: '/images/2.png',
+    eyebrow: 'Doctor Consultation',
+    title: 'Compassionate Care for Every Family',
+    subtitle:
+      'Consult experienced specialists who listen, understand, and provide personalized treatment.',
+    ctaLabel: 'Book an Appointment',
+    href: ROUTES.appointment,
+    alt: 'Doctor consultation banner',
+  },
+  {
+    image: '/images/3.png',
+    eyebrow: 'Heart Specialist',
+    title: 'Expert Heart Care You Can Trust',
+    subtitle:
+      'Advanced cardiac diagnosis and personalized treatment from experienced heart specialists.',
+    ctaLabel: 'Consult a Cardiologist',
+    href: ROUTES.specialities,
+    alt: 'Heart specialist banner',
+  },
+]
+
 const container = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.5 } },
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
 }
 
 const item = {
@@ -31,43 +74,55 @@ const item = {
 }
 
 export function Hero() {
-  const pathname = usePathname()
+  const [activeSlide, setActiveSlide] = useState(0)
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
     date: '',
-    message: ''
+    message: '',
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  const mobileLinks = [
-    { label: 'Home', href: '/', icon: Home },
-    { label: 'Specialities', href: '/services', icon: Stethoscope },
-    { label: 'About', href: '/about', icon: Building2 },
-    { label: 'Contact', href: '/contact', icon: Phone },
-    { label: 'Book', href: '/appointment', icon: CalendarCheck },
-  ]
+  const currentSlide = heroSlides[activeSlide]
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % heroSlides.length)
+    }, 6000)
+
+    return () => window.clearInterval(timer)
+  }, [])
+
+  const goToSlide = (index: number) => {
+    setActiveSlide((index + heroSlides.length) % heroSlides.length)
+  }
+
+  const handlePrev = () => {
+    setActiveSlide((current) => (current - 1 + heroSlides.length) % heroSlides.length)
+  }
+
+  const handleNext = () => {
+    setActiveSlide((current) => (current + 1) % heroSlides.length)
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
+
+    await new Promise((resolve) => setTimeout(resolve, 1500))
+
     console.log('Form Data:', formData)
     setIsSubmitted(true)
     setIsLoading(false)
-    
-    // Reset form after 3 seconds
+
     setTimeout(() => {
       setIsSubmitted(false)
       setFormData({
@@ -75,7 +130,7 @@ export function Hero() {
         phone: '',
         email: '',
         date: '',
-        message: ''
+        message: '',
       })
       setIsFormOpen(false)
     }, 3000)
@@ -83,63 +138,86 @@ export function Hero() {
 
   return (
     <>
-      <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#0a1320]">
-        {/* Background Video */}
+      <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#08111d]">
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <video
-            className="h-full w-full object-cover object-[center_28%]"
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/images/hero-doctor.png"
-            preload="metadata"
-            aria-hidden
-          >
-            <source src="/images/hero.mp4" type="video/mp4" />
-          </video>
+          <AnimatePresence initial={false}>
+            <motion.div
+              key={currentSlide.image}
+              initial={{ opacity: 0, scale: 1.03 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.01 }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={currentSlide.image}
+                alt={currentSlide.alt}
+                fill
+                priority={activeSlide === 0}
+                quality={95}
+                sizes="100vw"
+                className="object-cover object-center"
+              />
+            </motion.div>
+          </AnimatePresence>
 
-          {/* Readability overlay */}
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(183,28,28,0.34)_0%,rgba(183,28,28,0.22)_28%,rgba(7,15,28,0.38)_62%,rgba(7,15,28,0.62)_100%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(183,28,28,0.14),transparent_34%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,17,29,0.2)_0%,rgba(8,17,29,0.32)_26%,rgba(7,15,28,0.58)_66%,rgba(7,15,28,0.82)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(183,28,28,0.22),transparent_32%)]" />
+        </div>
+
+        <div className="sr-only" aria-hidden>
+          {heroSlides.map((slide) => (
+            <Image key={slide.image} src={slide.image} alt="" width={1} height={1} priority={false} />
+          ))}
         </div>
 
         <div className="absolute inset-x-0 top-0 z-20 h-1 bg-[#B71C1C]" aria-hidden />
 
-        {/* Hero Content */}
-        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-start px-4 py-8 pb-24 pt-24 sm:px-6 sm:py-12 sm:pb-24 md:justify-center md:py-24 md:pb-24">
-          <motion.div variants={container} initial="hidden" animate="visible" className="max-w-3xl text-center md:text-left">
+        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-between px-4 pb-8 pt-24 sm:px-6 sm:pb-10 sm:pt-28 lg:pb-12 lg:pt-28">
+          <motion.div
+            variants={container}
+            initial="hidden"
+            animate="visible"
+            className="max-w-3xl text-center lg:text-left"
+          >
             <motion.span
               variants={item}
-              className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/12 px-4 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-white shadow-lg shadow-black/10 backdrop-blur-md md:mx-0 sm:text-[0.72rem]"
+              className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/12 px-4 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-white shadow-lg shadow-black/10 backdrop-blur-md lg:mx-0 sm:text-[0.72rem]"
             >
               <Building2 className="h-3.5 w-3.5 shrink-0" aria-hidden />
-              {HOSPITAL.tagline || 'Even Hospitals | Even Clinics'}
+              {HOSPITAL.tagline || 'Health Equality, Always'}
             </motion.span>
-
-            <motion.h1
-              variants={item}
-              className="mx-auto mt-5 max-w-2xl text-balance font-serif text-[2rem] font-bold leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-3xl lg:mx-0 lg:text-6xl"
-            >
-              Designed to keep you
-              <span className="block text-white/95">healthy, not hospitalised</span>
-            </motion.h1>
 
             <motion.p
               variants={item}
-              className="mx-auto mt-4 max-w-2xl text-pretty text-[0.95rem] leading-6 text-white/88 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)] sm:text-lg sm:leading-7 md:mx-0"
+              className="mx-auto mt-5 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-white/72 lg:mx-0"
             >
-              Experience healthcare that starts early, supports you throughout,
-              and helps you stay well even after you leave.
+              {currentSlide.eyebrow}
+            </motion.p>
+
+            <motion.h1
+              key={currentSlide.title}
+              variants={item}
+              className="mx-auto mt-3 max-w-2xl text-balance font-serif text-[2rem] font-bold leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-4xl lg:mx-0 lg:text-6xl"
+            >
+              {currentSlide.title}
+            </motion.h1>
+
+            <motion.p
+              key={currentSlide.subtitle}
+              variants={item}
+              className="mx-auto mt-4 max-w-2xl text-pretty text-[0.95rem] leading-6 text-white/88 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)] sm:text-lg sm:leading-7 lg:mx-0"
+            >
+              {currentSlide.subtitle}
             </motion.p>
 
             <motion.div variants={item} className="mt-7 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
               <Link
-                href="/hospitals-near-me/delhi-hospital/contact"
+                href={currentSlide.href}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#B71C1C] px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-[#B71C1C]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#B71C1C]/35 sm:w-auto sm:rounded-full sm:px-8 sm:py-3.5"
               >
                 <CalendarCheck className="h-4 w-4" aria-hidden />
-                Book an Appointment
+                {currentSlide.ctaLabel}
               </Link>
 
               <Link
@@ -149,47 +227,89 @@ export function Hero() {
                 Explore Treatments
               </Link>
             </motion.div>
-
-           
           </motion.div>
-        </div>
 
-        
+          <div className="mt-10 grid gap-4 lg:mt-0 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+            <div className="flex items-center justify-center gap-2 lg:justify-start">
+              <button
+                type="button"
+                onClick={handlePrev}
+                aria-label="Previous banner"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-white/12 text-white backdrop-blur-md transition hover:bg-white/20"
+              >
+                <ChevronLeft className="h-5 w-5" aria-hidden />
+              </button>
+
+              <div className="flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-2 backdrop-blur-md">
+                {heroSlides.map((slide, index) => (
+                  <button
+                    key={slide.image}
+                    type="button"
+                    onClick={() => goToSlide(index)}
+                    aria-label={`Go to banner ${index + 1}`}
+                    aria-pressed={index === activeSlide}
+                    className={`h-2.5 rounded-full transition-all ${
+                      index === activeSlide ? 'w-8 bg-white' : 'w-2.5 bg-white/45 hover:bg-white/70'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={handleNext}
+                aria-label="Next banner"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-white/12 text-white backdrop-blur-md transition hover:bg-white/20"
+              >
+                <ChevronRight className="h-5 w-5" aria-hidden />
+              </button>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-3">
+              <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-md">
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/70">Emergency</p>
+                <p className="mt-1 text-sm font-semibold">Ready 24x7</p>
+              </div>
+              <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-md">
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/70">Specialists</p>
+                <p className="mt-1 text-sm font-semibold">Multispeciality care</p>
+              </div>
+              <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-md">
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/70">Support</p>
+                <p className="mt-1 text-sm font-semibold">Family-first guidance</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Pop-up Form Modal */}
       {isFormOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={() => setIsFormOpen(false)}
           />
-          
-          {/* Modal */}
+
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             className="relative w-full max-w-lg rounded-2xl bg-white shadow-2xl"
           >
-            {/* Close Button */}
             <button
               onClick={() => setIsFormOpen(false)}
-              className="absolute right-4 top-4 rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
+              className="absolute right-4 top-4 rounded-full p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
             >
               <X className="h-6 w-6" />
             </button>
 
-            {/* Form Header */}
             <div className="rounded-t-2xl bg-gradient-to-r from-[#B71C1C] to-[#00B4D8] p-6">
               <h2 className="text-2xl font-bold text-white">Book an Appointment</h2>
-              <p className="mt-1 text-white/80 text-sm">
+              <p className="mt-1 text-sm text-white/80">
                 Fill in your details and we'll get back to you shortly
               </p>
             </div>
 
-            {/* Form Body */}
             <div className="p-6">
               {isSubmitted ? (
                 <div className="flex flex-col items-center justify-center py-8">
@@ -203,13 +323,12 @@ export function Hero() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Name */}
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="name" className="mb-1 block text-sm font-medium text-gray-700">
                       Full Name *
                     </label>
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                      <User className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                       <input
                         type="text"
                         id="name"
@@ -217,19 +336,18 @@ export function Hero() {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-2.5 focus:border-[#B71C1C] focus:ring-2 focus:ring-[#B71C1C]/20 outline-none transition-colors"
+                        className="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-4 outline-none transition-colors focus:border-[#B71C1C] focus:ring-2 focus:ring-[#B71C1C]/20"
                         placeholder="John Doe"
                       />
                     </div>
                   </div>
 
-                  {/* Phone */}
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="phone" className="mb-1 block text-sm font-medium text-gray-700">
                       Phone Number *
                     </label>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                      <Phone className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                       <input
                         type="tel"
                         id="phone"
@@ -237,52 +355,49 @@ export function Hero() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         required
-                        className="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-2.5 focus:border-[#B71C1C] focus:ring-2 focus:ring-[#B71C1C]/20 outline-none transition-colors"
+                        className="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-4 outline-none transition-colors focus:border-[#B71C1C] focus:ring-2 focus:ring-[#B71C1C]/20"
                         placeholder="+91 98765 43210"
                       />
                     </div>
                   </div>
 
-                  {/* Email */}
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
                       Email Address
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                      <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                       <input
                         type="email"
                         id="email"
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-2.5 focus:border-[#B71C1C] focus:ring-2 focus:ring-[#B71C1C]/20 outline-none transition-colors"
+                        className="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-4 outline-none transition-colors focus:border-[#B71C1C] focus:ring-2 focus:ring-[#B71C1C]/20"
                         placeholder="john@example.com"
                       />
                     </div>
                   </div>
 
-                  {/* Preferred Date */}
                   <div>
-                    <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="date" className="mb-1 block text-sm font-medium text-gray-700">
                       Preferred Date
                     </label>
                     <div className="relative">
-                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                      <Calendar className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                       <input
                         type="date"
                         id="date"
                         name="date"
                         value={formData.date}
                         onChange={handleInputChange}
-                        className="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-2.5 focus:border-[#B71C1C] focus:ring-2 focus:ring-[#B71C1C]/20 outline-none transition-colors"
+                        className="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-4 outline-none transition-colors focus:border-[#B71C1C] focus:ring-2 focus:ring-[#B71C1C]/20"
                       />
                     </div>
                   </div>
 
-                  {/* Message */}
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="message" className="mb-1 block text-sm font-medium text-gray-700">
                       Additional Notes
                     </label>
                     <div className="relative">
@@ -293,23 +408,38 @@ export function Hero() {
                         value={formData.message}
                         onChange={handleInputChange}
                         rows={3}
-                        className="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-2.5 focus:border-[#B71C1C] focus:ring-2 focus:ring-[#B71C1C]/20 outline-none transition-colors resize-none"
+                        className="w-full resize-none rounded-lg border border-gray-300 py-2.5 pl-10 pr-4 outline-none transition-colors focus:border-[#B71C1C] focus:ring-2 focus:ring-[#B71C1C]/20"
                         placeholder="Any specific requirements or concerns..."
                       />
                     </div>
                   </div>
 
-                  {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full rounded-lg bg-gradient-to-r from-[#B71C1C] to-[#00B4D8] py-3 text-white font-semibold transition-all hover:shadow-lg hover:shadow-[#B71C1C]/25 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full rounded-lg bg-gradient-to-r from-[#B71C1C] to-[#00B4D8] py-3 font-semibold text-white transition-all hover:shadow-lg hover:shadow-[#B71C1C]/25 disabled:cursor-not-allowed disabled:opacity-70"
                   >
                     {isLoading ? (
                       <span className="flex items-center justify-center gap-2">
-                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        <svg
+                          className="h-5 w-5 animate-spin text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
                         </svg>
                         Submitting...
                       </span>
