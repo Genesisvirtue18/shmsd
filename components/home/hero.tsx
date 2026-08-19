@@ -16,6 +16,10 @@ import {
   Phone,
   User,
   X,
+  Shield,
+  Stethoscope,
+  Package,
+  Ambulance,
 } from 'lucide-react'
 import { HOSPITAL } from '@/lib/data'
 import { ROUTES } from '@/lib/routes'
@@ -72,6 +76,29 @@ const item = {
   hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const } },
 }
+
+const services = [
+  {
+    icon: Shield,
+    label: 'Travel Insurance',
+    color: 'from-blue-500 to-blue-600',
+  },
+  {
+    icon: Stethoscope,
+    label: 'Health Checkups',
+    color: 'from-emerald-500 to-emerald-600',
+  },
+  {
+    icon: Package,
+    label: 'Medical Kit',
+    color: 'from-amber-500 to-amber-600',
+  },
+  {
+    icon: Ambulance,
+    label: 'Emergency Services',
+    color: 'from-red-500 to-red-600',
+  },
+]
 
 export function Hero() {
   const [activeSlide, setActiveSlide] = useState(0)
@@ -138,120 +165,126 @@ export function Hero() {
 
   return (
     <>
-    <section className="relative isolate overflow-hidden bg-slate-900 min-h-[68svh] md:min-h-[30svh]">
-      <div className="absolute inset-0 z-0 hidden overflow-hidden md:block">
-        <AnimatePresence initial={false}>
-          <motion.div
-            key={currentSlide.image}
-            initial={{ opacity: 0, scale: 1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={currentSlide.image}
-              alt={currentSlide.alt}
-              fill
-              priority={activeSlide === 0}
-              quality={95}
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-          </motion.div>
-        </AnimatePresence>
-
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,17,29,0.18)_0%,rgba(8,17,29,0.28)_30%,rgba(7,15,28,0.5)_72%,rgba(7,15,28,0.72)_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(183,28,28,0.22),transparent_32%)]" />
-      </div>
-
-      <div className="absolute inset-0 z-0 md:hidden">
-        <AnimatePresence initial={false}>
-          <motion.div
-            key={currentSlide.image}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={currentSlide.image}
-              alt={currentSlide.alt}
-              fill
-              priority={activeSlide === 0}
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-          </motion.div>
-        </AnimatePresence>
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,17,29,0.2)_0%,rgba(8,17,29,0.32)_40%,rgba(7,15,28,0.68)_100%)]" />
-      </div>
-
-      <div className="relative z-10 mx-auto flex min-h-[68svh] max-w-7xl flex-col justify-end px-4 pb-6 pt-10 sm:px-6 sm:pb-8 md:hidden">
-        <motion.div variants={container} initial="hidden" animate="visible" className="max-w-xl">
-          <motion.span
-            variants={item}
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/12 px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md"
-          >
-            <Building2 className="h-3.5 w-3.5 shrink-0" aria-hidden />
-            {HOSPITAL.tagline || 'Health Equality, Always'}
-          </motion.span>
-
-          <motion.p
-            variants={item}
-            className="mt-4 text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-white/75"
-          >
-            {currentSlide.eyebrow}
-          </motion.p>
-
-          <motion.h1
-            key={`mobile-${currentSlide.title}`}
-            variants={item}
-            className="mt-3 max-w-sm text-balance font-serif text-[1.8rem] font-bold leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]"
-          >
-            {currentSlide.title}
-          </motion.h1>
-
-          <motion.p
-            key={`mobile-${currentSlide.subtitle}`}
-            variants={item}
-            className="mt-3 max-w-sm text-sm leading-6 text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)]"
-          >
-            {currentSlide.subtitle}
-          </motion.p>
-
-          <motion.div variants={item} className="mt-5 flex flex-col gap-3">
-            <Link
-              href={currentSlide.href}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#B71C1C] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-[#B71C1C]/25"
+      <section className="relative isolate overflow-hidden bg-transparent md:min-h-[30svh]  md:bg-slate-900">
+        <div className="absolute inset-0 z-0 hidden overflow-hidden md:block">
+          <AnimatePresence initial={false}>
+            <motion.div
+              key={currentSlide.image}
+              initial={{ opacity: 0, scale: 1 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1 }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0"
             >
-              <CalendarCheck className="h-4 w-4" aria-hidden />
-              {currentSlide.ctaLabel}
-            </Link>
+              <Image
+                src={currentSlide.image}
+                alt={currentSlide.alt}
+                fill
+                priority={activeSlide === 0}
+                quality={95}
+                sizes="100vw"
+                className="object-contain md:object-cover object-center"
+              />
+            </motion.div>
+          </AnimatePresence>
 
-            <Link
-              href={ROUTES.specialities}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/22 bg-white/10 px-4 py-3 text-sm font-semibold text-white backdrop-blur-md"
-            >
-              Explore Treatments
-            </Link>
-          </motion.div>
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,17,29,0.18)_0%,rgba(8,17,29,0.28)_30%,rgba(7,15,28,0.5)_72%,rgba(7,15,28,0.72)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(183,28,28,0.22),transparent_32%)]" />
+        </div>
+
+      {/* MOBILE BANNER - SIMPLE HORIZONTAL WITH IMAGE BACKGROUND */}
+      <div className="relative z-10 mx-auto px-4 py-3 sm:px-6 md:hidden ">
+        <div className="relative">
+    {/* Background Image */}
+    <div className="relative h-[170px] w-full ">
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={`mobile-image-${currentSlide.image}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.35 }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={currentSlide.image}
+            alt={currentSlide.alt}
+            fill
+            priority={activeSlide === 0}
+            sizes="100vw"
+            className="object-cover  object-center"
+          />
         </motion.div>
+      </AnimatePresence>
+      
+      {/* Dark Overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+      
+      {/* Text Content Overlay */}
+      <div className="relative z-10 flex h-full flex-col justify-center px-5 py-4 text-white">
+        <motion.span
+          key={`mobile-eyebrow-${currentSlide.eyebrow}`}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="text-[0.55rem] font-semibold uppercase tracking-[0.2em] text-white/70"
+        >
+          {currentSlide.eyebrow}
+        </motion.span>
+        
+        <motion.h1
+          key={`mobile-title-${currentSlide.title}`}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.05 }}
+          className="mt-1 text-balance font-serif text-[0.9rem] font-bold leading-[1.1] tracking-tight text-white"
+        >
+          {currentSlide.title}
+        </motion.h1>
+        
+        {/* <motion.p
+          key={`mobile-subtitle-${currentSlide.subtitle}`}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="mt-1 max-w-[80%] text-[0.65rem] leading-4 text-white/85"
+        >
+          {currentSlide.subtitle}
+        </motion.p> */}
+        
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.15 }}
+          className="mt-2.5"
+        >
+          <Link
+            href={currentSlide.href}
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#B71C1C] px-5 py-1.5 text-[0.6rem] font-semibold text-white shadow-lg shadow-[#B71C1C]/30 transition-transform active:scale-95"
+          >
+            <CalendarCheck className="h-3 w-3" aria-hidden />
+            {currentSlide.ctaLabel}
+          </Link>
+        </motion.div>
+      </div>
+    </div>
 
-        <div className="mt-5 flex items-center justify-center gap-2">
-          {heroSlides.map((slide, index) => (
-            <button
-              key={slide.image}
-              type="button"
-              onClick={() => goToSlide(index)}
-              aria-label={`Go to banner ${index + 1}`}
-              aria-pressed={index === activeSlide}
-              className={`h-2.5 rounded-full transition-all ${
-                index === activeSlide ? 'w-8 bg-white' : 'w-2.5 bg-white/45'
-              }`}
-            />
-          ))}
+    {/* Slide Indicators */}
+    <div className="flex items-center justify-center gap-2 bg-transparent py-2">
+      {heroSlides.map((slide, index) => (
+        <button
+          key={slide.image}
+          type="button"
+          onClick={() => goToSlide(index)}
+          aria-label={`Go to banner ${index + 1}`}
+          aria-pressed={index === activeSlide}
+          className={`h-1.5 rounded-full transition-all ${
+            index === activeSlide ? 'w-6 bg-red-400' : 'w-1.5 bg-red-400/40'
+          }`}
+        />
+      ))}
+    </div>
+
         </div>
       </div>
 
@@ -315,47 +348,6 @@ export function Hero() {
               </Link>
             </motion.div>
           </motion.div>
-{/* 
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="visible"
-            className="md:hidden"
-          >
-            <motion.div variants={item} className="overflow-hidden rounded-[1.4rem] border border-white/15 bg-[#2f5f93] shadow-2xl shadow-black/20">
-              <div className="grid min-h-[152px] grid-cols-[96px_minmax(0,1fr)] sm:grid-cols-[120px_minmax(0,1fr)]">
-                <div className="relative overflow-hidden">
-                  <Image
-                    src={currentSlide.image}
-                    alt={currentSlide.alt}
-                    fill
-                    priority={activeSlide === 0}
-                    quality={95}
-                    sizes="(max-width: 640px) 96px, 120px"
-                    className="object-cover object-center"
-                  />
-                </div>
-
-                <div className="flex flex-col justify-center px-3 py-3 pr-4 text-white sm:px-4">
-                  <p className="text-[0.58rem] font-semibold uppercase tracking-[0.22em] text-white/80">
-                    {currentSlide.eyebrow}
-                  </p>
-                  <h1 className="mt-1 text-[0.92rem] font-semibold leading-[1.15] text-white sm:text-base">
-                    {currentSlide.title}
-                  </h1>
-                  <p className="mt-1 text-[0.68rem] leading-4 text-white/88 sm:text-[0.75rem]">
-                    {currentSlide.subtitle}
-                  </p>
-                  <Link
-                    href={currentSlide.href}
-                    className="mt-3 inline-flex w-fit items-center justify-center rounded-full bg-[#B71C1C] px-3 py-1.5 text-[0.66rem] font-semibold text-white shadow-lg shadow-[#B71C1C]/30 transition-transform hover:-translate-y-0.5"
-                  >
-                    {currentSlide.ctaLabel}
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div> */}
 
           <div className="mt-6 hidden gap-4 md:grid lg:mt-0 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div className="flex items-center justify-center gap-2 lg:justify-start">
@@ -392,27 +384,11 @@ export function Hero() {
                 <ChevronRight className="h-5 w-5" aria-hidden />
               </button>
             </div>
-
-            <div className="grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-md">
-                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/70">Emergency</p>
-                <p className="mt-1 text-sm font-semibold">Ready 24x7</p>
-              </div>
-              <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-md">
-                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/70">Specialists</p>
-                <p className="mt-1 text-sm font-semibold">Multispeciality care</p>
-              </div>
-              <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white backdrop-blur-md">
-                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/70">Support</p>
-                <p className="mt-1 text-sm font-semibold">Family-first guidance</p>
-              </div>
-            </div>
           </div>
         </div>
-
-        
       </section>
 
+      {/* Appointment Form Modal - keep as is */}
       {isFormOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
