@@ -138,107 +138,126 @@ export function Hero() {
 
   return (
     <>
-    <section className="relative isolate h-auto min-h-0! overflow-hidden bg-red-400 md:min-h-[40svh]">
-        {/* Mobile banner */}
-  <div className="absolute block h-fit w-full md:hidden">
-    {heroSlides.map((slide, index) => (
-      <div
-        key={slide.image}
-        className={
-          index === activeSlide
-            ? "relative block h-fit w-full"
-            : "hidden"
-        }
-      >
-        <Image
-          src={slide.image}
-          alt={slide.title}
-          width={1200}
-          height={400}
-          priority={index === 0}
-          sizes="100vw"
-          className="block h-auto w-full"
-        />
+    <section className="relative isolate overflow-hidden bg-slate-900 min-h-[68svh] md:min-h-[30svh]">
+      <div className="absolute inset-0 z-0 hidden overflow-hidden md:block">
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={currentSlide.image}
+            initial={{ opacity: 0, scale: 1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={currentSlide.image}
+              alt={currentSlide.alt}
+              fill
+              priority={activeSlide === 0}
+              quality={95}
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          </motion.div>
+        </AnimatePresence>
 
-        <div className="absolute inset-y-0 left-0 flex w-[52%] items-center">
-          <div className="px-3 text-white">
-            <h1 className="text-sm font-bold leading-tight">
-              {slide.title}
-            </h1>
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,17,29,0.18)_0%,rgba(8,17,29,0.28)_30%,rgba(7,15,28,0.5)_72%,rgba(7,15,28,0.72)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(183,28,28,0.22),transparent_32%)]" />
+      </div>
 
-            <p className="mt-1 text-[7px] leading-tight">
-              {slide.subtitle}
-            </p>
+      <div className="absolute inset-0 z-0 md:hidden">
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={currentSlide.image}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={currentSlide.image}
+              alt={currentSlide.alt}
+              fill
+              priority={activeSlide === 0}
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          </motion.div>
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,17,29,0.2)_0%,rgba(8,17,29,0.32)_40%,rgba(7,15,28,0.68)_100%)]" />
+      </div>
 
-            <button className="mt-1.5 rounded bg-cyan-600 px-2 py-1 text-[6px] font-semibold">
-              {slide.buttonText || "Consult Now"}
-            </button>
-          </div>
+      <div className="relative z-10 mx-auto flex min-h-[68svh] max-w-7xl flex-col justify-end px-4 pb-6 pt-10 sm:px-6 sm:pb-8 md:hidden">
+        <motion.div variants={container} initial="hidden" animate="visible" className="max-w-xl">
+          <motion.span
+            variants={item}
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/12 px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md"
+          >
+            <Building2 className="h-3.5 w-3.5 shrink-0" aria-hidden />
+            {HOSPITAL.tagline || 'Health Equality, Always'}
+          </motion.span>
+
+          <motion.p
+            variants={item}
+            className="mt-4 text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-white/75"
+          >
+            {currentSlide.eyebrow}
+          </motion.p>
+
+          <motion.h1
+            key={`mobile-${currentSlide.title}`}
+            variants={item}
+            className="mt-3 max-w-sm text-balance font-serif text-[1.8rem] font-bold leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]"
+          >
+            {currentSlide.title}
+          </motion.h1>
+
+          <motion.p
+            key={`mobile-${currentSlide.subtitle}`}
+            variants={item}
+            className="mt-3 max-w-sm text-sm leading-6 text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)]"
+          >
+            {currentSlide.subtitle}
+          </motion.p>
+
+          <motion.div variants={item} className="mt-5 flex flex-col gap-3">
+            <Link
+              href={currentSlide.href}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#B71C1C] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-[#B71C1C]/25"
+            >
+              <CalendarCheck className="h-4 w-4" aria-hidden />
+              {currentSlide.ctaLabel}
+            </Link>
+
+            <Link
+              href={ROUTES.specialities}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/22 bg-white/10 px-4 py-3 text-sm font-semibold text-white backdrop-blur-md"
+            >
+              Explore Treatments
+            </Link>
+          </motion.div>
+        </motion.div>
+
+        <div className="mt-5 flex items-center justify-center gap-2">
+          {heroSlides.map((slide, index) => (
+            <button
+              key={slide.image}
+              type="button"
+              onClick={() => goToSlide(index)}
+              aria-label={`Go to banner ${index + 1}`}
+              aria-pressed={index === activeSlide}
+              className={`h-2.5 rounded-full transition-all ${
+                index === activeSlide ? 'w-8 bg-white' : 'w-2.5 bg-white/45'
+              }`}
+            />
+          ))}
         </div>
       </div>
-    ))}
-  </div>
-        <div className="absolute inset-0 z-0 overflow-hidden hidden md:block">
-          <AnimatePresence initial={false}>
-            <motion.div
-              key={currentSlide.image}
-              initial={{ opacity: 0, scale: 1.03 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.01 }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={currentSlide.image}
-                alt={currentSlide.alt}
-                fill
-                priority={activeSlide === 0}
-                quality={95}
-                sizes="100vw"
-                className="object-cover   object-[center_18%]"
-              />
-            </motion.div>
-          </AnimatePresence>
-
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,17,29,0.2)_0%,rgba(8,17,29,0.32)_26%,rgba(7,15,28,0.58)_66%,rgba(7,15,28,0.82)_100%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(183,28,28,0.22),transparent_32%)]" />
-        </div>
-
-<section className="relative isolate h-fit !min-h-0 overflow-hidden bg-transparent md:min-h-[40svh] md:bg-red-400">
-
-  {/* Desktop background */}
-  <div className="absolute inset-0 z-0 hidden overflow-hidden md:block">
-    <AnimatePresence initial={false}>
-      <motion.div
-        key={currentSlide.image}
-        initial={{ opacity: 0, scale: 1.03 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 1.01 }}
-        transition={{
-          duration: 0.55,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className="absolute inset-0"
-      >
-        <Image
-          src={currentSlide.image}
-          alt={currentSlide.alt}
-          fill
-          priority={activeSlide === 0}
-          quality={95}
-          sizes="100vw"
-          className="object-cover object-[center_18%]"
-        />
-      </motion.div>
-    </AnimatePresence>
-  </div>
-
-
-</section>
 
         <div className="absolute inset-x-0 top-0 z-20 h-1 bg-[#B71C1C]" aria-hidden />
 
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-end px-4 pb-8 pt-[12svh] sm:px-6 sm:pb-10 sm:pt-28 md:min-h-[100svh] md:justify-between lg:pb-12 lg:pt-16">
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-end px-4 pb-6 pt-8 sm:px-6 sm:pb-8 sm:pt-10 md:min-h-[32svh] md:justify-center lg:pb-10 lg:pt-12">
           <motion.div
             variants={container}
             initial="hidden"
@@ -263,7 +282,7 @@ export function Hero() {
             <motion.h1
               key={currentSlide.title}
               variants={item}
-              className="mx-auto mt-3 max-w-2xl text-balance font-serif text-[2.1rem] font-bold leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-4xl lg:mx-0 lg:text-6xl"
+              className="mx-auto mt-3 max-w-2xl text-balance font-serif text-[1.8rem] font-bold leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-3xl lg:mx-0 lg:text-5xl"
             >
               {currentSlide.title}
             </motion.h1>
@@ -271,14 +290,14 @@ export function Hero() {
             <motion.p
               key={currentSlide.subtitle}
               variants={item}
-              className="mx-auto mt-4 max-w-2xl text-pretty text-[0.98rem] leading-6 text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)] sm:text-lg sm:leading-7 lg:mx-0"
+              className="mx-auto mt-3 max-w-2xl text-pretty text-[0.92rem] leading-6 text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)] sm:text-base sm:leading-7 lg:mx-0"
             >
               {currentSlide.subtitle}
             </motion.p>
 
             <motion.div
               variants={item}
-              className="mt-7 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4"
+              className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4"
             >
               <Link
                 href={currentSlide.href}
@@ -338,7 +357,7 @@ export function Hero() {
             </motion.div>
           </motion.div> */}
 
-          <div className="mt-10 hidden gap-4 md:grid lg:mt-0 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+          <div className="mt-6 hidden gap-4 md:grid lg:mt-0 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div className="flex items-center justify-center gap-2 lg:justify-start">
               <button
                 type="button"

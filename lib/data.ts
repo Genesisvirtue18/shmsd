@@ -782,7 +782,7 @@ export const FACILITIES: Facility[] = [
 ]
 
 export const STATS = [
-  { value: 15, suffix: '+', label: 'Years of Experience' },
+  { value: 15, suffix: '+', label: 'Yrs of Serving the Society' },
   { value: 50000, suffix: '+', label: 'Patients Served' },
   { value: 20, suffix: '+', label: 'Expert Doctors' },
   { value: 24, suffix: '/7', label: 'Emergency & ICU' },
