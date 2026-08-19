@@ -7,7 +7,7 @@ import { HOSPITAL } from '@/lib/data'
 export const metadata: Metadata = {
   title: 'Empanelled TPA',
   description: 'Information about empanelled TPAs and insurance support at Signature Heart & Multispeciality Hospital.',
-  alternates: { canonical: '/hospitals-near-me/delhi-hospital/tpa' },
+  alternates: { canonical: '/hospitals-near-me/yamuna-vihar/tpa' },
 }
 
 type Partner = {

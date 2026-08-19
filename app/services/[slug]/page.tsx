@@ -60,11 +60,11 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return {
     title: `${service.title} | Services`,
     description: service.overview,
-    alternates: { canonical: `/hospitals-near-me/delhi-hospital/speciality/${service.slug}` },
+    alternates: { canonical: `/hospitals-near-me/yamuna-vihar/speciality/${service.slug}` },
     openGraph: {
       title: `${service.title} | Signature Hospital`,
       description: service.overview,
-      url: `https://shmsd.in/hospitals-near-me/delhi-hospital/speciality/${service.slug}`,
+      url: `https://shmsd.in/hospitals-near-me/yamuna-vihar/speciality/${service.slug}`,
       siteName: 'Signature Heart & Multispeciality Hospital',
       type: 'article',
       images: [

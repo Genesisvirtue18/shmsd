@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react'
 import { Search, X } from 'lucide-react'
 import { buildAppointmentHref } from '@/lib/appointment'
 import { DIRECTOR_PROFILE, DOCTOR_DIRECTORY, type DoctorProfile } from '@/lib/doctor-directory'
+import { ROUTES } from '@/lib/routes'
 
 const DirectorSection = () => {
   return (
@@ -18,7 +19,7 @@ const DirectorSection = () => {
         }}
       />
 
-          <div className="z-10 space-y-4 md:w-2/3">
+      <div className="z-10 space-y-4 md:w-2/3">
         <h3 className="text-4xl font-bold tracking-tight text-slate-800">OUR DOCTOR</h3>
         <h4 className="text-2xl font-semibold text-slate-900">Patients deserve the best from us</h4>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-600">
@@ -27,6 +28,23 @@ const DirectorSection = () => {
         <div className="pt-2">
           <div className="text-xl font-bold text-slate-900">{DIRECTOR_PROFILE.name}</div>
           <div className="text-sm font-medium text-slate-500">{DIRECTOR_PROFILE.department}</div>
+        </div>
+        <div className="flex flex-wrap gap-3 pt-2">
+          <Link
+            href={ROUTES.doctor(DIRECTOR_PROFILE.department, DIRECTOR_PROFILE.slug!)}
+            className="inline-flex rounded-full border border-[#0F4C81] px-5 py-2 text-sm font-medium text-[#0F4C81] transition-colors hover:bg-[#0F4C81] hover:text-white"
+          >
+            View profile
+          </Link>
+          <Link
+            href={buildAppointmentHref({
+              doctor: DIRECTOR_PROFILE.name,
+              speciality: DIRECTOR_PROFILE.bookingSpeciality ?? DIRECTOR_PROFILE.department,
+            })}
+            className="inline-flex rounded-full bg-[#B71C1C] px-5 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#861717]"
+          >
+            Book appointment
+          </Link>
         </div>
       </div>
 
@@ -46,10 +64,12 @@ const DoctorCard = ({
 }: {
   doctor: DoctorProfile
 }) => {
+  const bookingSpeciality = doctor.bookingSpeciality ?? doctor.department
   const appointmentHref = buildAppointmentHref({
     doctor: doctor.name,
-    speciality: doctor.department,
+    speciality: bookingSpeciality,
   })
+  const profileHref = doctor.slug ? ROUTES.doctor(doctor.department, doctor.slug) : undefined
 
   return (
     <div className="mb-4 flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow duration-200 hover:shadow-md">
@@ -66,7 +86,15 @@ const DoctorCard = ({
         <div className="font-semibold text-blue-600 text-sm">{doctor.department}</div>
         <p className="max-w-3xl text-xs leading-6 text-slate-500">{doctor.description}</p>
 
-        <div className="pt-2">
+        <div className="flex flex-wrap gap-3 pt-2">
+          {profileHref ? (
+            <Link
+              href={profileHref}
+              className="inline-flex rounded-full border border-slate-200 px-5 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-[#0F4C81] hover:text-[#0F4C81]"
+            >
+              View profile
+            </Link>
+          ) : null}
           <Link
             href={appointmentHref}
             className="inline-flex rounded-full bg-[#B71C1C] px-5 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#861717]"

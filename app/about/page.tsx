@@ -190,7 +190,7 @@ export default function AboutPage() {
                           {member.slug ? (
                             <div className="mt-5">
                               <Link
-                                href={ROUTES.doctor(member.slug)}
+                                href={ROUTES.doctor(member.department, member.slug!)}
                                 className="inline-flex items-center gap-2 rounded-full bg-[#0F4C81] px-4 py-2.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
                               >
                                 View details

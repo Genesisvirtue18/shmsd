@@ -3,11 +3,28 @@ export type DoctorProfile = {
   name: string
   qualification: string
   department: string
+  bookingSpeciality?: string
   description: string
   image?: string
 }
 
 export const DOCTOR_DIRECTORY: DoctorProfile[] = [
+  {
+    slug: 'ashish-singhal',
+    name: 'Dr. Ashish Singhal',
+    qualification: 'MBBS, MD, DM, DNB',
+    department: 'Director',
+    bookingSpeciality: 'Cardiologist',
+    description: `As healthcare providers, it is our responsibility
+to prioritize the needs and well-being of our
+patients above all else. We must strive to
+provide the highest quality of care, treatment,
+and support to ensure that our patients receive
+the best possible outcomes. Our patients
+deserve nothing less than our best efforts
+and dedication.`,
+    image: '/images/ashish.jpeg',
+  },
   {
     name: 'Dr. Umesh Gupta',
     qualification: 'MBBS MS (MAMC Delhi)',
@@ -199,11 +216,12 @@ export const DOCTOR_DIRECTORY: DoctorProfile[] = [
   },
 ]
 
-export const DIRECTOR_PROFILE: DoctorProfile = {
+export const DIRECTOR_PROFILE: DoctorProfile = 
+{
   slug: 'ashish-singhal',
   name: 'Dr. Ashish Singhal',
   qualification: 'MBBS, MD, DM, DNB',
-  department: 'Director',
+  department: 'Cardiologist',
   description: `As healthcare providers, it is our responsibility
 to prioritize the needs and well-being of our
 patients above all else. We must strive to
@@ -226,7 +244,9 @@ export const MANAGEMENT_TEAM: DoctorProfile[] = [
 
 export const DOCTOR_SPECIALITIES = [
   ...new Set(
-    DOCTOR_DIRECTORY.map((doctor) => doctor.department).filter((department) => department.trim().length > 0),
+    DOCTOR_DIRECTORY.map((doctor) => doctor.bookingSpeciality ?? doctor.department).filter(
+      (department) => department.trim().length > 0,
+    ),
   ),
 ]
 

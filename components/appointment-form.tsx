@@ -44,7 +44,7 @@ const createInitialValues = (
     name: initialValues?.name ?? '',
     phone: initialValues?.phone ?? '',
     email: initialValues?.email ?? '',
-    speciality: initialValues?.speciality ?? doctor?.department ?? '',
+    speciality: initialValues?.speciality ?? doctor?.bookingSpeciality ?? doctor?.department ?? '',
     doctor: doctor?.name ?? doctorName,
     date: initialValues?.date ?? '',
     time: initialValues?.time ?? '',
@@ -89,7 +89,10 @@ export function AppointmentForm({
 
     const selectedSpeciality = normalizeValue(form.speciality)
 
-    return DOCTOR_DIRECTORY.filter((doctor) => normalizeValue(doctor.department) === selectedSpeciality)
+    return DOCTOR_DIRECTORY.filter((doctor) => {
+      const doctorSpeciality = normalizeValue(doctor.bookingSpeciality ?? doctor.department)
+      return doctorSpeciality === selectedSpeciality
+    })
   }, [form.speciality])
 
   const handleChange = (
@@ -101,7 +104,8 @@ export function AppointmentForm({
       setForm((prev) => {
         const doctor = prev.doctor ? findDoctorByName(prev.doctor) : undefined
         const doctorMatchesSpeciality =
-          doctor && normalizeValue(doctor.department) === normalizeValue(value)
+          doctor &&
+          normalizeValue(doctor.bookingSpeciality ?? doctor.department) === normalizeValue(value)
 
         return {
           ...prev,
@@ -119,7 +123,7 @@ export function AppointmentForm({
       setForm((prev) => ({
         ...prev,
         doctor: value,
-        speciality: doctor?.department ?? prev.speciality,
+        speciality: doctor?.bookingSpeciality ?? doctor?.department ?? prev.speciality,
       }))
 
       return
@@ -135,7 +139,7 @@ export function AppointmentForm({
     e.preventDefault()
     setStatus('loading')
 
-    const speciality = selectedDoctor?.department || form.speciality
+    const speciality = selectedDoctor?.bookingSpeciality || selectedDoctor?.department || form.speciality
     const doctorName = selectedDoctor?.name || form.doctor
 
     const whatsappMessage = [

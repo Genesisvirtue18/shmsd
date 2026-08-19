@@ -18,7 +18,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   const serviceRoutes = SERVICES.map((service) => ROUTES.service(service.slug))
-  const doctorRoutes = MANAGEMENT_TEAM.filter((member) => member.slug).map((member) => ROUTES.doctor(member.slug))
+  const doctorRoutes = MANAGEMENT_TEAM.filter((member) => member.slug).map((member) =>
+    ROUTES.doctor(member.department, member.slug!),
+  )
 
   const routes = [...staticRoutes, ...serviceRoutes, ...doctorRoutes]
 

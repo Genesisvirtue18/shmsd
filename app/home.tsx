@@ -91,7 +91,7 @@ export default function Home() {
                     {member.slug ? (
                       <div className="mt-5">
                         <Link
-                          href={ROUTES.doctor(member.slug)}
+                          href={ROUTES.doctor(member.department, member.slug!)}
                           className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
                         >
                           View Profile
