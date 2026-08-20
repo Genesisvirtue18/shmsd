@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { HeartPulse, ShieldCheck, Stethoscope, TimerReset } from 'lucide-react'
+import { ChevronDown, HeartPulse, ShieldCheck, Stethoscope, TimerReset } from 'lucide-react'
 import {Hero} from '@/components/home/hero'
 import { GoogleReviews } from '@/components/home/GoogleReviews'
 import { LatestBlogs } from '@/components/home/LatestBlogs'
@@ -38,29 +38,90 @@ const pillars = [
   },
 ]
 
+const HOME_TPA_PARTNERS = [
+  'The New India Assurance Company Limited',
+  'United India',
+  'National Insurance',
+  'The Oriental Insurance Company Limited',
+  'Bajaj Allianz',
+  'IFFCO TOKIO',
+  'Chola MS General Insurance',
+  'Navi General Insurance',
+  'Universal Sompo General Insurance',
+  'BSES (BYPL Yamuna Power Limited)',
+  'Medi Assist TPA',
+  'Ericson Insurance TPA Pvt. Ltd.',
+  'Tata AIG General Insurance',
+  'SBI General Insurance',
+  'Future Generali Insurance',
+  'Aditya Birla Capital',
+  'Niva Bupa General Insurance',
+  'Heritage TPA',
+  'Safeway TPA',
+  'FHPL TPA',
+  'ACKO TPA',
+  'Link-K TPA',
+  'Paramount TPA',
+  'Akna',
+  'Park Mediclaim',
+  'Raksha TPA',
+  'HITPA',
+  'Med Save',
+  'Vidal',
+  'MD India',
+  'Genins TPA',
+  'Star Health',
+  'Reliance General',
+  'Go Digit',
+  'Manipal Cigna',
+  'Volo Health TPA',
+  'Good Health TPA',
+  'Galaxy Health Insurance',
+  'ICICI',
+  'Zurich Kotak',
+  'Royal Sundaram',
+  'Delhi University',
+] as const
+
 export default function Home() {
   return (
     <div className="overflow-hidden bg-background">
       <Hero />
       <StatsBar />
       <section className="border-y border-[#235B91]/20 bg-[#EEF4FA] px-6 py-5">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#235B91] text-white shadow-sm">
-              <ShieldCheck className="h-5 w-5" aria-hidden />
+        <details className="group mx-auto max-w-7xl rounded-md border border-[#235B91]/20 bg-white shadow-sm">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-4 sm:p-5 [&::-webkit-details-marker]:hidden">
+            <div className="flex items-center gap-3">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#235B91] text-white shadow-sm">
+                <ShieldCheck className="h-5 w-5" aria-hidden />
+              </span>
+              <div>
+                <h2 className="text-lg font-bold text-[#173E66]">Empanelled TPA & Insurance Support</h2>
+                <p className="text-sm text-muted-foreground">Select to view our cashless and insurance partners.</p>
+              </div>
+            </div>
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-primary text-white">
+              <ChevronDown className="h-5 w-5 transition-transform duration-200 group-open:rotate-180" aria-hidden />
             </span>
-            <div>
-              <h2 className="text-lg font-bold text-[#173E66]">Empanelled TPA & Insurance Support</h2>
-              <p className="text-sm text-muted-foreground">Check our cashless and insurance partners before admission.</p>
+          </summary>
+          <div className="border-t border-border px-4 py-5 sm:px-5">
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              {HOME_TPA_PARTNERS.map((partner) => (
+                <div key={partner} className="rounded-md border border-border border-l-4 border-l-[#235B91] bg-[#F8FAFC] px-3 py-2.5 text-sm font-semibold text-foreground">
+                  {partner}
+                </div>
+              ))}
+            </div>
+            <div className="mt-5 flex justify-end">
+              <Link
+                href={ROUTES.tpa}
+                className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#951616]"
+              >
+                View Full TPA / Insurance Details
+              </Link>
             </div>
           </div>
-          <Link
-            href={ROUTES.tpa}
-            className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#951616]"
-          >
-            View Empanelled TPA / Insurance
-          </Link>
-        </div>
+        </details>
       </section>
       <HospitalOverview />
       <QuickAccessMosaic />
