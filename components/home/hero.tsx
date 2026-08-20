@@ -8,8 +8,6 @@ import {
   Calendar,
   CalendarCheck,
   CheckCircle,
-  ChevronLeft,
-  ChevronRight,
   Building2,
   Mail,
   MessageSquare,
@@ -123,18 +121,6 @@ export function Hero() {
     return () => window.clearInterval(timer)
   }, [])
 
-  const goToSlide = (index: number) => {
-    setActiveSlide((index + heroSlides.length) % heroSlides.length)
-  }
-
-  const handlePrev = () => {
-    setActiveSlide((current) => (current - 1 + heroSlides.length) % heroSlides.length)
-  }
-
-  const handleNext = () => {
-    setActiveSlide((current) => (current + 1) % heroSlides.length)
-  }
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
@@ -165,7 +151,7 @@ export function Hero() {
 
   return (
     <>
-      <section className="relative isolate overflow-hidden bg-white md:min-h-[520px]">
+      <section className="relative isolate overflow-hidden bg-[#235B91] md:min-h-[610px]">
         <h1 className="sr-only">Multispeciality Hospital in Yamuna Vihar, Delhi</h1>
         <div className="absolute inset-0 z-0 hidden overflow-hidden md:block">
           <AnimatePresence initial={false}>
@@ -184,12 +170,12 @@ export function Hero() {
                 priority={activeSlide === 0}
                 quality={95}
                 sizes="100vw"
-                className="object-contain md:object-cover object-center"
+                className="object-cover object-center"
               />
             </motion.div>
           </AnimatePresence>
 
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.93)_34%,rgba(255,255,255,0.44)_62%,rgba(18,45,72,0.12)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(20,63,105,0.74)_0%,rgba(35,91,145,0.86)_52%,rgba(26,71,116,0.96)_100%)]" />
         </div>
 
       {/* MOBILE BANNER - SIMPLE HORIZONTAL WITH IMAGE BACKGROUND */}
@@ -269,35 +255,21 @@ export function Hero() {
       </div>
     </div>
 
-    {/* Slide Indicators */}
-    <div className="flex items-center justify-center gap-2 bg-transparent py-2">
-      {heroSlides.map((slide, index) => (
-        <button
-          key={slide.image}
-          type="button"
-          onClick={() => goToSlide(index)}
-          aria-label={`Go to banner ${index + 1}`}
-          aria-pressed={index === activeSlide}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full after:h-2 after:w-2 after:rounded-full after:bg-primary aria-pressed:after:w-6"
-        />
-      ))}
-    </div>
-
         </div>
       </div>
 
         <div className="absolute inset-x-0 top-0 z-20 h-1 bg-[#B71C1C]" aria-hidden />
 
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-end px-4 pb-10 pt-8 sm:px-6 md:min-h-[520px] md:justify-center lg:py-16">
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-end px-4 pb-10 pt-8 sm:px-6 md:min-h-[610px] md:justify-center lg:py-20">
           <motion.div
             variants={container}
             initial="hidden"
             animate="visible"
-            className="max-w-3xl text-center lg:text-left md:block hidden"
+            className="hidden max-w-3xl text-left md:block md:w-[58%]"
           >
             <motion.span
               variants={item}
-              className="mx-auto inline-flex items-center gap-2 border-l-4 border-primary bg-white/85 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-primary shadow-sm lg:mx-0"
+              className="inline-flex items-center gap-2 border-l-4 border-[#F01D28] bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white shadow-sm backdrop-blur-sm"
             >
               <Building2 className="h-3.5 w-3.5 shrink-0" aria-hidden />
               {HOSPITAL.tagline || 'Health Equality, Always'}
@@ -305,7 +277,7 @@ export function Hero() {
 
             <motion.p
               variants={item}
-              className="mx-auto mt-5 text-xs font-bold uppercase tracking-[0.22em] text-primary lg:mx-0"
+              className="mt-5 text-xs font-bold uppercase tracking-[0.22em] text-white/85"
             >
               {currentSlide.eyebrow}
             </motion.p>
@@ -313,7 +285,7 @@ export function Hero() {
             <motion.h2
               key={currentSlide.title}
               variants={item}
-              className="mx-auto mt-3 max-w-2xl text-balance text-4xl font-bold leading-[1.08] tracking-tight text-[#235B91] sm:text-5xl lg:mx-0 lg:text-6xl"
+              className="mt-3 max-w-2xl text-balance text-4xl font-bold leading-[1.08] tracking-tight text-white drop-shadow-[0_3px_3px_rgba(0,0,0,0.3)] sm:text-5xl lg:text-6xl"
             >
               {currentSlide.title}
             </motion.h2>
@@ -321,7 +293,7 @@ export function Hero() {
             <motion.p
               key={currentSlide.subtitle}
               variants={item}
-              className="mx-auto mt-5 max-w-xl text-pretty text-base leading-7 text-[#33475B] sm:text-lg lg:mx-0"
+              className="mt-5 max-w-xl text-pretty text-base font-medium leading-7 text-white/95 drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)] sm:text-lg"
             >
               {currentSlide.subtitle}
             </motion.p>
@@ -340,49 +312,13 @@ export function Hero() {
 
               <Link
                 href={ROUTES.specialities}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-md border-2 border-[#235B91] bg-white/85 px-6 py-3 text-sm font-bold text-[#235B91] shadow-sm transition-all hover:bg-[#235B91] hover:text-white sm:w-auto"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-md border-2 border-white bg-transparent px-6 py-3 text-sm font-bold text-white shadow-sm transition-all hover:bg-white hover:text-[#235B91] sm:w-auto"
               >
                 Explore Treatments
               </Link>
             </motion.div>
           </motion.div>
 
-          <div className="mt-6 hidden gap-4 md:grid lg:mt-0 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-            <div className="flex items-center justify-center gap-2 lg:justify-start">
-              <button
-                type="button"
-                onClick={handlePrev}
-                aria-label="Previous banner"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-slate-300 bg-white text-[#235B91] shadow-sm transition hover:bg-slate-50"
-              >
-                <ChevronLeft className="h-5 w-5" aria-hidden />
-              </button>
-
-              <div className="flex items-center gap-2 rounded-md border border-slate-300 bg-white px-3 py-2 shadow-sm">
-                {heroSlides.map((slide, index) => (
-                  <button
-                    key={slide.image}
-                    type="button"
-                    onClick={() => goToSlide(index)}
-                    aria-label={`Go to banner ${index + 1}`}
-                    aria-pressed={index === activeSlide}
-                    className={`h-2.5 rounded-full transition-all ${
-                      index === activeSlide ? 'w-8 bg-primary' : 'w-2.5 bg-slate-300 hover:bg-slate-400'
-                    }`}
-                  />
-                ))}
-              </div>
-
-              <button
-                type="button"
-                onClick={handleNext}
-                aria-label="Next banner"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-slate-300 bg-white text-[#235B91] shadow-sm transition hover:bg-slate-50"
-              >
-                <ChevronRight className="h-5 w-5" aria-hidden />
-              </button>
-            </div>
-          </div>
         </div>
       </section>
 

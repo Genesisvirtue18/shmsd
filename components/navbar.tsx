@@ -87,11 +87,11 @@ export function Navbar() {
   }, [open])
 
   return (
-    <header className="sticky top-0 z-50">
-      <div className="hidden border-b border-slate-200 bg-[#F1F3F5] text-[#33475B] lg:block">
+    <header className="relative z-50 bg-white lg:sticky lg:top-0">
+      <div className="hidden border-b border-slate-200 bg-white text-[#18283B] lg:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-2 text-xs font-semibold">
           <div className="flex items-center gap-4">
-            <span className="border-l-4 border-primary pl-3 text-primary">24x7 Emergency Care</span>
+            <span className="border-l-4 border-primary pl-3 text-primary">Hospital</span>
             <span>{HOSPITAL.address}</span>
           </div>
            <div className="flex items-center gap-3">
@@ -106,16 +106,41 @@ export function Navbar() {
         </div>
       </div>
 
+      <div className="hidden bg-[#E9ECEF] lg:block">
+        <div className="mx-auto flex h-32 max-w-7xl items-center justify-between gap-8 px-6 pb-7">
+          <Link href="/" aria-label={`${HOSPITAL.shortName} home`}>
+            <Image
+              src="/images/logo.webp"
+              alt={HOSPITAL.name}
+              width={290}
+              height={80}
+              priority
+              className="h-16 w-auto"
+            />
+          </Link>
+          <div className="flex items-center gap-10 text-base font-semibold text-[#101C2B]">
+            <p>
+              Appointment No.:
+              <a href={HOSPITAL.phoneHref} className="ml-2 text-primary hover:underline">{HOSPITAL.phone}</a>
+            </p>
+            <p>
+              24x7 Emergency Helpline:
+              <a href={HOSPITAL.phoneHref} className="ml-2 text-primary hover:underline">{HOSPITAL.phone}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Main nav */}
       <nav
         className={cn(
-          'border-b-4 border-primary bg-white transition-all duration-300 shadow-sm' ,
-          scrolled ? ' border-border shadow-sm' : 'border-transparent bg-white',
+          'border-b-4 border-primary bg-white shadow-sm transition-all duration-300 lg:absolute lg:inset-x-0 lg:-bottom-9 lg:border-0 lg:bg-transparent lg:shadow-none',
+          scrolled ? 'shadow-md' : '',
         )}
         aria-label="Primary"
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-          <Link href="/" className="flex items-center gap-3" aria-label={`${HOSPITAL.shortName} home`}>
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:gap-0 lg:overflow-visible lg:rounded-md lg:bg-[#E31E24] lg:p-0 lg:shadow-xl">
+          <Link href="/" className="flex items-center gap-3 lg:hidden" aria-label={`${HOSPITAL.shortName} home`}>
             <Image
               src="/images/logo.webp"
               alt={HOSPITAL.name}
@@ -126,7 +151,7 @@ export function Navbar() {
             />
           </Link>
 
-          <ul className="hidden items-center gap-0 overflow-visible rounded-md bg-primary p-1 lg:flex">
+          <ul className="hidden flex-1 items-center justify-center gap-0 overflow-visible lg:flex lg:px-4">
             {NAV_LINKS.map((link) => {
               const active = pathname === link.href
 
@@ -137,7 +162,7 @@ export function Navbar() {
                     <button
                       type="button"
                       className={cn(
-                        'inline-flex items-center gap-1 rounded px-4 py-2 text-sm font-semibold text-white transition-colors',
+                        'inline-flex min-h-16 items-center gap-1 px-4 py-2 text-[0.95rem] font-semibold text-white transition-colors',
                         specialitiesActive
                           ? 'bg-white text-primary'
                           : 'text-white hover:bg-white/15',
@@ -176,7 +201,7 @@ export function Navbar() {
                   <Link
                     href={link.href}
                     className={cn(
-                      'rounded px-4 py-2 text-sm font-semibold transition-colors',
+                      'inline-flex min-h-16 items-center px-4 py-2 text-[0.95rem] font-semibold transition-colors',
                       active ? 'bg-white text-primary' : 'text-white hover:bg-white/15',
                     )}
                     style={
@@ -197,9 +222,9 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <Link
               href={ROUTES.appointment}
-              className="hidden min-h-11 items-center rounded-md bg-[#235B91] px-5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#194A79] xl:inline-flex"
+              className="hidden min-h-20 items-center rounded-md bg-[#235B91] px-8 text-base font-bold text-white shadow-lg transition-colors hover:bg-[#194A79] lg:inline-flex"
             >
-              Request Appointment
+              Book an Appointment
             </Link>
             <button
               type="button"

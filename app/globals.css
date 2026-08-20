@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-neo-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-neo-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: Arial, Helvetica, ui-sans-serif, system-ui, sans-serif;
+  --font-serif: Arial, Helvetica, ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, monospace;
 
   --color-background: var(--background);
@@ -45,10 +45,10 @@
   --radius: 0.5rem;
 
   --background: #ffffff;
-  --foreground: #18283b;
+  --foreground: #101c2b;
 
   --card: #ffffff;
-  --card-foreground: #18283b;
+  --card-foreground: #101c2b;
 
   --popover: #ffffff;
   --popover-foreground: #000000;
@@ -60,7 +60,7 @@
   --secondary-foreground: #ffffff;
 
   --muted: #f1f4f7;
-  --muted-foreground: #536273;
+  --muted-foreground: #3d4c5e;
 
   --accent: #d32f2f;
   --accent-foreground: #ffffff;
@@ -88,7 +88,29 @@
     @apply bg-background text-foreground;
     font-feature-settings: 'liga' 1, 'calt' 1;
     font-size: 16px;
+    font-weight: 500;
     line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    text-shadow: 0 1px 1px rgb(15 35 55 / 0.12);
+  }
+
+  p,
+  li,
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    text-rendering: optimizeLegibility;
   }
 
   ::placeholder {

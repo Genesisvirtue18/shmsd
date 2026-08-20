@@ -155,11 +155,20 @@ export function Footer() {
       </div>
 
       <div className="border-t border-background/10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-4 text-xs text-background/60 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-4 text-xs font-medium text-white/80 sm:flex-row sm:items-center sm:justify-between">
           <p>Copyright {new Date().getFullYear()} Signature Heart & Multispeciality Hospital. All rights reserved.</p>
-          <div className="flex gap-4">
-            <Link href="/privacy-policy" className="hover:text-background">Privacy</Link>
-            <Link href="/medical-disclaimer" className="hover:text-background">Medical disclaimer</Link>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <Link href="/privacy-policy" className="hover:text-white">Privacy</Link>
+            <Link href="/medical-disclaimer" className="hover:text-white">Medical disclaimer</Link>
+            <span className="hidden text-white/35 sm:inline" aria-hidden>|</span>
+            <a
+              href="https://www.genesisvirtue.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-white transition-colors hover:text-[#FF7373]"
+            >
+              Crafted by www.genesisvirtue.com
+            </a>
           </div>
         </div>
       </div>
