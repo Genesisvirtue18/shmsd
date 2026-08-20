@@ -58,16 +58,16 @@ function SocialIcon({ kind }: { kind: 'facebook' | 'instagram' | 'youtube' }) {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-foreground text-background">
+    <footer className="border-t-4 border-primary bg-[#163A5F] text-white">
       <div className="mx-auto max-w-7xl px-6 py-14">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <Link href={ROUTES.home} className="inline-flex items-center gap-3">
-              <span className="inline-flex rounded-2xl bg-background px-3 py-2">
+              <span className="inline-flex rounded-md bg-white px-3 py-2">
                 <Image src="/images/logo.webp" alt={HOSPITAL.name} width={220} height={60} className="h-10 w-auto" />
               </span>
             </Link>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-background/75">
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/75">
               Clean, specialist-led healthcare with modern diagnostics, ICU support and 24x7 emergency care.
             </p>
 

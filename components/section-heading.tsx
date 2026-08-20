@@ -17,27 +17,26 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        'max-w-2xl',
+        'max-w-3xl',
         align === 'center' ? 'mx-auto text-center' : 'text-left',
         className,
       )}
     >
       {eyebrow ? (
         <Reveal>
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+          <span className="inline-flex items-center gap-2 border-l-4 border-primary pl-3 text-xs font-bold uppercase tracking-[0.18em] text-primary">
             {eyebrow}
           </span>
         </Reveal>
       ) : null}
       <Reveal delay={0.05}>
-        <h2 className="mt-4 text-balance font-sans text-xl font-semibold leading-tight tracking-tight text-foreground sm:text-2xl md:text-4xl">
+        <h2 className="mt-4 text-balance font-sans text-2xl font-bold leading-tight tracking-tight text-[#235B91] sm:text-3xl md:text-4xl">
           {title}
         </h2>
       </Reveal>
       {description ? (
         <Reveal delay={0.1}>
-          <p className="mt-4 text-pretty text-xs leading-relaxed text-muted-foreground sm:text-sm md:text-base">
+          <p className="mt-4 text-pretty text-sm leading-7 text-muted-foreground md:text-base">
             {description}
           </p>
         </Reveal>

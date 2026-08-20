@@ -34,15 +34,15 @@ const servicePoints = [
 
 export function HospitalOverview() {
   return (
-    <section className="px-6 py-5 md:py-24">
+    <section className="bg-[#F3F6F9] px-6 py-14 md:py-20">
       <div className="mx-auto max-w-7xl">
         
 
-        <div className="relative mt-10 overflow-hidden rounded-[2rem] border border-border bg-white p-5 shadow-xl shadow-primary/5 sm:p-8 lg:p-10">
+        <div className="relative overflow-hidden border border-border bg-white p-5 shadow-md sm:p-8 lg:p-10">
         <Reveal >
           <div className="mb-6 inline-flex items-center gap-3">
             <span className="h-7 w-[2px] bg-[#B71C1C]" aria-hidden />
-            <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+            <h2 className="text-2xl font-bold tracking-tight text-[#235B91] sm:text-3xl">
               <span className="font-bold">{HOSPITAL.shortName}</span>
             </h2>
           </div>
@@ -59,10 +59,10 @@ export function HospitalOverview() {
             <div className="absolute bottom-0 right-0 hidden h-72 w-72 rounded-full bg-[#B71C1C]/5 blur-3xl lg:block" />
           </div>
 
-          <div className="relative grid gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div className="relative grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <Reveal direction="right">
               <div className="space-y-6">
-                <div className="overflow-hidden rounded-[1.5rem] border border-border bg-muted shadow-sm">
+                <div className="overflow-hidden rounded-md border border-border bg-muted shadow-sm">
                   <Image
                     src="/images/about_preview.png"
                     alt="Signature Heart & Multispeciality Hospital"
@@ -75,14 +75,14 @@ export function HospitalOverview() {
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
                     href={ROUTES.contact}
-                    className="inline-flex items-center gap-2 rounded-full border border-[#B71C1C] bg-white px-5 py-3 text-sm font-semibold text-[#B71C1C] transition-colors hover:bg-[#B71C1C] hover:text-white"
+                    className="inline-flex items-center gap-2 rounded-md border-2 border-[#B71C1C] bg-white px-5 py-3 text-sm font-bold text-[#B71C1C] transition-colors hover:bg-[#B71C1C] hover:text-white"
                   >
                     Know More
                     <ArrowRight className="h-4 w-4" aria-hidden />
                   </Link>
                   <Link
                     href={ROUTES.specialities}
-                    className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-transform hover:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 rounded-md bg-[#235B91] px-5 py-3 text-sm font-bold text-white shadow-md transition-transform hover:-translate-y-0.5"
                   >
                     Explore Services
                     <Building2 className="h-4 w-4" aria-hidden />
@@ -145,12 +145,12 @@ export function HospitalOverview() {
                   {servicePoints.map((point) => (
                     <div
                       key={point}
-                      className="flex items-start gap-3 rounded-[1.25rem] border border-border bg-card p-4 shadow-sm"
+                      className="flex items-start gap-3 rounded-md border border-border border-l-4 border-l-[#235B91] bg-card p-4 shadow-sm"
                     >
                       <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success/15 text-success">
                         <ShieldCheck className="h-3.5 w-3.5" aria-hidden />
                       </span>
-                      <p className="text-[0.5rem] md:text-xs  leading-6 text-foreground">{point}</p>
+                      <p className="text-sm leading-6 text-foreground">{point}</p>
                     </div>
                   ))}
                 </div>

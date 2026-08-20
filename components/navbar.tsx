@@ -88,17 +88,17 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50">
-      <div className="hidden border-b border-primary/10 bg-primary text-primary-foreground lg:block">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-2 text-xs font-medium">
+      <div className="hidden border-b border-slate-200 bg-[#F1F3F5] text-[#33475B] lg:block">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-2 text-xs font-semibold">
           <div className="flex items-center gap-4">
-            <span className="rounded-full bg-primary-foreground/12 px-3 py-1">24x7 Emergency Care</span>
+            <span className="border-l-4 border-primary pl-3 text-primary">24x7 Emergency Care</span>
             <span>{HOSPITAL.address}</span>
           </div>
            <div className="flex items-center gap-3">
             <a href={HOSPITAL.phoneHref} className="hover:underline">
               {HOSPITAL.phone}
             </a>
-            <span className="text-primary-foreground/60">|</span>
+            <span className="text-slate-400">|</span>
             <Link href={ROUTES.appointment} className="hover:underline">
               Request Appointment
             </Link>
@@ -109,12 +109,12 @@ export function Navbar() {
       {/* Main nav */}
       <nav
         className={cn(
-          'border-b bg-white transition-all duration-300 shadow-sm' ,
+          'border-b-4 border-primary bg-white transition-all duration-300 shadow-sm' ,
           scrolled ? ' border-border shadow-sm' : 'border-transparent bg-white',
         )}
         aria-label="Primary"
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3.5">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           <Link href="/" className="flex items-center gap-3" aria-label={`${HOSPITAL.shortName} home`}>
             <Image
               src="/images/logo.webp"
@@ -126,7 +126,7 @@ export function Navbar() {
             />
           </Link>
 
-          <ul className="hidden items-center gap-1 lg:flex">
+          <ul className="hidden items-center gap-0 overflow-visible rounded-md bg-primary p-1 lg:flex">
             {NAV_LINKS.map((link) => {
               const active = pathname === link.href
 
@@ -137,16 +137,15 @@ export function Navbar() {
                     <button
                       type="button"
                       className={cn(
-                        'inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm font-semibold text-black transition-colors',
+                        'inline-flex items-center gap-1 rounded px-4 py-2 text-sm font-semibold text-white transition-colors',
                         specialitiesActive
-                          ? 'text-black'
-                          : 'text-black hover:text-black',
+                          ? 'bg-white text-primary'
+                          : 'text-white hover:bg-white/15',
                       )}
                       style={
                         specialitiesActive
                           ? {
                               color: brand,
-                              backgroundColor: brandSoft,
                             }
                           : undefined
                       }
@@ -177,14 +176,13 @@ export function Navbar() {
                   <Link
                     href={link.href}
                     className={cn(
-                      'rounded-full px-4 py-2 text-sm font-semibold text-black transition-colors',
-                      active ? 'text-black' : 'text-black hover:text-black',
+                      'rounded px-4 py-2 text-sm font-semibold transition-colors',
+                      active ? 'bg-white text-primary' : 'text-white hover:bg-white/15',
                     )}
                     style={
                       active
                         ? {
                             color: brand,
-                            backgroundColor: brandSoft,
                           }
                         : undefined
                     }
@@ -197,22 +195,12 @@ export function Navbar() {
           </ul>
 
           <div className="flex items-center gap-2">
-            <div className="hidden items-center gap-2 lg:flex">
-              {SOCIAL_LINKS.map((social) => {
-                return (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-white text-black shadow-sm transition-transform hover:-translate-y-0.5 hover:border-primary/30 hover:text-primary"
-                    aria-label={social.label}
-                  >
-                    <SocialIcon kind={social.icon} />
-                  </a>
-                )
-              })}
-            </div>
+            <Link
+              href={ROUTES.appointment}
+              className="hidden min-h-11 items-center rounded-md bg-[#235B91] px-5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#194A79] xl:inline-flex"
+            >
+              Request Appointment
+            </Link>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}

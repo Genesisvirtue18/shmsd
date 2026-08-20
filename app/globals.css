@@ -42,13 +42,13 @@
 
 :root {
   color-scheme: light;
-  --radius: 0.9rem;
+  --radius: 0.5rem;
 
-  --background: #f7fafc;
-  --foreground: #000000;
+  --background: #ffffff;
+  --foreground: #18283b;
 
   --card: #ffffff;
-  --card-foreground: #000000;
+  --card-foreground: #18283b;
 
   --popover: #ffffff;
   --popover-foreground: #000000;
@@ -56,11 +56,11 @@
   --primary: #b71c1c;
   --primary-foreground: #ffffff;
 
-  --secondary: #0f6cbd;
+  --secondary: #235b91;
   --secondary-foreground: #ffffff;
 
-  --muted: #eaf2f8;
-  --muted-foreground: #000000;
+  --muted: #f1f4f7;
+  --muted-foreground: #536273;
 
   --accent: #d32f2f;
   --accent-foreground: #ffffff;
@@ -72,8 +72,8 @@
   --success: #22c55e;
   --success-foreground: #ffffff;
 
-  --border: #dbe5ef;
-  --input: #dbe5ef;
+  --border: #d9e0e7;
+  --input: #cfd8e2;
   --ring: #b71c1c;
 }
 
@@ -87,6 +87,8 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: 'liga' 1, 'calt' 1;
+    font-size: 16px;
+    line-height: 1.6;
   }
 
   ::placeholder {

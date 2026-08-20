@@ -165,7 +165,7 @@ export function Hero() {
 
   return (
     <>
-      <section className="relative isolate overflow-hidden bg-transparent md:min-h-[30svh]  md:bg-slate-900">
+      <section className="relative isolate overflow-hidden bg-white md:min-h-[520px]">
         <h1 className="sr-only">Multispeciality Hospital in Yamuna Vihar, Delhi</h1>
         <div className="absolute inset-0 z-0 hidden overflow-hidden md:block">
           <AnimatePresence initial={false}>
@@ -189,15 +189,14 @@ export function Hero() {
             </motion.div>
           </AnimatePresence>
 
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,17,29,0.18)_0%,rgba(8,17,29,0.28)_30%,rgba(7,15,28,0.5)_72%,rgba(7,15,28,0.72)_100%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(183,28,28,0.22),transparent_32%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.93)_34%,rgba(255,255,255,0.44)_62%,rgba(18,45,72,0.12)_100%)]" />
         </div>
 
       {/* MOBILE BANNER - SIMPLE HORIZONTAL WITH IMAGE BACKGROUND */}
       <div className="relative z-10 mx-auto px-4 py-3 sm:px-6 md:hidden ">
         <div className="relative">
     {/* Background Image */}
-    <div className="relative h-[170px] w-full ">
+    <div className="relative h-[245px] w-full overflow-hidden rounded-md">
       <AnimatePresence initial={false}>
         <motion.div
           key={`mobile-image-${currentSlide.image}`}
@@ -219,7 +218,7 @@ export function Hero() {
       </AnimatePresence>
       
       {/* Dark Overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#163A5F]/90 via-[#163A5F]/65 to-black/20" />
       
       {/* Text Content Overlay */}
       <div className="relative z-10 flex h-full flex-col justify-center px-5 py-4 text-white">
@@ -261,7 +260,7 @@ export function Hero() {
         >
           <Link
             href={currentSlide.href}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition-transform active:scale-95"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-md transition-transform active:scale-95"
           >
             <CalendarCheck className="h-3 w-3" aria-hidden />
             {currentSlide.ctaLabel}
@@ -289,7 +288,7 @@ export function Hero() {
 
         <div className="absolute inset-x-0 top-0 z-20 h-1 bg-[#B71C1C]" aria-hidden />
 
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-end px-4 pb-6 pt-8 sm:px-6 sm:pb-8 sm:pt-10 md:min-h-[32svh] md:justify-center lg:pb-10 lg:pt-12">
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-end px-4 pb-10 pt-8 sm:px-6 md:min-h-[520px] md:justify-center lg:py-16">
           <motion.div
             variants={container}
             initial="hidden"
@@ -298,7 +297,7 @@ export function Hero() {
           >
             <motion.span
               variants={item}
-              className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/12 px-4 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-white shadow-lg shadow-black/10 backdrop-blur-md lg:mx-0 sm:text-[0.72rem]"
+              className="mx-auto inline-flex items-center gap-2 border-l-4 border-primary bg-white/85 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-primary shadow-sm lg:mx-0"
             >
               <Building2 className="h-3.5 w-3.5 shrink-0" aria-hidden />
               {HOSPITAL.tagline || 'Health Equality, Always'}
@@ -306,7 +305,7 @@ export function Hero() {
 
             <motion.p
               variants={item}
-              className="mx-auto mt-5 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-white/80 lg:mx-0"
+              className="mx-auto mt-5 text-xs font-bold uppercase tracking-[0.22em] text-primary lg:mx-0"
             >
               {currentSlide.eyebrow}
             </motion.p>
@@ -314,7 +313,7 @@ export function Hero() {
             <motion.h2
               key={currentSlide.title}
               variants={item}
-              className="mx-auto mt-3 max-w-2xl text-balance font-serif text-[1.8rem] font-bold leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-3xl lg:mx-0 lg:text-5xl"
+              className="mx-auto mt-3 max-w-2xl text-balance text-4xl font-bold leading-[1.08] tracking-tight text-[#235B91] sm:text-5xl lg:mx-0 lg:text-6xl"
             >
               {currentSlide.title}
             </motion.h2>
@@ -322,7 +321,7 @@ export function Hero() {
             <motion.p
               key={currentSlide.subtitle}
               variants={item}
-              className="mx-auto mt-3 max-w-2xl text-pretty text-[0.92rem] leading-6 text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)] sm:text-base sm:leading-7 lg:mx-0"
+              className="mx-auto mt-5 max-w-xl text-pretty text-base leading-7 text-[#33475B] sm:text-lg lg:mx-0"
             >
               {currentSlide.subtitle}
             </motion.p>
@@ -333,7 +332,7 @@ export function Hero() {
             >
               <Link
                 href={currentSlide.href}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#B71C1C] px-4 py-3 text-xs font-semibold text-white shadow-lg shadow-[#B71C1C]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#B71C1C]/35 sm:w-auto sm:rounded-full sm:px-8 sm:py-3.5 sm:text-sm"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#B71C1C] px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-[#951616] sm:w-auto"
               >
                 <CalendarCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden />
                 {currentSlide.ctaLabel}
@@ -341,7 +340,7 @@ export function Hero() {
 
               <Link
                 href={ROUTES.specialities}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/22 bg-white/10 px-4 py-3 text-xs font-semibold text-white shadow-sm backdrop-blur-md transition-all hover:bg-white/15 sm:w-auto sm:rounded-full sm:px-8 sm:py-3.5 sm:text-sm"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-md border-2 border-[#235B91] bg-white/85 px-6 py-3 text-sm font-bold text-[#235B91] shadow-sm transition-all hover:bg-[#235B91] hover:text-white sm:w-auto"
               >
                 Explore Treatments
               </Link>
@@ -354,12 +353,12 @@ export function Hero() {
                 type="button"
                 onClick={handlePrev}
                 aria-label="Previous banner"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-white/12 text-white backdrop-blur-md transition hover:bg-white/20"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-slate-300 bg-white text-[#235B91] shadow-sm transition hover:bg-slate-50"
               >
                 <ChevronLeft className="h-5 w-5" aria-hidden />
               </button>
 
-              <div className="flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-2 backdrop-blur-md">
+              <div className="flex items-center gap-2 rounded-md border border-slate-300 bg-white px-3 py-2 shadow-sm">
                 {heroSlides.map((slide, index) => (
                   <button
                     key={slide.image}
@@ -368,7 +367,7 @@ export function Hero() {
                     aria-label={`Go to banner ${index + 1}`}
                     aria-pressed={index === activeSlide}
                     className={`h-2.5 rounded-full transition-all ${
-                      index === activeSlide ? 'w-8 bg-white' : 'w-2.5 bg-white/45 hover:bg-white/70'
+                      index === activeSlide ? 'w-8 bg-primary' : 'w-2.5 bg-slate-300 hover:bg-slate-400'
                     }`}
                   />
                 ))}
@@ -378,7 +377,7 @@ export function Hero() {
                 type="button"
                 onClick={handleNext}
                 aria-label="Next banner"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-white/12 text-white backdrop-blur-md transition hover:bg-white/20"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-slate-300 bg-white text-[#235B91] shadow-sm transition hover:bg-slate-50"
               >
                 <ChevronRight className="h-5 w-5" aria-hidden />
               </button>
