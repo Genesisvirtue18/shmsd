@@ -15,6 +15,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ROUTES.tpa,
     ROUTES.appointment,
     ROUTES.blog,
+    '/privacy-policy',
+    '/medical-disclaimer',
   ]
 
   const serviceRoutes = SERVICES.map((service) => ROUTES.service(service.slug))
@@ -26,7 +28,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return routes.map((route) => ({
     url: `https://shmsd.in${route}`,
-    lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: route === ROUTES.home ? 1 : 0.8,
   }))

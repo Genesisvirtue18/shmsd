@@ -4,6 +4,7 @@ import { useMemo, useRef } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, ExternalLink, Quote, Star } from 'lucide-react'
+import { ROUTES } from '@/lib/routes'
 
 type Review = {
   name: string
@@ -162,7 +163,7 @@ export function GoogleReviews() {
 
           <div className="mt-6 text-center text-sm text-muted-foreground">
             Learn more about patient experiences on our{' '}
-            <Link href="/contact" className="font-semibold text-[#B71C1C]">
+            <Link href={ROUTES.contact} className="font-semibold text-primary">
               contact page
             </Link>
             .

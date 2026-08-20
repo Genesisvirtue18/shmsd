@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { PageHeader } from '@/components/page-header'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Read hospital updates, health tips and stories from Signature Heart & Multispeciality Hospital.',

@@ -9,9 +9,10 @@ import { MANAGEMENT_TEAM } from '@/lib/doctor-directory'
 import { ROUTES } from '@/lib/routes'
 
 export const metadata: Metadata = {
-  title: 'About Us',
+  title: 'About Signature Hospital in Yamuna Vihar',
   description:
-    'Learn about Signature Heart & Multispeciality Hospital - our vision, mission, management team, values and quality policies in Delhi.',
+    'Learn about Signature Heart & Multispeciality Hospital in Yamuna Vihar, Delhi, including our care approach, management and facilities.',
+  alternates: { canonical: '/hospitals-near-me/yamuna-vihar/about' },
 }
 
 const sectionNav = [

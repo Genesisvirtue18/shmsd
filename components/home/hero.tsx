@@ -166,6 +166,7 @@ export function Hero() {
   return (
     <>
       <section className="relative isolate overflow-hidden bg-transparent md:min-h-[30svh]  md:bg-slate-900">
+        <h1 className="sr-only">Multispeciality Hospital in Yamuna Vihar, Delhi</h1>
         <div className="absolute inset-0 z-0 hidden overflow-hidden md:block">
           <AnimatePresence initial={false}>
             <motion.div
@@ -227,20 +228,20 @@ export function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="text-[0.55rem] font-semibold uppercase tracking-[0.2em] text-white/70"
+          className="text-xs font-semibold uppercase tracking-[0.16em] text-white/80"
         >
           {currentSlide.eyebrow}
         </motion.span>
         
-        <motion.h1
+        <motion.h2
           key={`mobile-title-${currentSlide.title}`}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.05 }}
-          className="mt-1 text-balance font-serif text-[0.9rem] font-bold leading-[1.1] tracking-tight text-white"
+          className="mt-2 max-w-[85%] text-balance font-serif text-xl font-bold leading-tight tracking-tight text-white"
         >
           {currentSlide.title}
-        </motion.h1>
+        </motion.h2>
         
         {/* <motion.p
           key={`mobile-subtitle-${currentSlide.subtitle}`}
@@ -260,7 +261,7 @@ export function Hero() {
         >
           <Link
             href={currentSlide.href}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#B71C1C] px-5 py-1.5 text-[0.6rem] font-semibold text-white shadow-lg shadow-[#B71C1C]/30 transition-transform active:scale-95"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition-transform active:scale-95"
           >
             <CalendarCheck className="h-3 w-3" aria-hidden />
             {currentSlide.ctaLabel}
@@ -278,9 +279,7 @@ export function Hero() {
           onClick={() => goToSlide(index)}
           aria-label={`Go to banner ${index + 1}`}
           aria-pressed={index === activeSlide}
-          className={`h-1.5 rounded-full transition-all ${
-            index === activeSlide ? 'w-6 bg-red-400' : 'w-1.5 bg-red-400/40'
-          }`}
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full after:h-2 after:w-2 after:rounded-full after:bg-primary aria-pressed:after:w-6"
         />
       ))}
     </div>
@@ -312,13 +311,13 @@ export function Hero() {
               {currentSlide.eyebrow}
             </motion.p>
 
-            <motion.h1
+            <motion.h2
               key={currentSlide.title}
               variants={item}
               className="mx-auto mt-3 max-w-2xl text-balance font-serif text-[1.8rem] font-bold leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-3xl lg:mx-0 lg:text-5xl"
             >
               {currentSlide.title}
-            </motion.h1>
+            </motion.h2>
 
             <motion.p
               key={currentSlide.subtitle}
@@ -412,7 +411,7 @@ export function Hero() {
             <div className="rounded-t-2xl bg-gradient-to-r from-[#B71C1C] to-[#00B4D8] p-6">
               <h2 className="text-2xl font-bold text-white">Book an Appointment</h2>
               <p className="mt-1 text-sm text-white/80">
-                Fill in your details and we'll get back to you shortly
+                Fill in your details and we&apos;ll get back to you shortly
               </p>
             </div>
 
@@ -424,7 +423,7 @@ export function Hero() {
                   </div>
                   <h3 className="mt-4 text-xl font-semibold text-gray-900">Appointment Booked!</h3>
                   <p className="mt-2 text-center text-gray-600">
-                    We'll contact you shortly to confirm your appointment.
+                    We&apos;ll contact you shortly to confirm your appointment.
                   </p>
                 </div>
               ) : (

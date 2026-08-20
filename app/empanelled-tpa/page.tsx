@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, PhoneCall, ShieldCheck } from 'luc
 import { PartnerLogo } from '@/components/partner-logo'
 import { ExternalLink } from "lucide-react";
 import { HOSPITAL } from '@/lib/data'
+import { ROUTES } from '@/lib/routes'
 
 export const metadata: Metadata = {
   title: 'Empanelled TPA',
@@ -254,7 +255,7 @@ export default function EmpanelledTpaPage() {
                           Check Your Coverage
                         </a>
                         <a
-                          href="/contact"
+                          href={ROUTES.contact}
                           className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-primary/25 hover:text-primary"
                         >
                           Talk to an Advisor

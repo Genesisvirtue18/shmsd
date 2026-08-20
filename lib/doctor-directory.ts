@@ -238,6 +238,8 @@ export const MANAGEMENT_TEAM: DoctorProfile[] = [
   {
     slug: 'surbhi-gupta',
     ...DOCTOR_DIRECTORY.find((doctor) => doctor.name === 'Dr. Surbhi Gupta')!,
+    department: 'Gynecologist',
+    bookingSpeciality: 'Gynecologist',
     image: '/images/shurbhi.jpeg',
   },
 ]

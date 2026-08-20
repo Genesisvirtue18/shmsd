@@ -95,13 +95,6 @@
   }
 }
 
-[class*='text-gray-'],
-[class*='text-slate-'],
-[class*='text-zinc-'],
-[class*='text-stone-'] {
-  color: #000 !important;
-}
-
 .swiper-button-next,
 .swiper-button-prev {
   color: white !important;

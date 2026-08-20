@@ -20,8 +20,8 @@ const DirectorSection = () => {
       />
 
       <div className="z-10 space-y-4 md:w-2/3">
-        <h3 className="text-4xl font-bold tracking-tight text-slate-800">OUR DOCTOR</h3>
-        <h4 className="text-2xl font-semibold text-slate-900">Patients deserve the best from us</h4>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Clinical leadership</p>
+          <h2 className="text-2xl font-semibold text-slate-900">Patients deserve attentive, coordinated care</h2>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-600">
           {DIRECTOR_PROFILE.description}
         </p>
@@ -152,9 +152,7 @@ export default function DoctorsPage() {
       <div className="mx-auto max-w-7xl rounded-3xl bg-slate-50/30 p-4 md:p-6">
         <div className="-m-4 mb-8 rounded-t-3xl border-b border-blue-100/50 bg-blue-50/50 p-8 md:-m-6 md:p-12">
           <h1 className="mb-2 text-3xl font-bold text-slate-800 md:text-5xl">
-            Doctors who don&apos;t just treat.
-            <br />
-            They lead your care.
+            Doctors and specialists in Yamuna Vihar, Delhi
           </h1>
           <p className="max-w-xl text-base text-slate-600 md:text-lg">
             They&apos;re independent, experienced, and fully aligned with our
@@ -228,7 +226,7 @@ export default function DoctorsPage() {
             </div>
           </aside>
 
-          <main className="flex-1 lg:w-3/4">
+          <section className="flex-1 lg:w-3/4" aria-label="Doctor results">
             <div>
               <h2 className="mb-4 text-xl font-bold text-slate-800">
                 Our Specialists{' '}
@@ -251,7 +249,7 @@ export default function DoctorsPage() {
                 )}
               </div>
             </div>
-          </main>
+          </section>
         </div>
       </div>
     </div>

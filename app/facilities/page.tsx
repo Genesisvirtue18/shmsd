@@ -14,6 +14,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { PageHeader } from '@/components/page-header'
 import { CtaBanner } from '@/components/cta-banner'
 import { FACILITIES } from '@/lib/data'
+import { ROUTES } from '@/lib/routes'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
@@ -220,7 +221,7 @@ export default function FacilitiesPage() {
       <>
         <PageHeader
           title="Facilities & Infrastructure"
-          description="World-class infrastructure designed to support safe, effective and comfortable care at every stage."
+          description="Explore the hospital facilities that support coordinated, comfortable care in Yamuna Vihar."
           breadcrumb={[{ label: 'Facilities' }]}
         />
 
@@ -286,10 +287,10 @@ export default function FacilitiesPage() {
                     </ul>
 
                     <Link
-                      href="/appointment"
+                      href={ROUTES.appointment}
                       className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-[#1d4ed8] px-7 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
                     >
-                      Book appointment
+                      Request appointment
                       <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </Link>
                   </div>
@@ -310,7 +311,7 @@ export default function FacilitiesPage() {
     <>
       <PageHeader
         title="Facilities & Infrastructure"
-        description="World-class infrastructure designed to support safe, effective and comfortable care at every stage."
+        description="Explore the hospital facilities that support coordinated, comfortable care in Yamuna Vihar."
         breadcrumb={[{ label: 'Facilities' }]}
       />
 
@@ -353,10 +354,10 @@ export default function FacilitiesPage() {
                   </ul>
 
                   <Link
-                    href="/appointment"
+                    href={ROUTES.appointment}
                     className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-[#1d4ed8] px-7 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
                   >
-                    Book appointment
+                    Request appointment
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 </div>

@@ -6,6 +6,7 @@ export const HOSPITAL = {
   shortName: 'Signature Hospital',
   tagline: 'Health Equality, Always',
   phone: '76783 87693',
+  phoneE164: '+917678387693',
   phoneHref: 'tel:+917678387693',
   whatsapp: '917678387693',
   email: 'info@shmsd.in',
@@ -153,20 +154,6 @@ export type Service = {
 
 
 
-export interface Service {
-  slug: string;
-  icon: string; // now holds a string path like '/images/imgi_6_general_physician.png'
-  title: string;
-  description: string;
-  image: string;
-  overview: string;
-  clinicalAreas: string[];
-  highlights: string[];
-  steps: { title: string; description: string }[];
-  benefits: string[];
-  faqs: { question: string; answer: string }[];
-}
-
 export const SERVICES: Service[] = [
   {
     slug: 'general-medicine',
@@ -234,7 +221,6 @@ export const SERVICES: Service[] = [
       },
     ],
   },
-  /*
   {
     slug: 'cardiology',
     icon: '/images/imgi_10_cardiology.png',
@@ -242,7 +228,8 @@ export const SERVICES: Service[] = [
     description: 'Comprehensive care for patients with heart-related problems.',
     image: 'https://media.istockphoto.com/id/2142793215/photo/cardiovascular-disease-cvd-doctor-with-heart-human-model-anatomy-for-treatment-patient-in.jpg?s=612x612&w=0&k=20&c=Ne1jDPdIO3IDuJOZDECEL7Tn-JzcSYV6O7QNdqUefpo=',
     overview:
-      'Cardiology care covers prevention, diagnosis and treatment for chest pain, heart rhythm concerns, blood pressure issues and long-term cardiac health.',
+      'Our cardiology team in Yamuna Vihar provides specialist evaluation for chest discomfort, breathlessness, palpitations, blood pressure concerns and long-term heart health. Patients receive a clear assessment, appropriate diagnostic guidance and coordinated follow-up at Signature Hospital.',
+    clinicalAreas: ['Chest pain evaluation', 'High blood pressure', 'Palpitations', 'Preventive heart care'],
     highlights: ['ECG support', 'Angiography guidance', 'BP management', 'Cardiac follow-up'],
     steps: [
       { title: 'Cardiac consultation', description: 'We begin with a detailed review of symptoms and risk factors.' },
@@ -265,9 +252,12 @@ export const SERVICES: Service[] = [
         question: 'Can cardiology help with high blood pressure?',
         answer: 'Yes, cardiology can help assess, manage and monitor blood pressure and its effects on the heart.',
       },
+      {
+        question: 'How can I book a cardiologist in Yamuna Vihar?',
+        answer: 'Request an appointment online or call Signature Hospital. Our team will confirm the available consultation time with you.',
+      },
     ],
   },
-  */
   {
     slug: 'gynecology-obstetrics',
     icon: '/images/imgi_8_gynaecologist.png',

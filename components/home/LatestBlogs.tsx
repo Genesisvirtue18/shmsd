@@ -36,7 +36,8 @@ function mapPostToBlog(post: Record<string, unknown>): BlogCard {
     ? new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(dateRaw))
     : 'Recent'
 
-  const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/hero-doctor.png'
+  const embedded = post._embedded as { 'wp:featuredmedia'?: Array<{ source_url?: string }> } | undefined
+  const image = embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/hero-doctor.png'
 
   return {
     title,

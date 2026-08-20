@@ -3,12 +3,12 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
 import { ServiceCard } from '@/components/cards'
-import type { SERVICES } from '@/lib/data'
+import type { Service } from '@/lib/data'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
 
-export function ServiceCarousel({ Service }: { Service: SERVICES[] }) {
+export function ServiceCarousel({ Service }: { Service: Service[] }) {
   return (
     <div className="lg:hidden">
       <Swiper

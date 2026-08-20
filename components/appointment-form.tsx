@@ -54,8 +54,8 @@ const createInitialValues = (
 
 export function AppointmentForm({
   initialValues,
-  submitLabel = 'Book via WhatsApp',
-  note = 'Clicking the button will open WhatsApp with your appointment details pre-filled.',
+  submitLabel = 'Request via WhatsApp',
+  note = 'Your appointment is confirmed only after our team contacts you. For emergencies, call the hospital directly.',
   onSubmitted,
 }: AppointmentFormProps) {
   const defaultValues = useMemo(

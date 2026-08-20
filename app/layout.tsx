@@ -32,11 +32,11 @@ const neoSans = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL('https://shmsd.in'),
   title: {
-    default: 'Signature Heart & Multispeciality Hospital | Premium Healthcare in Delhi',
+    default: 'Multispeciality Hospital in Yamuna Vihar, Delhi | Signature',
     template: '%s | Signature Hospital',
   },
   description:
-    'Signature Heart & Multispeciality Hospital in Yamuna Vihar, Delhi offers world-class cardiology, orthopaedics, neurology, ICU, 24x7 emergency care and diagnostics with expert doctors and affordable, personalized treatment.',
+    'Visit Signature Hospital in Yamuna Vihar, Delhi for specialist consultations, diagnostics, ICU and 24x7 emergency care. Request an appointment.',
   keywords: [
     'hospital in Delhi',
     'Signature Hospital',
@@ -71,9 +71,9 @@ icons: {
     locale: 'en_IN',
     url: 'https://shmsd.in',
     siteName: 'Signature Heart & Multispeciality Hospital',
-    title: 'Signature Heart & Multispeciality Hospital | Premium Healthcare in Delhi',
+    title: 'Multispeciality Hospital in Yamuna Vihar, Delhi | Signature',
     description:
-      'World-class multispeciality care with expert doctors, advanced ICU, 24x7 emergency and affordable treatment in Yamuna Vihar, Delhi.',
+      'Specialist consultations, diagnostics, ICU and 24x7 emergency care at Signature Hospital in Yamuna Vihar, Delhi.',
     images: [{ url: '/images/about_preview.png', width: 1200, height: 630, alt: 'Signature Hospital about preview' }],
   },
   twitter: {
@@ -82,7 +82,6 @@ icons: {
     description: 'Premium, affordable multispeciality healthcare in Delhi.',
     images: ['/images/about_preview.png'],
   },
-  generator: 'v0.app',
 }
 
 export const viewport: Viewport = {
@@ -100,9 +99,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${neoSans.variable} bg-background`}>
       <body className="antialiased font-sans">
+        <a
+          href="#main-content"
+          className="sr-only z-[100] rounded-lg bg-primary px-4 py-3 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        >
+          Skip to main content
+        </a>
         <SiteSchema />
         <Navbar />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
         <FloatingWidgets />
         {process.env.NODE_ENV === 'production' && <Analytics />}

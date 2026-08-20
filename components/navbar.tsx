@@ -25,7 +25,7 @@ const SOCIAL_LINKS = [
     href: 'https://www.youtube.com/@SignatureHospital-o1e',
     icon: 'youtube',
   },
-]
+] as const
 
 function SocialIcon({ kind }: { kind: 'facebook' | 'instagram' | 'youtube' }) {
   if (kind === 'facebook') {
@@ -100,7 +100,7 @@ export function Navbar() {
             </a>
             <span className="text-primary-foreground/60">|</span>
             <Link href={ROUTES.appointment} className="hover:underline">
-              Book Appointment
+              Request Appointment
             </Link>
           </div>
         </div>
@@ -229,8 +229,8 @@ export function Navbar() {
       {/* Mobile drawer */}
       <div
         className={cn(
-          'fixed inset-0 z-40 lg:hidden',
-          open ? 'pointer-events-auto' : 'pointer-events-none',
+          'fixed inset-0 z-40 overflow-hidden lg:hidden',
+          open ? 'pointer-events-auto visible' : 'pointer-events-none invisible',
         )}
         aria-hidden={!open}
       >

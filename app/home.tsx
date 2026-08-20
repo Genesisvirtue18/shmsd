@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { HeartPulse, ShieldCheck, Stethoscope, TimerReset } from 'lucide-react'
 import {Hero} from '@/components/home/hero'
-import { AppointmentPopup } from '@/components/home/AppointmentPopup'
 import { GoogleReviews } from '@/components/home/GoogleReviews'
 import { LatestBlogs } from '@/components/home/LatestBlogs'
 import { InstagramFeed } from '@/components/home/InstagramFeed'
@@ -41,9 +40,8 @@ const pillars = [
 
 export default function Home() {
   return (
-    <main className="overflow-hidden bg-background">
+    <div className="overflow-hidden bg-background">
       <Hero />
-      <AppointmentPopup />
       <StatsBar />
       <HospitalOverview />
       <QuickAccessMosaic />
@@ -193,6 +191,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   )
 }

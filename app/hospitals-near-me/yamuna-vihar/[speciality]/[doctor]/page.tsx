@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { notFound, redirect } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import type { ComponentType } from 'react'
 import { ArrowLeft, BadgeCheck, BriefcaseMedical, CalendarCheck, HeartPulse, ShieldCheck, Sparkles, Users } from 'lucide-react'
 import { buildAppointmentHref } from '@/lib/appointment'
@@ -34,8 +34,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!member) return {}
 
   return {
-    title: `${member.name} | Doctor Profile`,
-    description: member.description,
+    title: `${member.name}, ${member.department} in Yamuna Vihar`,
+    description: `View ${member.name}'s qualifications, care focus and consultation details at Signature Hospital in Yamuna Vihar, Delhi. Request an appointment.`,
     alternates: { canonical: ROUTES.doctor(member.department, member.slug!) },
   }
 }
@@ -73,7 +73,7 @@ export default async function DoctorDetailPage({ params }: { params: Promise<Par
 
   const canonicalSpeciality = slugifySegment(member.department)
   if (speciality !== canonicalSpeciality) {
-    redirect(ROUTES.doctor(member.department, member.slug!))
+    permanentRedirect(ROUTES.doctor(member.department, member.slug!))
   }
 
   const isAshish = member.slug === 'ashish-singhal'
@@ -93,13 +93,49 @@ export default async function DoctorDetailPage({ params }: { params: Promise<Par
   const principles = isAshish
     ? ['Patient trust', 'Clinical leadership', 'Care coordination', 'Quality outcomes']
     : ['Compassion', 'Privacy', 'Continuity of care', 'Family support']
+  const canonicalPath = ROUTES.doctor(member.department, member.slug!)
+  const pageUrl = `https://shmsd.in${canonicalPath}`
+  const doctorSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Physician',
+        '@id': `${pageUrl}#physician`,
+        name: member.name,
+        url: pageUrl,
+        image: member.image ? `https://shmsd.in${member.image}` : undefined,
+        medicalSpecialty: member.department,
+        description: member.description,
+        worksFor: { '@id': 'https://shmsd.in/#hospital' },
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'C-2/41 A, Main Service Ln, Block C, Yamuna Vihar',
+          addressLocality: 'Delhi',
+          postalCode: '110053',
+          addressCountry: 'IN',
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shmsd.in/' },
+          { '@type': 'ListItem', position: 2, name: 'Doctors', item: `https://shmsd.in${ROUTES.doctors}` },
+          { '@type': 'ListItem', position: 3, name: member.name, item: pageUrl },
+        ],
+      },
+    ],
+  }
 
   return (
     <section className="px-4 py-8 sm:px-6 sm:py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(doctorSchema) }}
+      />
       <div className="mx-auto max-w-7xl">
         <div className="mb-6">
           <Link
-            href="/about#management-team"
+            href={`${ROUTES.about}#management-team`}
             className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition-colors hover:border-[#0F4C81] hover:text-[#0F4C81]"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden />
@@ -130,7 +166,9 @@ export default async function DoctorDetailPage({ params }: { params: Promise<Par
                 </span>
               </div>
 
-              <h1 className="mt-5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{member.name}</h1>
+              <h1 className="mt-5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                {member.name} — {member.department} in Yamuna Vihar
+              </h1>
               <p className="mt-2 text-sm font-medium uppercase tracking-[0.2em] text-slate-400">
                 {member.qualification}
               </p>
@@ -170,18 +208,11 @@ export default async function DoctorDetailPage({ params }: { params: Promise<Par
 
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
-                  href={
-                    isAshish
-                      ? '/contact'
-                      : buildAppointmentHref({
-                          doctor: member.name,
-                          speciality: member.department,
-                        })
-                  }
+                  href={buildAppointmentHref({ doctor: member.name, speciality: member.department })}
                   className="inline-flex items-center gap-2 rounded-full bg-[#0F4C81] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-transform hover:-translate-y-0.5"
                 >
                   <CalendarCheck className="h-4 w-4" aria-hidden />
-                  {isAshish ? 'Contact us' : 'Book appointment'}
+                  Request appointment
                 </Link>
               </div>
             </div>

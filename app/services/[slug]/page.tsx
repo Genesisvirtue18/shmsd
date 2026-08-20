@@ -7,6 +7,7 @@ import { Icon } from '@/components/icon'
 import { buildAppointmentHref } from '@/lib/appointment'
 import { HOSPITAL, SERVICES } from '@/lib/data'
 import { DOCTOR_DIRECTORY, type DoctorProfile } from '@/lib/doctor-directory'
+import { ROUTES } from '@/lib/routes'
 
 type Params = { slug: string }
 
@@ -57,13 +58,27 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const service = getService(slug)
   if (!service) return {}
 
+  const seoTitle =
+    service.slug === 'cardiology'
+      ? 'Cardiologist in Yamuna Vihar, Delhi'
+      : service.slug === 'gynecology-obstetrics'
+        ? 'Gynecologist in Yamuna Vihar, Delhi'
+        : `${service.title} in Yamuna Vihar, Delhi`
+
+  const seoDescription =
+    service.slug === 'cardiology'
+      ? 'Consult a cardiologist at Signature Hospital, Yamuna Vihar for heart evaluation, diagnostic guidance and coordinated follow-up. Request an appointment.'
+      : service.slug === 'gynecology-obstetrics'
+        ? 'Consult a gynecologist in Yamuna Vihar for pregnancy care, PCOS, menstrual concerns and women’s health at Signature Hospital.'
+        : `${service.description} Request an appointment at Signature Hospital in Yamuna Vihar, Delhi.`
+
   return {
-    title: `${service.title} | Services`,
-    description: service.overview,
+    title: seoTitle,
+    description: seoDescription,
     alternates: { canonical: `/hospitals-near-me/yamuna-vihar/speciality/${service.slug}` },
     openGraph: {
-      title: `${service.title} | Signature Hospital`,
-      description: service.overview,
+      title: `${seoTitle} | Signature Hospital`,
+      description: seoDescription,
       url: `https://shmsd.in/hospitals-near-me/yamuna-vihar/speciality/${service.slug}`,
       siteName: 'Signature Heart & Multispeciality Hospital',
       type: 'article',
@@ -78,8 +93,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${service.title} | Signature Hospital`,
-      description: service.overview,
+      title: `${seoTitle} | Signature Hospital`,
+      description: seoDescription,
       images: [service.image],
     },
   }
@@ -92,9 +107,49 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
 
   const relatedServices = SERVICES.filter((item) => item.slug !== service.slug).slice(0, 6)
   const serviceDoctors = getServiceDoctors(service.slug, service.title)
+  const pageUrl = `https://shmsd.in${ROUTES.service(service.slug)}`
+  const pageTitle =
+    service.slug === 'cardiology'
+      ? 'Cardiologist in Yamuna Vihar, Delhi'
+      : service.slug === 'gynecology-obstetrics'
+        ? 'Gynecologist in Yamuna Vihar, Delhi'
+        : `${service.title} in Yamuna Vihar, Delhi`
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'MedicalWebPage',
+        '@id': `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: pageTitle,
+        about: { '@type': 'MedicalSpecialty', name: service.title },
+        provider: { '@id': 'https://shmsd.in/#hospital' },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: service.faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shmsd.in/' },
+          { '@type': 'ListItem', position: 2, name: 'Specialities', item: `https://shmsd.in${ROUTES.specialities}` },
+          { '@type': 'ListItem', position: 3, name: service.title, item: pageUrl },
+        ],
+      },
+    ],
+  }
 
   return (
     <section className="px-4 py-6 sm:px-6 sm:py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <div className="mx-auto max-w-[1600px]">
         <div className="mb-6 flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
           <span className="rounded-full border border-primary/15 bg-primary/10 px-3 py-1 text-primary">
@@ -112,6 +167,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                       <img src={service.icon} alt={service.title} className="w-12 h-12" />
                     {service.title}
                   </div>
+                  <h1 className="mt-5 text-balance text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+                    {pageTitle}
+                  </h1>
                  
                   <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
                     {service.overview}
@@ -136,9 +194,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
 
                   {service.clinicalAreas.length > 0 ? (
                     <div className="mt-5">
-                      <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                      <h2 className="text-xl font-semibold text-foreground sm:text-2xl">
                         Common Services & Conditions
-                      </h3>
+                      </h2>
                       <div className="mt-4 grid gap-2 sm:grid-cols-2">
                         {service.clinicalAreas.map((area) => (
                           <div
@@ -153,7 +211,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                   ) : null}
 
                   <div className="mt-5">
-                    <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Quick Summary</h3>
+                    <h2 className="text-xl font-semibold text-foreground sm:text-2xl">Care at Signature Hospital</h2>
                     <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                       {service.title} care is delivered by specialists with a focus on safe planning, clear
                       communication and follow-up support throughout the treatment journey.
@@ -161,9 +219,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                   </div>
 
                   <div className="mt-5">
-                    <h3 className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-primary">
+                    <h2 className="text-xl font-semibold text-foreground sm:text-2xl">
                       Treatment Journey & Milestones
-                    </h3>
+                    </h2>
                     <div className="mt-3 space-y-2 lg:hidden">
                       {service.steps.map((step, index) => (
                         <div
@@ -180,7 +238,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                           </div>
                           <div className="min-w-0 flex-1">
                             <h4 className="text-[0.92rem] font-semibold leading-tight text-foreground">{step.title}</h4>
-                            <p className="mt-1 line-clamp-3 text-[0.68rem] leading-4 text-muted-foreground group-hover:line-clamp-none group-hover:leading-5">
+                            <p className="mt-1 line-clamp-3 text-sm leading-6 text-muted-foreground group-hover:line-clamp-none">
                               {step.description}
                             </p>
                           </div>
@@ -197,7 +255,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                             {index + 1}
                           </div>
                           <h4 className="mt-2 text-[0.95rem] font-semibold leading-tight text-foreground">{step.title}</h4>
-                          <p className="mt-1 line-clamp-4 text-[0.72rem] leading-4 text-muted-foreground group-hover:line-clamp-none group-hover:leading-5">
+                          <p className="mt-1 line-clamp-4 text-sm leading-6 text-muted-foreground group-hover:line-clamp-none">
                             {step.description}
                           </p>
                         </div>
@@ -207,7 +265,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
 
                   <div className="mt-6 grid gap-4 md:grid-cols-2">
                     <div className="rounded-[1.4rem] border border-border bg-card p-4">
-                      <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Benefits</h3>
+                      <h2 className="text-xl font-semibold text-foreground">Benefits</h2>
                       <ul className="mt-4 space-y-2">
                         {service.benefits.map((benefit) => (
                           <li key={benefit} className="flex items-start gap-2 text-sm text-foreground">
@@ -220,7 +278,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                       </ul>
                     </div>
                     <div className="rounded-[1.4rem] border border-border bg-card p-4">
-                       <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Clinical Overview</h2>
+                       <h2 className="text-xl font-semibold text-foreground">Clinical overview</h2>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-sm">
                       {service.description} We keep the process calm, clear and coordinated so patients can move from
                       consultation to treatment without confusion.
@@ -256,7 +314,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                     </div>
                   </div> */}
                     <div className="mt-5 rounded-[1.9rem] border border-border bg-card p-4 sm:p-5">
-                    <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                    <h2 className="text-xl font-semibold text-foreground sm:text-2xl">
                       Treatment Specific FAQs
                     </h2>
                     <div className="mt-4 space-y-3">
@@ -277,14 +335,14 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
 
                 <aside className="grid gap-5">
                   <div className="rounded-[1.9rem] border border-border bg-card p-4 sm:p-5">
-                    <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Treatment Catalog</h2>
+                    <h2 className="text-xl font-semibold text-foreground">Related specialities</h2>
                     <div className="mt-4 space-y-2">
                       {SERVICES.map((item) => {
                         const active = item.slug === service.slug
                         return (
                           <Link
                             key={item.slug}
-                            href={`/services/${item.slug}`}
+                            href={ROUTES.service(item.slug)}
                             className={`flex items-center gap-3 rounded-2xl border px-3 py-3 transition-all ${
                               active
                                 ? 'border-primary/25 bg-primary/5 shadow-sm'
@@ -307,7 +365,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                   </div>
 
                   <div className="rounded-[1.9rem] border border-border bg-card p-4 sm:p-5">
-                    <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Doctor Profiles</h2>
+                    <h2 className="text-xl font-semibold text-foreground">Doctors for this speciality</h2>
                     {serviceDoctors.length > 0 ? (
                       <div className="mt-4 space-y-3">
                         {serviceDoctors.map((doctor) => (
@@ -337,9 +395,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                                 doctor: doctor.name,
                                 speciality: doctor.department || service.title,
                               })}
-                              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition hover:opacity-90"
+                              className="mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
                             >
-                              Book Appointment
+                              Request appointment
                               <CalendarCheck className="h-3.5 w-3.5" aria-hidden />
                             </Link>
                           </article>

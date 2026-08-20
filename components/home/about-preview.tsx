@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Check, Eye, HeartHandshake, ShieldCheck, Target } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
+import { ROUTES } from '@/lib/routes'
 
 const missionVision = [
   {
@@ -92,14 +93,14 @@ export function AboutPreview() {
           <Reveal delay={0.3}>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href="/about"
+                href={ROUTES.about}
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-transform hover:-translate-y-0.5"
               >
                 Learn More About Us
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
               <Link
-                href="/services"
+                href={ROUTES.specialities}
                 className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary/30 hover:text-primary"
               >
                 Explore Specialities

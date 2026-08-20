@@ -22,7 +22,7 @@ export function StatsBar() {
                     <p className="font-sans text-xs font-bold leading-none text-primary sm:text-2xl md:text-3xl sm:leading-none">
                       <Counter value={s.value} suffix={s.suffix} />
                     </p>
-                    <p className="mt-1 text-[8px] font-medium leading-tight text-muted-foreground sm:mt-2 sm:text-sm">
+                    <p className="mt-1 text-xs font-medium leading-tight text-muted-foreground sm:mt-2 sm:text-sm">
                       {s.label}
                     </p>
                   </div>

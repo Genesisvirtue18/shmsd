@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Clock3, Mail, MapPin, Phone } from 'lucide-react'
 import { HOSPITAL, NAV_LINKS, SERVICE_LINKS } from '@/lib/data'
+import { ROUTES } from '@/lib/routes'
 
 const SOCIAL_LINKS = [
   {
@@ -61,7 +62,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-14">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-flex items-center gap-3">
+            <Link href={ROUTES.home} className="inline-flex items-center gap-3">
               <span className="inline-flex rounded-2xl bg-background px-3 py-2">
                 <Image src="/images/logo.webp" alt={HOSPITAL.name} width={220} height={60} className="h-10 w-auto" />
               </span>
@@ -156,7 +157,10 @@ export function Footer() {
       <div className="border-t border-background/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-4 text-xs text-background/60 sm:flex-row sm:items-center sm:justify-between">
           <p>Copyright {new Date().getFullYear()} Signature Heart & Multispeciality Hospital. All rights reserved.</p>
-          <p>Delhi multispeciality care, simplified.</p>
+          <div className="flex gap-4">
+            <Link href="/privacy-policy" className="hover:text-background">Privacy</Link>
+            <Link href="/medical-disclaimer" className="hover:text-background">Medical disclaimer</Link>
+          </div>
         </div>
       </div>
     </footer>

@@ -22,7 +22,7 @@ export function FaqAccordion() {
             <button
               type="button"
               onClick={() => setOpen(isOpen ? null : i)}
-              className="flex w-full items-start justify-between gap-3 px-4 py-4 text-left sm:items-center sm:gap-4 sm:px-6 sm:py-5"
+              className="flex min-h-11 w-full items-start justify-between gap-3 px-4 py-4 text-left sm:items-center sm:gap-4 sm:px-6 sm:py-5"
               aria-expanded={isOpen}
             >
               <span className="text-sm font-medium leading-snug text-foreground sm:text-base">
@@ -44,7 +44,7 @@ export function FaqAccordion() {
               )}
             >
               <div className="overflow-hidden">
-                <p className="px-4 pb-4 text-xs leading-snug text-muted-foreground sm:px-6 sm:pb-5 sm:text-sm sm:leading-relaxed">
+                <p className="px-4 pb-4 text-sm leading-relaxed text-muted-foreground sm:px-6 sm:pb-5 sm:text-base">
                   {faq.answer}
                 </p>
               </div>
