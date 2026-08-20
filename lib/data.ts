@@ -899,6 +899,36 @@ export const FAQS: Faq[] = [
 ]
 
 export const GALLERY = [
+  {
+    src: '/images/gallery-hospital-entrance.png',
+    alt: 'Signature Heart and Multispeciality Hospital entrance in Yamuna Vihar, Delhi',
+    width: 1535,
+    height: 1024,
+  },
+  {
+    src: '/images/gallery-signature-lobby.png',
+    alt: 'Reception lobby and doctor information display at Signature Hospital',
+    width: 1536,
+    height: 1024,
+  },
+  {
+    src: '/images/gallery-operation-theatre.png',
+    alt: 'Modern operation theatre and anaesthesia equipment at Signature Hospital',
+    width: 1537,
+    height: 1023,
+  },
+  {
+    src: '/images/gallery-dr-surbhi-gupta.png',
+    alt: 'Dr Surbhi Gupta in her consultation office at Signature Hospital',
+    width: 1448,
+    height: 1086,
+  },
+  {
+    src: '/images/gallery-gynecology-consultation.png',
+    alt: 'Gynecology consultation and patient care at Signature Hospital',
+    width: 1537,
+    height: 1023,
+  },
   { src: '/images/gallery_img (28).jpg', alt: 'Gallery photo 28' },
   { src: '/images/gallery_img (29).jpg', alt: 'Gallery photo 29' },
   { src: '/images/gallery_img (30).jpg', alt: 'Gallery photo 30' },

@@ -28,13 +28,15 @@ export function GalleryGrid() {
             <Image
               src={item.src}
               alt={item.alt}
-              width={600}
-              height={400}
+              width={'width' in item ? item.width : 600}
+              height={'height' in item ? item.height : 400}
               sizes={thumbSizes}
-              quality={100}
-              unoptimized
+              quality={88}
               className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
+            <span className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-[#101C2B]/95 via-[#101C2B]/75 to-transparent px-4 pb-4 pt-10 text-left text-sm font-semibold text-white transition-transform duration-300 group-hover:translate-y-0 group-focus-visible:translate-y-0">
+              {item.alt}
+            </span>
           </button>
         ))}
       </div>
@@ -70,13 +72,15 @@ export function GalleryGrid() {
             <Image
               src={openAt.src}
               alt={openAt.alt}
-              width={1800}
-              height={1200}
+              width={'width' in openAt ? openAt.width : 1800}
+              height={'height' in openAt ? openAt.height : 1200}
               sizes="100vw"
-              quality={100}
-              unoptimized
+              quality={92}
               className="h-auto max-h-[92vh] w-full rounded-2xl object-contain"
             />
+            <p className="absolute inset-x-0 bottom-0 rounded-b-2xl bg-[#101C2B]/85 px-5 py-3 text-center text-sm font-semibold text-white">
+              {openAt.alt}
+            </p>
           </div>
           <button
             type="button"
