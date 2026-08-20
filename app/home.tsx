@@ -43,6 +43,25 @@ export default function Home() {
     <div className="overflow-hidden bg-background">
       <Hero />
       <StatsBar />
+      <section className="border-y border-[#235B91]/20 bg-[#EEF4FA] px-6 py-5">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#235B91] text-white shadow-sm">
+              <ShieldCheck className="h-5 w-5" aria-hidden />
+            </span>
+            <div>
+              <h2 className="text-lg font-bold text-[#173E66]">Empanelled TPA & Insurance Support</h2>
+              <p className="text-sm text-muted-foreground">Check our cashless and insurance partners before admission.</p>
+            </div>
+          </div>
+          <Link
+            href={ROUTES.tpa}
+            className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#951616]"
+          >
+            View Empanelled TPA / Insurance
+          </Link>
+        </div>
+      </section>
       <HospitalOverview />
       <QuickAccessMosaic />
 

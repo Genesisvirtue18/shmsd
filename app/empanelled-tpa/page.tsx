@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 
 type Partner = {
   name: string
-  logo: string
-  url: string
+  logo?: string
+  url?: string
 }
 
 const insurancePartners: Partner[] = [
@@ -67,11 +67,6 @@ const insurancePartners: Partner[] = [
     name: 'BSES (BYPL Yamuna Power Limited)',
     logo: 'https://www.bsesdelhi.com/image/layout_set_logo?img_id=91257&t=1785997571762',
     url: 'https://www.bsesdelhi.com',
-  },
-  {
-    name: 'HDFC ERGO General Insurance',
-    logo: 'https://www.ashoka.edu.in/wp-content/uploads/2021/06/hdfcergo1.jpg',
-    url: 'https://www.hdfcergo.com',
   },
   {
     name: 'Medi Assist TPA',
@@ -138,11 +133,27 @@ const insurancePartners: Partner[] = [
     logo: 'https://www.paramounttpa.com/home/assets/img/PHS_Logo.png',
     url: 'https://www.paramounttpa.com',
   },
-  // {
-  //   name: 'Park Mediclaim',
-  //   logo: 'https://play-lh.googleusercontent.com/xUnQvH3wGQLGlw2THwrWvcMgf8fHGuI9hDlxK96bNHSQTKr3zK6nsFtm5dZuMytMTUBMnEleIRcBkuODVIXT',
-  //   url: 'https://www.parkmediclaim.com',
-  // },
+  ...[
+    'Akna',
+    'Park Mediclaim',
+    'Raksha TPA',
+    'HITPA',
+    'Med Save',
+    'Vidal',
+    'MD India',
+    'Genins TPA',
+    'Star Health',
+    'Reliance General',
+    'Go Digit',
+    'Manipal Cigna',
+    'Volo Health TPA',
+    'Good Health TPA',
+    'Galaxy Health Insurance',
+    'ICICI',
+    'Zurich Kotak',
+    'Royal Sundaram',
+    'Delhi University',
+  ].map((name) => ({ name })),
 ];
 
 const supportSteps = [
@@ -193,29 +204,36 @@ export default function EmpanelledTpaPage() {
               </div>
 
               <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-               {insurancePartners.map((partner) => (
-  <a
-    key={partner.name}
-    href={partner.url}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="group flex min-h-[4.1rem] items-center gap-3 rounded-2xl border border-border bg-card px-3 py-2.5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-md hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary/30"
-  >
-    <PartnerLogo
-      name={partner.name}
-      src={partner.logo}
-      className="h-7 w-7 rounded-md border border-border/60 transition-transform duration-300 group-hover:scale-105"
-    />
+               {insurancePartners.map((partner) => {
+                 const content = (
+                   <>
+                     <PartnerLogo
+                       name={partner.name}
+                       src={partner.logo}
+                       className="h-7 w-7 rounded-md border border-border/60 transition-transform duration-300 group-hover:scale-105"
+                     />
+                     <div className="flex-1">
+                       <p className="text-[0.92rem] font-medium leading-snug text-foreground transition-colors group-hover:text-primary">
+                         {partner.name}
+                       </p>
+                     </div>
+                     {partner.url ? (
+                       <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-primary" />
+                     ) : null}
+                   </>
+                 )
+                 const className = "group flex min-h-[4.1rem] items-center gap-3 rounded-md border border-border bg-card px-3 py-2.5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/25 hover:bg-primary/5 hover:shadow-md"
 
-    <div className="flex-1">
-      <p className="text-[0.92rem] font-medium leading-snug text-foreground group-hover:text-primary transition-colors">
-        {partner.name}
-      </p>
-    </div>
-
-    <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground transition-all duration-300 group-hover:text-primary group-hover:translate-x-0.5" />
-  </a>
-))}
+                 return partner.url ? (
+                   <a key={partner.name} href={partner.url} target="_blank" rel="noopener noreferrer" className={className}>
+                     {content}
+                   </a>
+                 ) : (
+                   <div key={partner.name} className={className}>
+                     {content}
+                   </div>
+                 )
+               })}
               </div>
 
               <div className="mt-4 text-xs text-muted-foreground">

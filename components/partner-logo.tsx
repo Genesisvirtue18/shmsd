@@ -9,7 +9,7 @@ export function PartnerLogo({
   className,
 }: {
   name: string
-  src: string
+  src?: string
   className?: string
 }) {
   const [failed, setFailed] = useState(false)
@@ -21,7 +21,7 @@ export function PartnerLogo({
     .join('')
     .toUpperCase()
 
-  if (failed) {
+  if (!src || failed) {
     return (
       <span
         className={cn(
