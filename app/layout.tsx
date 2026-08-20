@@ -1,10 +1,33 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
+import localFont from 'next/font/local'
 import './globals.css'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 import { FloatingWidgets } from '@/components/floating-widgets'
 import { SiteSchema } from '@/components/site-schema'
+
+const neoSans = localFont({
+  src: [
+    {
+      path: './fonts/neo-sans-std/NeoSansStd-Regular.otf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/neo-sans-std/NeoSansStd-Italic.otf',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: './fonts/neo-sans-std/NeoSansStd-BlackItalic.otf',
+      weight: '900',
+      style: 'italic',
+    },
+  ],
+  variable: '--font-neo-sans',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://shmsd.in'),
@@ -74,7 +97,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-background">
+    <html lang="en" className={`${neoSans.variable} bg-background`}>
       <body className="font-sans">
         <a
           href="#main-content"

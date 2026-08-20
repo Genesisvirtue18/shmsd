@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: Arial, Helvetica, ui-sans-serif, system-ui, sans-serif;
-  --font-serif: Arial, Helvetica, ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-neo-sans), Arial, Helvetica, ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-neo-sans), Arial, Helvetica, ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, monospace;
 
   --color-background: var(--background);
