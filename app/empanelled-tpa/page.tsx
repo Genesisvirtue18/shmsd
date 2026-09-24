@@ -111,7 +111,7 @@ const insurancePartners: Partner[] = [
   {
     name: 'Safeway TPA',
     logo: 'https://cdn.prod.website-files.com/6145f7156a1337613524d548/632085aeaf68ca0fe183d5b2_TPA__safeway.webp',
-    url: 'https://www.safewaytpa.in/',
+    url: 'https://safewaytpa.in',
   },
   {
     name: 'FHPL TPA',

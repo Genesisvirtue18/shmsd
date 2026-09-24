@@ -92,7 +92,9 @@ export function Navbar() {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-2 text-xs font-semibold">
           <div className="flex items-center gap-4">
             <span className="border-l-4 border-primary pl-3 text-primary">Hospital</span>
-            <span>{HOSPITAL.address}</span>
+            <a href={HOSPITAL.mapLink} target="_blank" rel="noopener noreferrer" className="hover:text-primary">
+              {HOSPITAL.address}
+            </a>
           </div>
            <div className="flex items-center gap-3">
             <a href={HOSPITAL.phoneHref} className="hover:underline">

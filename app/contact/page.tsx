@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 }
 
 const CONTACT_ITEMS = [
-  { icon: MapPin, label: 'Address', value: HOSPITAL.address },
+  { icon: MapPin, label: 'Address', value: HOSPITAL.address, href: HOSPITAL.mapLink },
   { icon: Phone, label: 'Phone', value: HOSPITAL.phone, href: HOSPITAL.phoneHref },
   { icon: Mail, label: 'Email', value: HOSPITAL.email, href: `mailto:${HOSPITAL.email}` },
   { icon: Clock, label: 'Hours', value: HOSPITAL.hours },
@@ -49,6 +49,8 @@ export default function ContactPage() {
                       {item.href ? (
                         <a
                           href={item.href}
+                          target={item.href === HOSPITAL.mapLink ? '_blank' : undefined}
+                          rel={item.href === HOSPITAL.mapLink ? 'noopener noreferrer' : undefined}
                           className="text-sm text-muted-foreground transition-colors hover:text-primary"
                         >
                           {item.value}

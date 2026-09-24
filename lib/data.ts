@@ -11,7 +11,7 @@ export const HOSPITAL = {
   whatsapp: '917678387693',
   email: 'info@shmsd.in',
   address: 'C-2/41 A, Main Service Ln, Block C, Yamuna Vihar, Delhi 110053',
-  mapQuery: 'Signature Heart & Multi-speciality Hospital, C-2/41 A, Main Service Ln, Block C, Yamuna Vihar, Delhi 110053',
+  mapLink: 'https://maps.app.goo.gl/6zWNGk2XpW6oY89o8',
   mapEmbedSrc:
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3499.5859770812967!2d77.2774668!3d28.702029099999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfddcdb2b6413%3A0x555cc0a55521c7b7!2sSignature%20Heart%20%26%20Multi-speciality%20hospital!5e0!3m2!1sen!2sin!4v1786362195880!5m2!1sen!2sin',
   hours: 'Open 24 hours',

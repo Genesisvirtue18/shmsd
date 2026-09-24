@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const isDevelopment = process.env.NODE_ENV === 'development'
-
 const nextConfig = {
   turbopack: {
     root: process.cwd(),
@@ -14,23 +12,6 @@ const nextConfig = {
       {
         source: '/:path*',
         headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: [
-              "default-src 'self'",
-              "base-uri 'self'",
-              "object-src 'none'",
-              "frame-ancestors 'self'",
-              "form-action 'self'",
-              `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ''} https://va.vercel-scripts.com`,
-              "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob: https:",
-              "font-src 'self' data:",
-              "connect-src 'self' https:",
-              "frame-src 'self' https://www.google.com https://www.youtube.com https://youtube.com",
-              'upgrade-insecure-requests',
-            ].join('; '),
-          },
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },

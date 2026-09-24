@@ -104,7 +104,9 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />
-                <span>{HOSPITAL.address}</span>
+                <a href={HOSPITAL.mapLink} target="_blank" rel="noopener noreferrer" className="hover:text-background">
+                  {HOSPITAL.address}
+                </a>
               </li>
             </ul>
           </div>
@@ -150,6 +152,9 @@ export function Footer() {
               <Clock3 className="h-4 w-4 text-accent" aria-hidden />
               24x7 emergency and admission support
             </div>
+            <a href={HOSPITAL.mapLink} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex text-sm text-background/80 underline-offset-4 hover:text-accent hover:underline">
+              Open in Google Maps
+            </a>
           </div>
         </div>
       </div>

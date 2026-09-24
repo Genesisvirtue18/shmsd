@@ -29,7 +29,7 @@ export function SiteSchema() {
           'https://www.instagram.com/signature.hospital',
           'https://www.youtube.com/@SignatureHospital-o1e',
         ],
-        hasMap: HOSPITAL.mapEmbedSrc,
+        hasMap: HOSPITAL.mapLink,
         areaServed: { '@type': 'Place', name: 'Yamuna Vihar, Delhi' },
         geo: {
           '@type': 'GeoCoordinates',

@@ -4,10 +4,6 @@ import { HOSPITAL } from '@/lib/data'
 import { Reveal } from '@/components/reveal'
 
 export function CtaBanner() {
-  const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    HOSPITAL.mapQuery
-  )}`
-
   return (
     <section className="px-4 py-4 sm:py-10">
       <div className="mx-auto max-w-7xl">
@@ -95,7 +91,7 @@ export function CtaBanner() {
 
                   {/* Get Directions */}
                   <a
-                    href={mapHref}
+                    href={HOSPITAL.mapLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex min-w-0 items-center justify-center gap-1 rounded-lg border border-background/20 px-2 py-2 text-center text-[0.55rem] font-semibold text-background transition-all hover:scale-[1.02] hover:bg-background/10 sm:gap-2 sm:px-3 sm:py-2.5 sm:text-[0.65rem] lg:rounded-full lg:px-5 lg:py-3 lg:text-sm"
