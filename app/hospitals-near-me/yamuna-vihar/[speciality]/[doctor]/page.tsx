@@ -13,6 +13,10 @@ type Params = {
   doctor: string
 }
 
+// Keep doctor profile URLs available at request time as well as in the
+// statically generated parameter list below.
+export const dynamicParams = true
+
 function normalizeDoctorSlug(slug: string) {
   return slug.replace(/^dr-/, '')
 }
