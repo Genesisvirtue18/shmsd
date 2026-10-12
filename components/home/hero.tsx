@@ -168,7 +168,7 @@ export function Hero() {
                 alt={currentSlide.alt}
                 fill
                 priority={activeSlide === 0}
-                quality={95}
+                quality={75}
                 sizes="100vw"
                 className="object-cover object-center"
               />
@@ -197,7 +197,8 @@ export function Hero() {
             alt={currentSlide.alt}
             fill
             priority={activeSlide === 0}
-            sizes="100vw"
+            quality={75}
+            sizes="(max-width: 767px) calc(100vw - 2rem), 100vw"
             className="object-cover  object-center"
           />
         </motion.div>

@@ -8,6 +8,7 @@ import { buildAppointmentHref } from '@/lib/appointment'
 import { HOSPITAL, SERVICES } from '@/lib/data'
 import { DOCTOR_DIRECTORY, type DoctorProfile } from '@/lib/doctor-directory'
 import { ROUTES } from '@/lib/routes'
+import { getCspNonce } from '@/lib/csp'
 
 type Params = { slug: string }
 
@@ -104,6 +105,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 
 export default async function ServiceDetailPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params
+  const nonce = await getCspNonce()
   const service = getService(slug)
   if (!service) notFound()
 
@@ -149,6 +151,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
   return (
     <section className="px-4 py-6 sm:px-6 sm:py-10">
       <script
+        nonce={nonce}
+        suppressHydrationWarning
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />

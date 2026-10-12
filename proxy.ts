@@ -11,7 +11,9 @@ export function proxy(request: NextRequest) {
     "object-src 'none'",
     "frame-ancestors 'self'",
     "form-action 'self'",
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDevelopment ? " 'unsafe-eval'" : ''} https://va.vercel-scripts.com`,
+    // Keep host allowlisting effective for Vercel Analytics, while nonces
+    // continue to authorize Next.js and our inline structured-data scripts.
+    `script-src 'self' 'nonce-${nonce}'${isDevelopment ? " 'unsafe-eval'" : ''} https://va.vercel-scripts.com`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: https:",
     "font-src 'self' data:",

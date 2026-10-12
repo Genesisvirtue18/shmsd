@@ -159,7 +159,13 @@ export function LatestBlogs() {
               >
                 <Link href={blog.href} target="_blank" rel="noreferrer" className="flex h-full gap-2.5 p-2.5 sm:p-3">
                   <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-20">
-                    <Image src={blog.image} alt={blog.title} fill className="object-cover" />
+                    <Image
+                      src={blog.image}
+                      alt={blog.title}
+                      fill
+                      sizes="(max-width: 640px) 64px, 80px"
+                      className="object-cover"
+                    />
                   </div>
                   <div className="min-w-0 flex flex-col justify-center">
                     <p className="text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-[#B71C1C]">{blog.category}</p>

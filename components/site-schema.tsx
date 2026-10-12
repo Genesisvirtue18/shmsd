@@ -1,6 +1,8 @@
 import { HOSPITAL } from '@/lib/data'
+import { getCspNonce } from '@/lib/csp'
 
-export function SiteSchema() {
+export async function SiteSchema() {
+  const nonce = await getCspNonce()
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -61,6 +63,10 @@ export function SiteSchema() {
 
   return (
     <script
+      nonce={nonce}
+      // Browsers intentionally hide nonce values from the DOM; React sees an
+      // empty attribute during hydration even though the server nonce is valid.
+      suppressHydrationWarning
       type="application/ld+json"
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}

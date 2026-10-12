@@ -7,6 +7,7 @@ import { ArrowLeft, BadgeCheck, BriefcaseMedical, CalendarCheck, HeartPulse, Shi
 import { buildAppointmentHref } from '@/lib/appointment'
 import { MANAGEMENT_TEAM, type DoctorProfile } from '@/lib/doctor-directory'
 import { ROUTES, slugifySegment } from '@/lib/routes'
+import { getCspNonce } from '@/lib/csp'
 
 type Params = {
   speciality: string
@@ -68,6 +69,7 @@ function DetailBlock({
 
 export default async function DoctorDetailPage({ params }: { params: Promise<Params> }) {
   const { speciality, doctor } = await params
+  const nonce = await getCspNonce()
   const doctorSlug = normalizeDoctorSlug(doctor)
   const member = getMember(doctorSlug)
 
@@ -133,6 +135,8 @@ export default async function DoctorDetailPage({ params }: { params: Promise<Par
   return (
     <section className="px-4 py-8 sm:px-6 sm:py-10">
       <script
+        nonce={nonce}
+        suppressHydrationWarning
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(doctorSchema) }}
       />

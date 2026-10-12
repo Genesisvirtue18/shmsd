@@ -4,8 +4,16 @@ const nextConfig = {
     root: process.cwd(),
   },
   images: {
-    unoptimized: true,
+    // Let Next resize and encode large source images for the requesting device.
+    unoptimized: false,
     qualities: [75, 95],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'healthconnect.shmsd.in',
+        pathname: '/wp-content/uploads/**',
+      },
+    ],
   },
   async headers() {
     return [
